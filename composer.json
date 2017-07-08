@@ -1,0 +1,32 @@
+{
+  "name": "maxbeckers/amazon-alexa-php",
+  "type": "library",
+  "description": "This library is a helper for amazon alexa skills with php.",
+  "keywords": [
+    "amazon alexa",
+    "alexa",
+    "php",
+    "alexa skill"
+  ],
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/maxbeckers/amazon-alexa-php/issues",
+    "source": "https://github.com/maxbeckers/amazon-alexa-php"
+  },
+  "authors": [
+    {
+      "name": "Maximilian Beckers",
+      "email": "beckers.maximilian@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "MaxBeckers\\AmazonAlexa\\": "src/"
+    }
+  }
+}
