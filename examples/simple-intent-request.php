@@ -9,8 +9,6 @@ require '../vendor/autoload.php';
 
 $requestBody = file_get_contents('php://input');
 if ($requestBody) {
-    $requestJson = json_decode($requestBody, true);
-
     $alexaRequest = Request::fromAmazonRequest(getallheaders(), $requestBody);
 
     // Request validation
