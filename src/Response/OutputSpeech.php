@@ -26,6 +26,14 @@ class OutputSpeech
     public $ssml;
 
     /**
+     * @param string $type
+     */
+    public function __construct(string $type = self::TYPE_PLAINTEXT)
+    {
+        $this->type = $type;
+    }
+
+    /**
      * @param string $test
      *
      * @return OutputSpeech
@@ -34,7 +42,6 @@ class OutputSpeech
     {
         $outputSpeech = new self();
 
-        $outputSpeech->type = self::TYPE_PLAINTEXT;
         $outputSpeech->text = $test;
 
         return $outputSpeech;
@@ -47,9 +54,8 @@ class OutputSpeech
      */
     public static function createBySsml(string $ssml): OutputSpeech
     {
-        $outputSpeech = new self();
+        $outputSpeech = new self(self::TYPE_SSML);
 
-        $outputSpeech->type = self::TYPE_SSML;
         $outputSpeech->ssml = $ssml;
 
         return $outputSpeech;
