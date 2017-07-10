@@ -58,8 +58,8 @@ class RequestValidator
             return;
         }
 
-        $signatureCertChainUrl = $request->amazonRequestHeaders['HTTP_SIGNATURECERTCHAINURL'];
-        $signature             = $request->amazonRequestHeaders['HTTP_SIGNATURE'];
+        $signatureCertChainUrl = $request->amazonRequestHeaders['SIGNATURECERTCHAINURL'];
+        $signature             = $request->amazonRequestHeaders['SIGNATURE'];
 
         // validate cert url
         if (false === preg_match("/https:\/\/s3.amazonaws.com(\:443)?\/echo.api\/*/i", $signatureCertChainUrl)) {
