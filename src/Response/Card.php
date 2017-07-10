@@ -35,4 +35,12 @@ class Card
      * @var CardImage|null
      */
     public $image;
+
+    /**
+     * @param string $type
+     */
+    public function __construct(string $type = self::TYPE_STABDARD)
+    {
+        $this->type = $type;
+    }
 }

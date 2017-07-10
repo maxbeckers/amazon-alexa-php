@@ -33,4 +33,14 @@ class ResponseBody
      * @var Directive[]
      */
     public $directives = [];
+
+    /**
+     * Add a directive to response body
+     *
+     * @param Directive $directive
+     */
+    public function addDirective(Directive $directive)
+    {
+        $this->directives[] = $directive;
+    }
 }

@@ -8,7 +8,17 @@ namespace MaxBeckers\AmazonAlexa\Response;
 class Reprompt
 {
     /**
-     * @var OutputSpeech|null
+     * @var OutputSpeech
      */
     public $outputSpeech;
+
+    /**
+     * Construct reprompt with needed output speech.
+     *
+     * @param OutputSpeech $outputSpeech
+     */
+    public function __construct(OutputSpeech $outputSpeech)
+    {
+        $this->outputSpeech = $outputSpeech;
+    }
 }

@@ -3,19 +3,40 @@
 namespace MaxBeckers\AmazonAlexa\Request;
 
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackFailedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackFinishedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackNearlyFinishedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackStartedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackStoppedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\LaunchRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\SessionEndedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\System\ExceptionEncounteredRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\VideoApp\LaunchRequest as VideoAppLaunchRequest;
 
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
 class Request
 {
+    /**
+     * List of all supported amazon request types.
+     */
     const REQUEST_TYPES = [
-        IntentRequest::TYPE       => IntentRequest::class,
-        LaunchRequest::TYPE       => LaunchRequest::class,
-        SessionEndedRequest::TYPE => SessionEndedRequest::class,
+        // Standard types
+        IntentRequest::TYPE                 => IntentRequest::class,
+        LaunchRequest::TYPE                 => LaunchRequest::class,
+        SessionEndedRequest::TYPE           => SessionEndedRequest::class,
+        // AudioPlayer types
+        PlaybackStartedRequest::TYPE        => PlaybackStartedRequest::class,
+        PlaybackNearlyFinishedRequest::TYPE => PlaybackNearlyFinishedRequest::class,
+        PlaybackFinishedRequest::TYPE       => PlaybackFinishedRequest::class,
+        PlaybackStoppedRequest::TYPE        => PlaybackStoppedRequest::class,
+        PlaybackFailedRequest::TYPE         => PlaybackFailedRequest::class,
+        // System types
+        ExceptionEncounteredRequest::TYPE   => ExceptionEncounteredRequest::class,
+        // VideoApp types
+        VideoAppLaunchRequest::TYPE         => VideoAppLaunchRequest::class,
     ];
 
     /**
