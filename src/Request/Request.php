@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request;
 
+use MaxBeckers\AmazonAlexa\Exception\MissingRequestDataException;
+use MaxBeckers\AmazonAlexa\Exception\MissingRequiredHeaderException;
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackFailedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackFinishedRequest;
@@ -12,7 +14,6 @@ use MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\LaunchRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\SessionEndedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\System\ExceptionEncounteredRequest;
-use MaxBeckers\AmazonAlexa\Request\Request\VideoApp\LaunchRequest as VideoAppLaunchRequest;
 
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
@@ -35,8 +36,6 @@ class Request
         PlaybackFailedRequest::TYPE         => PlaybackFailedRequest::class,
         // System types
         ExceptionEncounteredRequest::TYPE   => ExceptionEncounteredRequest::class,
-        // VideoApp types
-        VideoAppLaunchRequest::TYPE         => VideoAppLaunchRequest::class,
     ];
 
     /**
@@ -73,6 +72,9 @@ class Request
      * @param array  $amazonRequestHeaders
      * @param string $amazonRequestBody
      *
+     * @throws MissingRequestDataException
+     * @throws MissingRequiredHeaderException
+     *
      * @return Request
      */
     public static function fromAmazonRequest(array $amazonRequestHeaders, string $amazonRequestBody): Request
@@ -83,8 +85,9 @@ class Request
         foreach ($amazonRequestHeaders as $key => $value) {
             $request->amazonRequestHeaders[strtoupper($key)] = $value;
         }
-        $request->amazonRequestBody    = $amazonRequestBody;
-        $amazonRequest                 = json_decode($amazonRequestBody, true);
+
+        $request->amazonRequestBody = $amazonRequestBody;
+        $amazonRequest              = json_decode($amazonRequestBody, true);
 
         $request->version = isset($amazonRequest['version']) ? $amazonRequest['version'] : null;
         $request->session = isset($amazonRequest['session']) ? Session::fromAmazonRequest($amazonRequest['session']) : null;
@@ -92,6 +95,14 @@ class Request
 
         if (isset($amazonRequest['request']['type']) && isset(self::REQUEST_TYPES[$amazonRequest['request']['type']])) {
             $request->request = (self::REQUEST_TYPES[$amazonRequest['request']['type']])::fromAmazonRequest($amazonRequest['request']);
+        } else {
+            throw new MissingRequestDataException();
+        }
+
+        if ($request->request->validateSignature()) {
+            if (!array_key_exists("SIGNATURE", $request->amazonRequestHeaders) || !array_key_exists("SIGNATURECERTCHAINURL", $request->amazonRequestHeaders)) {
+                throw new MissingRequiredHeaderException();
+            }
         }
 
         return $request;

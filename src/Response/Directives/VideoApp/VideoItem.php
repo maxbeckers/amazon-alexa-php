@@ -1,6 +1,6 @@
 <?php
 
-namespace MaxBeckers\AmazonAlexa\Request\Request\VideoApp;
+namespace MaxBeckers\AmazonAlexa\Response\Directives\VideoApp;
 
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>

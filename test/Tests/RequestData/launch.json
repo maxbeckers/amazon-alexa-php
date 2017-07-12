@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "session": {
+    "new": true,
+    "sessionId": "sessionId",
+    "application": {
+      "applicationId": "applicationId"
+    },
+    "attributes": {
+      "string": {}
+    },
+    "user": {
+      "userId": "userId",
+      "permissions": {
+        "consentToken": "consentToken"
+      },
+      "accessToken": "accessToken"
+    }
+  },
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "applicationId"
+      },
+      "user": {
+        "userId": "userId",
+        "permissions": {
+          "consentToken": "consentToken"
+        },
+        "accessToken": "accessToken"
+      },
+      "device": {
+        "deviceId": "deviceId",
+        "supportedInterfaces": {
+          "AudioPlayer": {}
+        }
+      },
+      "apiEndpoint": "apiEndpoint"
+    },
+    "AudioPlayer": {
+      "token": "token",
+      "offsetInMilliseconds": 0,
+      "playerActivity": "playerActivity"
+    }
+  },
+  "request": {
+    "type": "LaunchRequest",
+    "requestId": "amzn1.echo-api.request.0000000-0000-0000-0000-00000000000",
+    "timestamp": "2015-05-13T12:34:56Z",
+    "locale": "string"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "session": {
+    "new": true,
+    "sessionId": "sessionId",
+    "application": {
+      "applicationId": "applicationId"
+    },
+    "attributes": {
+      "string": {}
+    },
+    "user": {
+      "userId": "userId",
+      "permissions": {
+        "consentToken": "consentToken"
+      },
+      "accessToken": "accessToken"
+    }
+  },
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "applicationId"
+      },
+      "user": {
+        "userId": "userId",
+        "permissions": {
+          "consentToken": "consentToken"
+        },
+        "accessToken": "accessToken"
+      },
+      "device": {
+        "deviceId": "deviceId",
+        "supportedInterfaces": {
+          "AudioPlayer": {}
+        }
+      },
+      "apiEndpoint": "apiEndpoint"
+    },
+    "AudioPlayer": {
+      "token": "token",
+      "offsetInMilliseconds": 0,
+      "playerActivity": "playerActivity"
+    }
+  },
+  "request": {
+    "type": "AudioPlayer.PlaybackFinished",
+    "requestId": "string",
+    "timestamp": "now",
+    "token": "string",
+    "offsetInMilliseconds": 0,
+    "locale": "string"
+  }
+}

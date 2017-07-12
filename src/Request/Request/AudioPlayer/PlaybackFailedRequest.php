@@ -10,7 +10,7 @@ use MaxBeckers\AmazonAlexa\Request\Request\Error;
  */
 class PlaybackFailedRequest extends AudioPlayerRequest
 {
-    const TYPE = 'AudioPlayer.PlaybackStopped';
+    const TYPE = 'AudioPlayer.PlaybackFailed';
 
     /**
      * @var Error|null

@@ -65,7 +65,7 @@ Then implement the abstract `supportsRequest`-method.
 ```php
 public function supportsRequest(Request $request): bool
 {
-    return Request\Standard\IntentRequest::TYPE === $request->request->type &&
+    return $request->request instanceOf Request\Standard\IntentRequest &&
         'MyTestIntent' === $request->request->intent->name;
 }
 ```
