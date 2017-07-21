@@ -26,7 +26,7 @@ class Metadata
     {
         $metadata = new self();
 
-        $metadata->title = isset($amazonRequest['title']) ? $amazonRequest['title'] : null;
+        $metadata->title    = isset($amazonRequest['title']) ? $amazonRequest['title'] : null;
         $metadata->subtitle = isset($amazonRequest['subtitle']) ? $amazonRequest['subtitle'] : null;
 
         return $metadata;

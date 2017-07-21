@@ -68,17 +68,15 @@ class ResponseHelper
      * Add a plaintext reprompt to response.
      *
      * @param string $text
-     * @param bool   $endSession
      *
      * @return Response
      */
-    public function reprompt(string $text, $endSession = false)
+    public function reprompt(string $text)
     {
         $outputSpeech = OutputSpeech::createByText($text);
         $reprompt     = new Reprompt($outputSpeech);
 
-        $this->response->response->reprompt         = $reprompt;
-        $this->response->response->shouldEndSession = $endSession;
+        $this->response->response->reprompt = $reprompt;
 
         return $this->response;
     }
@@ -87,17 +85,15 @@ class ResponseHelper
      * Add a ssml reprompt to response.
      *
      * @param string $ssml
-     * @param bool   $endSession
      *
      * @return Response
      */
-    public function repromptSsml(string $ssml, $endSession = false)
+    public function repromptSsml(string $ssml)
     {
         $outputSpeech = OutputSpeech::createBySsml($ssml);
         $reprompt     = new Reprompt($outputSpeech);
 
-        $this->response->response->reprompt         = $reprompt;
-        $this->response->response->shouldEndSession = $endSession;
+        $this->response->response->reprompt = $reprompt;
 
         return $this->response;
     }

@@ -9,7 +9,7 @@ use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
  */
 class PlayDirective extends Directive
 {
-    const TYPE        = 'AudioPlayer.Play';
+    const TYPE = 'AudioPlayer.Play';
 
     const PLAY_BEHAVIOR_REPLACE_ALL      = 'REPLACE_ALL';
     const PLAY_BEHAVIOR_ENQUEUE          = 'ENQUEUE';

@@ -2,7 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Validation;
 
-use MaxBeckers\AmazonAlexa\Exception\RequestInvalidException;
+use MaxBeckers\AmazonAlexa\Exception\RequestInvalidSignatureException;
+use MaxBeckers\AmazonAlexa\Exception\RequestInvalidTimestampException;
 use MaxBeckers\AmazonAlexa\Request\Request;
 
 /**
@@ -29,7 +30,7 @@ class RequestValidator
      *
      * @param Request $request
      *
-     * @throws RequestInvalidException
+     * @throws RequestInvalidTimestampException
      */
     private function validateTimestamp(Request $request)
     {
@@ -40,7 +41,7 @@ class RequestValidator
         $differenceInSeconds = time() - $request->request->timestamp->getTimestamp();
 
         if ($differenceInSeconds > self::TIMESTAMP_VALID_TOLERANCE_SECONDS) {
-            throw new RequestInvalidException('Invalid timestamp.');
+            throw new RequestInvalidTimestampException('Invalid timestamp.');
         }
     }
 
@@ -50,7 +51,7 @@ class RequestValidator
      *
      * @param Request $request
      *
-     * @throws RequestInvalidException
+     * @throws RequestInvalidSignatureException
      */
     private function validateSignature(Request $request)
     {
@@ -62,8 +63,8 @@ class RequestValidator
         $signature             = $request->amazonRequestHeaders['SIGNATURE'];
 
         // validate cert url
-        if (false === preg_match("/https:\/\/s3.amazonaws.com(\:443)?\/echo.api\/*/i", $signatureCertChainUrl)) {
-            throw new RequestInvalidException('Invalid cert url.');
+        if (false === (bool)preg_match("/https:\/\/s3.amazonaws.com(\:443)?\/echo.api\/*/i", $signatureCertChainUrl)) {
+            throw new RequestInvalidSignatureException('Invalid cert url.');
         }
 
         // check if pem file is already downloaded to temp or download.
@@ -77,20 +78,20 @@ class RequestValidator
 
         // openssl cert validation
         if (1 !== openssl_verify($request->amazonRequestBody, base64_decode($signature), $certData)) {
-            throw new RequestInvalidException('Cert ssl verification failed.');
+            throw new RequestInvalidSignatureException('Cert ssl verification failed.');
         }
 
         // parse cert
         $cert = openssl_x509_parse($certData);
         if (empty($cert)) {
-            throw new RequestInvalidException('Parse cert failed.');
+            throw new RequestInvalidSignatureException('Parse cert failed.');
         }
 
         // validate cert subject
         if (false === isset($cert['extensions']['subjectAltName']) ||
             true !== stristr($cert['extensions']['subjectAltName'], 'echo-api.amazon.com')
         ) {
-            throw new RequestInvalidException('Cert subject error.');
+            throw new RequestInvalidSignatureException('Cert subject error.');
         }
 
         // validate cert validTo time
@@ -98,7 +99,7 @@ class RequestValidator
             if (file_exists($localCertPath)) {
                 unlink($localCertPath);
             }
-            throw new RequestInvalidException('Cert is outdated.');
+            throw new RequestInvalidSignatureException('Cert is outdated.');
         }
     }
 }

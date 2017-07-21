@@ -5,6 +5,6 @@ namespace MaxBeckers\AmazonAlexa\Exception;
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class RequestInvalidException extends \Exception
+class RequestInvalidTimestampException extends \Exception
 {
 }

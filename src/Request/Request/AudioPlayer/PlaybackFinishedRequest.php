@@ -23,7 +23,7 @@ class PlaybackFinishedRequest extends AudioPlayerRequest
     {
         $request = new self();
 
-        $request->type              = self::TYPE;
+        $request->type                 = self::TYPE;
         $request->offsetInMilliseconds = isset($amazonRequest['offsetInMilliseconds']) ? $amazonRequest['offsetInMilliseconds'] : null;
         $request->setRequestData($amazonRequest);
 

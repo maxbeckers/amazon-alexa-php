@@ -3,10 +3,15 @@
   "type": "library",
   "description": "This library is a helper for amazon alexa skills with php.",
   "keywords": [
-    "amazon alexa",
     "alexa",
     "php",
-    "alexa skill"
+    "skill",
+    "amazon-alexa",
+    "amazon-alexa-php",
+    "amazon-echo",
+    "amazon-echo-php",
+    "alexa-skill",
+    "alexa-skill-php"
   ],
   "license": "MIT",
   "support": {
