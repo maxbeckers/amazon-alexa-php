@@ -9,33 +9,8 @@ use MaxBeckers\AmazonAlexa\Validation\RequestValidator;
 
 require '../vendor/autoload.php';
 
-$requestBody = file_get_contents('php://input');
-if ($requestBody) {
-    $alexaRequest = Request::fromAmazonRequest(getallheaders(), $requestBody);
-
-    // Request validation
-    $validator = new RequestValidator();
-    $validator->validate($alexaRequest);
-
-    // add handlers to registry
-    $responseHelper         = new ResponseHelper();
-    $mySimpleRequestHandler = new SimpleRequestHandler($responseHelper);
-    $requestHandlerRegistry = new RequestHandlerRegistry();
-    $requestHandlerRegistry->addHandler($mySimpleRequestHandler);
-
-    // handle request
-    $requestHandler = $requestHandlerRegistry->getSupportingHandler($alexaRequest);
-    $response       = $requestHandler->handleRequest($alexaRequest);
-
-    // render response
-    header('Content-Type: application/json');
-    echo json_encode($response);
-}
-
-exit();
-
 /**
- * Just a simple example
+ * Just a simple example request handler.
  *
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -72,3 +47,37 @@ class SimpleRequestHandler extends AbstractRequestHandler
         return $this->responseHelper->respond('Success :)');
     }
 }
+
+/**
+ * Simple exapmle for request handlinf workflow with
+ * loading json
+ * creating request
+ * validating request
+ * adding request handler to registry
+ * handling request
+ * returning json response
+ */
+$requestBody = file_get_contents('php://input');
+if ($requestBody) {
+    $alexaRequest = Request::fromAmazonRequest($requestBody, $_SERVER['HTTP_SIGNATURECERTCHAINURL'], $_SERVER['HTTP_SIGNATURE']);
+
+    // Request validation
+    $validator = new RequestValidator();
+    $validator->validate($alexaRequest);
+
+    // add handlers to registry
+    $responseHelper         = new ResponseHelper();
+    $mySimpleRequestHandler = new SimpleRequestHandler($responseHelper);
+    $requestHandlerRegistry = new RequestHandlerRegistry();
+    $requestHandlerRegistry->addHandler($mySimpleRequestHandler);
+
+    // handle request
+    $requestHandler = $requestHandlerRegistry->getSupportingHandler($alexaRequest);
+    $response       = $requestHandler->handleRequest($alexaRequest);
+
+    // render response
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+exit();

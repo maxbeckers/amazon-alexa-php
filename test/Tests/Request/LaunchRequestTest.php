@@ -11,12 +11,8 @@ class LaunchRequestTest extends TestCase
 {
     public function testLaunchRequest()
     {
-        $requestHeaders = [
-            'Signature'             => '',
-            'SignatureCertChainUrl' => 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem',
-        ];
         $requestBody    = file_get_contents(__DIR__.'/RequestData/launch.json');
-        $request        = Request::fromAmazonRequest($requestHeaders, $requestBody);
+        $request        = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(LaunchRequest::class, $request->request);
     }
 }

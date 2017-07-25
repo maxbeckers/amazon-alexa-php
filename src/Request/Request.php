@@ -59,35 +59,38 @@ class Request
     public $request;
 
     /**
-     * @var array
-     */
-    public $amazonRequestHeaders;
-
-    /**
      * @var string
      */
     public $amazonRequestBody;
 
     /**
-     * @param array  $amazonRequestHeaders
+     * @var string
+     */
+    public $signatureCertChainUrl;
+
+    /**
+     * @var string
+     */
+    public $signature;
+
+    /**
      * @param string $amazonRequestBody
+     * @param string $signatureCertChainUrl
+     * @param string $signature
      *
      * @throws MissingRequestDataException
      * @throws MissingRequiredHeaderException
      *
      * @return Request
      */
-    public static function fromAmazonRequest(array $amazonRequestHeaders, string $amazonRequestBody): Request
+    public static function fromAmazonRequest(string $amazonRequestBody, string $signatureCertChainUrl, string $signature): Request
     {
         $request = new self();
 
-        $request->amazonRequestHeaders = [];
-        foreach ($amazonRequestHeaders as $key => $value) {
-            $request->amazonRequestHeaders[strtoupper($key)] = $value;
-        }
-
-        $request->amazonRequestBody = $amazonRequestBody;
-        $amazonRequest              = json_decode($amazonRequestBody, true);
+        $request->signatureCertChainUrl = $signatureCertChainUrl;
+        $request->signature             = $signature;
+        $request->amazonRequestBody     = $amazonRequestBody;
+        $amazonRequest                  = json_decode($amazonRequestBody, true);
 
         $request->version = isset($amazonRequest['version']) ? $amazonRequest['version'] : null;
         $request->session = isset($amazonRequest['session']) ? Session::fromAmazonRequest($amazonRequest['session']) : null;
@@ -100,7 +103,7 @@ class Request
         }
 
         if ($request->request->validateSignature()) {
-            if (!array_key_exists("SIGNATURE", $request->amazonRequestHeaders) || !array_key_exists("SIGNATURECERTCHAINURL", $request->amazonRequestHeaders)) {
+            if (!$request->signatureCertChainUrl || !$request->signature) {
                 throw new MissingRequiredHeaderException();
             }
         }

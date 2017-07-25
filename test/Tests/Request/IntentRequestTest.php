@@ -14,24 +14,20 @@ class IntentRequestTest extends TestCase
     public function testMissingRequestData()
     {
         $this->expectException(MissingRequestDataException::class);
-        Request::fromAmazonRequest([], '');
+        Request::fromAmazonRequest('', '', '');
     }
 
     public function testMissingRequestHeaders()
     {
         $this->expectException(MissingRequiredHeaderException::class);
         $requestBody = file_get_contents(__DIR__.'/RequestData/intent.json');
-        Request::fromAmazonRequest([], $requestBody);
+        Request::fromAmazonRequest($requestBody, '', '');
     }
 
     public function testIntentRequest()
     {
-        $requestHeaders = [
-            'Signature'             => '',
-            'SignatureCertChainUrl' => 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem',
-        ];
         $requestBody    = file_get_contents(__DIR__.'/RequestData/intent.json');
-        $request        = Request::fromAmazonRequest($requestHeaders, $requestBody);
+        $request        = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(IntentRequest::class, $request->request);
     }
 }

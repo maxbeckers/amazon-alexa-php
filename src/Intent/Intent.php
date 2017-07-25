@@ -35,7 +35,7 @@ class Intent
     {
         $intent = new self();
 
-        $intent->name               = isset($amazonRequest['type']) ? $amazonRequest['type'] : null;
+        $intent->name               = isset($amazonRequest['name']) ? $amazonRequest['name'] : null;
         $intent->confirmationStatus = isset($amazonRequest['confirmationStatus']) ? $amazonRequest['confirmationStatus'] : null;
 
         foreach ($amazonRequest['slots'] as $name => $slot) {

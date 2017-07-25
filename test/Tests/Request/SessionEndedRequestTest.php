@@ -11,12 +11,8 @@ class SessionEndedRequestTest extends TestCase
 {
     public function testSessionEndedRequestRequest()
     {
-        $requestHeaders = [
-            'Signature'             => '',
-            'SignatureCertChainUrl' => 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem',
-        ];
         $requestBody    = file_get_contents(__DIR__.'/RequestData/sessionEnded.json');
-        $request        = Request::fromAmazonRequest($requestHeaders, $requestBody);
+        $request        = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(SessionEndedRequest::class, $request->request);
     }
 }

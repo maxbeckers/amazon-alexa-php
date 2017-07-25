@@ -16,12 +16,12 @@ Handle the request:
 - send response
 
 ### Map request data to request object
-Map request headers and request body to `Request`.
+Map needed request headers and request body to `Request`.
 ```php
 use MaxBeckers\AmazonAlexa\Request\Request;
 ...
 $requestBody  = file_get_contents('php://input');
-$alexaRequest = Request::fromAmazonRequest(getallheaders(), $requestBody);
+$alexaRequest = Request::fromAmazonRequest($requestBody, $_SERVER['HTTP_SIGNATURECERTCHAINURL'], $_SERVER['HTTP_SIGNATURE']);
 ```
 ### Validate request
 The `RequestValidator` will handle the amazon request validation.

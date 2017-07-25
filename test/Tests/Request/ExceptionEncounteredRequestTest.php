@@ -11,12 +11,8 @@ class ExceptionEncounteredRequestTest extends TestCase
 {
     public function testExceptionEncounteredRequest()
     {
-        $requestHeaders = [
-            'Signature'             => '',
-            'SignatureCertChainUrl' => 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem',
-        ];
         $requestBody    = file_get_contents(__DIR__.'/RequestData/systemError.json');
-        $request        = Request::fromAmazonRequest($requestHeaders, $requestBody);
+        $request        = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(ExceptionEncounteredRequest::class, $request->request);
     }
 }
