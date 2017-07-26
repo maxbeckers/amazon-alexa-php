@@ -1,22 +1,5 @@
 {
   "version": "1.0",
-  "session": {
-    "new": true,
-    "sessionId": "sessionId",
-    "application": {
-      "applicationId": "applicationId"
-    },
-    "attributes": {
-      "string": {}
-    },
-    "user": {
-      "userId": "userId",
-      "permissions": {
-        "consentToken": "consentToken"
-      },
-      "accessToken": "accessToken"
-    }
-  },
   "context": {
     "System": {
       "application": {

@@ -27,7 +27,7 @@ class Session
      *
      * @var array
      */
-    public $attributes;
+    public $attributes = [];
 
     /**
      * @var User|null

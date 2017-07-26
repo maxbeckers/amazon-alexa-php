@@ -65,7 +65,7 @@ Then implement the abstract `supportsRequest`-method.
 ```php
 public function supportsRequest(Request $request): bool
 {
-    return $request->request instanceOf Request\Standard\IntentRequest &&
+    return $request->request instanceOf MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest &&
         'MyTestIntent' === $request->request->intent->name;
 }
 ```

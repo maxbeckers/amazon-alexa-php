@@ -1,57 +1,46 @@
 {
   "version": "1.0",
   "session": {
-    "new": true,
-    "sessionId": "sessionId",
+    "new": false,
+    "sessionId": "amzn1.echo-api.session.0000000-0000-0000-0000-00000000000",
     "application": {
-      "applicationId": "applicationId"
+      "applicationId": "amzn1.echo-sdk-ams.app.000000-d0ed-0000-ad00-000000d00ebe"
     },
     "attributes": {
-      "string": {}
+      "supportedHoroscopePeriods": {
+        "daily": true,
+        "weekly": false,
+        "monthly": false
+      }
     },
     "user": {
-      "userId": "userId",
-      "permissions": {
-        "consentToken": "consentToken"
-      },
-      "accessToken": "accessToken"
+      "userId": "amzn1.account.AM3B00000000000000000000000"
     }
   },
   "context": {
     "System": {
       "application": {
-        "applicationId": "applicationId"
+        "applicationId": "amzn1.echo-sdk-ams.app.000000-d0ed-0000-ad00-000000d00ebe"
       },
       "user": {
-        "userId": "userId",
-        "permissions": {
-          "consentToken": "consentToken"
-        },
-        "accessToken": "accessToken"
+        "userId": "amzn1.account.AM3B00000000000000000000000"
       },
       "device": {
-        "deviceId": "deviceId",
         "supportedInterfaces": {
           "AudioPlayer": {}
         }
-      },
-      "apiEndpoint": "apiEndpoint"
+      }
     },
     "AudioPlayer": {
-      "token": "token",
       "offsetInMilliseconds": 0,
-      "playerActivity": "playerActivity"
+      "playerActivity": "IDLE"
     }
   },
   "request": {
     "type": "SessionEndedRequest",
-    "requestId": "string",
-    "timestamp": "now",
-    "reason": "string",
-    "locale": "string",
-    "error": {
-      "type": "string",
-      "message": "string"
-    }
+    "requestId": "amzn1.echo-api.request.0000000-0000-0000-0000-00000000000",
+    "timestamp": "2015-05-13T12:34:56Z",
+    "reason": "USER_INITIATED",
+    "locale": "string"
   }
 }
