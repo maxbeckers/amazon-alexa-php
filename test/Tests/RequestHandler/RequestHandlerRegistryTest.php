@@ -4,8 +4,9 @@ use MaxBeckers\AmazonAlexa\Exception\MissingRequestHandlerException;
 use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
 use MaxBeckers\AmazonAlexa\Request\Application;
 use MaxBeckers\AmazonAlexa\Request\Request;
+use MaxBeckers\AmazonAlexa\Request\Context;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest;
-use MaxBeckers\AmazonAlexa\Request\Session;
+use MaxBeckers\AmazonAlexa\Request\System;
 use MaxBeckers\AmazonAlexa\RequestHandler\AbstractRequestHandler;
 use MaxBeckers\AmazonAlexa\RequestHandler\RequestHandlerRegistry;
 use MaxBeckers\AmazonAlexa\Response\Response;
@@ -19,18 +20,20 @@ class RequestHandlerRegistryTest extends TestCase
     public function testSimpleRequest()
     {
         $responseHelper = new ResponseHelper();
-        $handler        = new SimpleRequestHandler($responseHelper);
+        $handler        = new SimpleTestRequestHandler($responseHelper);
         $registry       = new RequestHandlerRegistry();
 
         $intentRequest              = new IntentRequest();
         $intentRequest->type        = 'test';
         $application                = new Application();
         $application->applicationId = 'my_amazon_skill_id';
-        $session                    = new Session();
-        $session->application       = $application;
+        $system                     = new System();
+        $system->application        = $application;
+        $context                    = new Context();
+        $context->system            = $system;
         $request                    = new Request();
         $request->request           = $intentRequest;
-        $request->session           = $session;
+        $request->context           = $context;
 
         $registry->addHandler($handler);
         $registry->getSupportingHandler($request);
@@ -40,17 +43,19 @@ class RequestHandlerRegistryTest extends TestCase
 
     public function testMissingHandlerRequest()
     {
-        $registry       = new RequestHandlerRegistry();
+        $registry = new RequestHandlerRegistry();
 
         $intentRequest              = new IntentRequest();
         $intentRequest->type        = 'test';
         $application                = new Application();
         $application->applicationId = 'my_amazon_skill_id';
-        $session                    = new Session();
-        $session->application       = $application;
+        $system                     = new System();
+        $system->application        = $application;
+        $context                    = new Context();
+        $context->system            = $system;
         $request                    = new Request();
         $request->request           = $intentRequest;
-        $request->session           = $session;
+        $request->context           = $context;
 
         $this->expectException(MissingRequestHandlerException::class);
         $registry->getSupportingHandler($request);
@@ -63,7 +68,7 @@ class RequestHandlerRegistryTest extends TestCase
  *
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class SimpleRequestHandler extends AbstractRequestHandler
+class SimpleTestRequestHandler extends AbstractRequestHandler
 {
     /**
      * @var ResponseHelper

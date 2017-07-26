@@ -2,54 +2,14 @@
 
 use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
 use MaxBeckers\AmazonAlexa\Request\Request;
-use MaxBeckers\AmazonAlexa\RequestHandler\AbstractRequestHandler;
 use MaxBeckers\AmazonAlexa\RequestHandler\RequestHandlerRegistry;
-use MaxBeckers\AmazonAlexa\Response\Response;
 use MaxBeckers\AmazonAlexa\Validation\RequestValidator;
 
 require '../vendor/autoload.php';
+require 'Handlers/SimpleIntentRequestHandler.php';
 
 /**
- * Just a simple example request handler.
- *
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
-class SimpleRequestHandler extends AbstractRequestHandler
-{
-    /**
-     * @var ResponseHelper
-     */
-    private $responseHelper;
-
-    /**
-     * @param ResponseHelper $responseHelper
-     */
-    public function __construct(ResponseHelper $responseHelper)
-    {
-        $this->responseHelper          = $responseHelper;
-        $this->supportedApplicationIds = ['my_amazon_skill_id'];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function supportsRequest(Request $request): bool
-    {
-        // support all requests, should not be done.
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function handleRequest(Request $request): Response
-    {
-        return $this->responseHelper->respond('Success :)');
-    }
-}
-
-/**
- * Simple exapmle for request handlinf workflow with
+ * Simple exapmle for request handling workflow with
  * loading json
  * creating request
  * validating request
@@ -67,7 +27,7 @@ if ($requestBody) {
 
     // add handlers to registry
     $responseHelper         = new ResponseHelper();
-    $mySimpleRequestHandler = new SimpleRequestHandler($responseHelper);
+    $mySimpleRequestHandler = new SimpleIntentRequestHandler($responseHelper);
     $requestHandlerRegistry = new RequestHandlerRegistry();
     $requestHandlerRegistry->addHandler($mySimpleRequestHandler);
 

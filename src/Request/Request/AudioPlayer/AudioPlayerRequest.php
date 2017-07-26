@@ -31,7 +31,13 @@ abstract class AudioPlayerRequest extends AbstractRequest
     {
         $this->requestId = $amazonRequest['requestId'];
         $this->timestamp = new \DateTime($amazonRequest['timestamp']);
-        $this->locale    = $amazonRequest['locale'];
-        $this->token     = isset($amazonRequest['token']) ? $amazonRequest['token'] : null;
+        //Workaround for amazon developer console sending unix timestamp
+        try {
+            $this->timestamp = new \DateTime($amazonRequest['timestamp']);
+        } catch (\Exception $e) {
+            $this->timestamp = (new \DateTime())->setTimestamp(intval($amazonRequest['timestamp'] / 1000));
+        }
+        $this->locale = $amazonRequest['locale'];
+        $this->token  = isset($amazonRequest['token']) ? $amazonRequest['token'] : null;
     }
 }
