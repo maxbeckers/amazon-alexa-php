@@ -8,7 +8,7 @@ namespace MaxBeckers\AmazonAlexa\Response;
 class Card
 {
     const TYPE_SIMPLE       = 'Simple';
-    const TYPE_STABDARD     = 'Standard';
+    const TYPE_STANDARD     = 'Standard';
     const TYPE_LINK_ACCOUNT = 'LinkAccount';
 
     /**
@@ -39,7 +39,7 @@ class Card
     /**
      * @param string $type
      */
-    public function __construct(string $type = self::TYPE_STABDARD)
+    public function __construct(string $type = self::TYPE_STANDARD)
     {
         $this->type = $type;
     }
