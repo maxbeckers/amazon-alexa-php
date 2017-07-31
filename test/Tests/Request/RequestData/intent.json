@@ -20,7 +20,7 @@
   "context": {
     "System": {
       "application": {
-        "applicationId": "applicationId"
+        "applicationId": "my-application-id"
       },
       "user": {
         "userId": "userId",

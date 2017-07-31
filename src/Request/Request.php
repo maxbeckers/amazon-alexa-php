@@ -110,4 +110,19 @@ class Request
 
         return $request;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getApplicationId()
+    {
+        // workaround for developer console
+        if ($this->session && $this->session->application) {
+            return $this->session->application->applicationId;
+        } elseif ($this->context && ($system = $this->context->system) && $system->application) {
+            return $system->application->applicationId;
+        }
+
+        return null;
+    }
 }
