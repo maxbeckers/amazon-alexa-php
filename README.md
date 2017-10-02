@@ -78,3 +78,5 @@ public function handleRequest(Request $request): Response
     return $this->responseHelper->respond('Success :)');
 }
 ```
+## Symfony Integration
+There is also a symfony bundle on [maxbeckers/amazon-alexa-bundle](https://github.com/maxbeckers/amazon-alexa-bundle).
