@@ -125,4 +125,33 @@ class ResponseHelper
 
         return $this->response;
     }
+
+    /**
+     * Add a new attribute to response session attributes
+     *
+     * @param string $key
+     * @param string $value
+     */
+    public function addSessionAttribute(string $key, string $value)
+    {
+        $this->response->sessionAttributes[$key] = $value;
+    }
+
+    /**
+     * Reset the response in ResponseHelper
+     */
+    public function resetResponse()
+    {
+        $this->response = new Response();
+    }
+
+    /**
+     * Get current response of response helper.
+     *
+     * @return Response
+     */
+    public function getResponse(): Response
+    {
+        return $this->response;
+    }
 }
