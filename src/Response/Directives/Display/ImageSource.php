@@ -5,7 +5,7 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class ImageSource
+class ImageSource implements \JsonSerializable
 {
     const SIZE_X_SMALL = 'X_SMALL';
     const SIZE_SMALL   = 'SMALL';
@@ -32,4 +32,19 @@ class ImageSource
      * @var int|null
      */
     public $heightPixels;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        $data = [];
+
+        if (null !== $this->url) $data['url'] = $this->url;
+        if (null !== $this->size) $data['size'] = $this->size;
+        if (null !== $this->widthPixels) $data['widthPixels'] = $this->widthPixels;
+        if (null !== $this->heightPixels) $data['heightPixels'] = $this->heightPixels;
+
+        return $data;
+    }
 }
