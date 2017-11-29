@@ -36,5 +36,8 @@
     "psr-4": {
       "MaxBeckers\\AmazonAlexa\\": "src/"
     }
+  },
+  "scripts": {
+    "test": "phpunit"
   }
 }
