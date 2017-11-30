@@ -72,4 +72,20 @@ class Intent implements \JsonSerializable
 
         return $data;
     }
+
+    /**
+     * @param $name
+     * @return null|Slot
+     */
+    public function getSlotByName($name)
+    {
+        foreach ($this->slots as $slot)
+        {
+            if ($slot->name === $name)
+            {
+                return $slot;
+            }
+        }
+        return null;
+    }
 }
