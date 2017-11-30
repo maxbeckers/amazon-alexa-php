@@ -1,0 +1,14 @@
+{
+  "name": "Start",
+  "confirmationStatus": "NONE",
+  "slots": {
+    "Age": {
+      "name": "Age",
+      "confirmationStatus": "NONE"
+    },
+    "Gender": {
+      "name": "Gender",
+      "confirmationStatus": "NONE"
+    }
+  }
+}

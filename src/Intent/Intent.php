@@ -5,7 +5,7 @@ namespace MaxBeckers\AmazonAlexa\Intent;
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class Intent
+class Intent implements \JsonSerializable
 {
     const STATUS_NONE      = 'NONE';
     const STATUS_CONFIRMED = 'CONFIRMED';
@@ -45,5 +45,31 @@ class Intent
         }
 
         return $intent;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        $data = [];
+
+        $data['name'] = $this->name;
+        if (null !== $this->confirmationStatus)
+        {
+            $data['confirmationStatus'] = $this->confirmationStatus;
+        }
+
+        if (!empty($this->slots))
+        {
+            $data['slots'] = [];
+
+            foreach ($this->slots as $slot)
+            {
+                $data['slots'][$slot->name] = $slot->jsonSerialize();
+            }
+        }
+
+        return $data;
     }
 }

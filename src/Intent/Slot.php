@@ -5,7 +5,7 @@ namespace MaxBeckers\AmazonAlexa\Intent;
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class Slot
+class Slot implements \JsonSerializable
 {
     /**
      * @var string
@@ -47,5 +47,29 @@ class Slot
         }
 
         return $slot;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        $data = [];
+        $data['name'] = $this->name;
+        if (null !== $this->value) {
+            $data['value'] = $this->value;
+        }
+        if (null !== $this->confirmationStatus) {
+            $data['confirmationStatus'] = $this->confirmationStatus;
+        }
+        if (!empty($this->resolutions))
+        {
+            $data['resolutions']['resolutionsPerAuthority'] = [];
+            foreach ($this->resolutions as $resolution)
+            {
+                $data['resolutions']['resolutionsPerAuthority'][] = $resolution->jsonSerialize();
+            }
+        }
+        return $data;
     }
 }
