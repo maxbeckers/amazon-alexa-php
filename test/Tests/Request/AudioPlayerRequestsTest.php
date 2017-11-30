@@ -15,36 +15,36 @@ class AudioPlayerRequestsTest extends TestCase
 {
     public function testPlaybackStartedRequest()
     {
-        $requestBody    = file_get_contents(__DIR__.'/RequestData/audioplayerPlaybackStarted.json');
-        $request        = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
+        $requestBody = file_get_contents(__DIR__.'/RequestData/audioplayerPlaybackStarted.json');
+        $request     = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(PlaybackStartedRequest::class, $request->request);
     }
 
     public function testPlaybackFinishedRequest()
     {
-        $requestBody    = file_get_contents(__DIR__.'/RequestData/audioplayerPlaybackFinished.json');
-        $request        = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
+        $requestBody = file_get_contents(__DIR__.'/RequestData/audioplayerPlaybackFinished.json');
+        $request     = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(PlaybackFinishedRequest::class, $request->request);
     }
 
     public function testPlaybackStoppedRequest()
     {
-        $requestBody    = file_get_contents(__DIR__.'/RequestData/audioplayerPlaybackStopped.json');
-        $request        = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
+        $requestBody = file_get_contents(__DIR__.'/RequestData/audioplayerPlaybackStopped.json');
+        $request     = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(PlaybackStoppedRequest::class, $request->request);
     }
 
     public function testPlaybackNearlyFinishedRequest()
     {
-        $requestBody    = file_get_contents(__DIR__.'/RequestData/audioplayerPlaybackNearlyFinished.json');
-        $request        = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
+        $requestBody = file_get_contents(__DIR__.'/RequestData/audioplayerPlaybackNearlyFinished.json');
+        $request     = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(PlaybackNearlyFinishedRequest::class, $request->request);
     }
 
     public function testPlaybackPlaybackFailedRequest()
     {
-        $requestBody    = file_get_contents(__DIR__.'/RequestData/audioplayerPlaybackFailed.json');
-        $request        = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
+        $requestBody = file_get_contents(__DIR__.'/RequestData/audioplayerPlaybackFailed.json');
+        $request     = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(PlaybackFailedRequest::class, $request->request);
     }
 }

@@ -57,7 +57,7 @@ class DisplayTest extends TestCase
      */
     public function testImageSource()
     {
-        $imgUrl = "http://example.com/some/image.jpg";
+        $imgUrl      = "http://example.com/some/image.jpg";
         $imageSource = ImageSource::create($imgUrl);
         $this->assertInstanceOf(ImageSource::class, $imageSource);
         $this->assertEquals($imgUrl, $imageSource->url);
@@ -82,13 +82,13 @@ class DisplayTest extends TestCase
         $this->assertEquals("Test", $img->contentDescription);
         $this->assertEquals([], $img->sources);
 
-        $imgUrl = "http://example.com/some/image.jpg";
+        $imgUrl    = "http://example.com/some/image.jpg";
         $imgSource = ImageSource::create($imgUrl);
 
         $img = Image::create("Test", [$imgSource]);
         $this->assertEquals([$imgSource], $img->sources);
 
-        $imgUrl2 = "http://example.com/some/image2.jpg";
+        $imgUrl2    = "http://example.com/some/image2.jpg";
         $imgSource2 = ImageSource::create($imgUrl2);
 
         $img->addImageSource($imgSource2);
@@ -113,9 +113,9 @@ class DisplayTest extends TestCase
 
         $img1 = Image::create("IMG1");
         $img2 = Image::create("IMG2");
-        $li = ListItem::create("T1");
-        $tc = TextContent::create();
-        $tmp = Template::create("BodyTemplate2", "BODY2", Template::BACK_BUTTON_MODE_HIDDEN, $img2, "TITLE", $tc, $img1, [$li]);
+        $li   = ListItem::create("T1");
+        $tc   = TextContent::create();
+        $tmp  = Template::create("BodyTemplate2", "BODY2", Template::BACK_BUTTON_MODE_HIDDEN, $img2, "TITLE", $tc, $img1, [$li]);
         $this->assertEquals($tmp->token, "BODY2");
         $this->assertEquals($tmp->type, "BodyTemplate2");
         $this->assertEquals(Template::BACK_BUTTON_MODE_HIDDEN, $tmp->backButton);
@@ -127,7 +127,7 @@ class DisplayTest extends TestCase
 
         $li2 = ListItem::create("T2");
         $tmp->addListItem($li2);
-        $this->assertEquals([$li,$li2], $tmp->listItems);
+        $this->assertEquals([$li, $li2], $tmp->listItems);
     }
 
     /**
@@ -141,8 +141,8 @@ class DisplayTest extends TestCase
         $this->assertNull($listItem->image);
         $this->assertNull($listItem->token);
 
-        $img = Image::create();
-        $tc = TextContent::create();
+        $img      = Image::create();
+        $tc       = TextContent::create();
         $listItem = ListItem::create("TOKEN", $img, $tc);
         $this->assertEquals($img, $listItem->image);
         $this->assertEquals("TOKEN", $listItem->token);

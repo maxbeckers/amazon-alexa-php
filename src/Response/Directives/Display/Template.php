@@ -59,28 +59,29 @@ class Template
     }
 
     /**
-     * @param string|null $type
-     * @param string|null $token
-     * @param string|null $backButton
-     * @param string|null $backgroundImage
-     * @param string|null $title
+     * @param string|null      $type
+     * @param string|null      $token
+     * @param string|null      $backButton
+     * @param string|null      $backgroundImage
+     * @param string|null      $title
      * @param TextContent|null $textContent
-     * @param Image|null $image
-     * @param ListItem[] $listItems
+     * @param Image|null       $image
+     * @param ListItem[]       $listItems
+     *
      * @return Template
      */
     public static function create($type, $token, $backButton = self::BACK_BUTTON_MODE_VISIBLE, $backgroundImage = null, $title = null, $textContent = null, $image = null, $listItems = []): Template
     {
         $template = new self();
 
-        $template->type = $type;
-        $template->token = $token;
-        $template->backButton = $backButton;
+        $template->type            = $type;
+        $template->token           = $token;
+        $template->backButton      = $backButton;
         $template->backgroundImage = $backgroundImage;
-        $template->title = $title;
-        $template->textContent = $textContent;
-        $template->image = $image;
-        $template->listItems = $listItems;
+        $template->title           = $title;
+        $template->textContent     = $textContent;
+        $template->image           = $image;
+        $template->listItems       = $listItems;
 
         return $template;
     }

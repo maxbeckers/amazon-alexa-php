@@ -23,6 +23,7 @@ class Text
     /**
      * @param string|null $value
      * @param string|null $type
+     *
      * @return Text
      */
     public static function create($value, $type = self::TYPE_PLAIN_TEXT): Text

@@ -23,9 +23,10 @@ class ListItem
     public $textContent;
 
     /**
-     * @param string|null $token
-     * @param Image|null $image
+     * @param string|null      $token
+     * @param Image|null       $image
      * @param TextContent|null $textContent
+     *
      * @return ListItem
      */
     public static function create($token = null, $image = null, $textContent = null): ListItem
