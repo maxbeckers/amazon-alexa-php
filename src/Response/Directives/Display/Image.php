@@ -26,8 +26,9 @@ class Image
     }
 
     /**
-     * @param string|null $contentDescription
+     * @param string|null   $contentDescription
      * @param ImageSource[] $imageSources
+     *
      * @return Image
      */
     public static function create($contentDescription = null, $imageSources = []): Image

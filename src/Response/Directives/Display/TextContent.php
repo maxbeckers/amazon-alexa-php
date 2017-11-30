@@ -26,6 +26,7 @@ class TextContent
      * @param Text|null $primaryText
      * @param Text|null $secondaryText
      * @param Text|null $tertiaryText
+     *
      * @return TextContent
      */
     public static function create($primaryText = null, $secondaryText = null, $tertiaryText = null): TextContent

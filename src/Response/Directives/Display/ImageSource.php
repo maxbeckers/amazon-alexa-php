@@ -49,10 +49,11 @@ class ImageSource implements \JsonSerializable
     }
 
     /**
-     * @param string $url
+     * @param string      $url
      * @param string|null $size
-     * @param int|null $widthPixels
-     * @param int|null $heightPixels
+     * @param int|null    $widthPixels
+     * @param int|null    $heightPixels
+     *
      * @return ImageSource
      */
     public static function create($url, $size = null, $widthPixels = null, $heightPixels = null): ImageSource

@@ -38,7 +38,7 @@ class Intent
         $intent->name               = isset($amazonRequest['name']) ? $amazonRequest['name'] : null;
         $intent->confirmationStatus = isset($amazonRequest['confirmationStatus']) ? $amazonRequest['confirmationStatus'] : null;
 
-        if(isset($amazonRequest['slots'])) {
+        if (isset($amazonRequest['slots'])) {
             foreach ($amazonRequest['slots'] as $name => $slot) {
                 $intent->slots[] = Slot::fromAmazonRequest($name, $slot);
             }
