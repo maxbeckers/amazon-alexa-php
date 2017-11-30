@@ -13,11 +13,6 @@ class Resolution implements \JsonSerializable
     public $authority;
 
     /**
-     * @var string|null
-     */
-    public $value;
-
-    /**
      * @var IntentStatus|null
      */
     public $status;

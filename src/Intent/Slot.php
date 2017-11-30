@@ -72,4 +72,20 @@ class Slot implements \JsonSerializable
         }
         return $data;
     }
+
+    /**
+     * @return IntentValue|null
+     */
+    public function getFirstResolutionIntentValue()
+    {
+        if ($this->resolutions[0])
+        {
+            $resolution = $this->resolutions[0];
+            if ($resolution->values[0])
+            {
+                return $resolution->values[0];
+            }
+        }
+        return null;
+    }
 }
