@@ -32,9 +32,9 @@ class TextContent
     {
         $textContent = new self();
 
-        $textContent->primaryText       = $primaryText;
-        $textContent->secondaryText     = $secondaryText;
-        $textContent->tertiaryText      = $tertiaryText;
+        $textContent->primaryText   = $primaryText;
+        $textContent->secondaryText = $secondaryText;
+        $textContent->tertiaryText  = $tertiaryText;
 
         return $textContent;
     }

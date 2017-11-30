@@ -27,26 +27,17 @@ class Image
 
     /**
      * @param string|null $contentDescription
-     * @param null|ImageSource|ImageSource[] $imageSource
+     * @param ImageSource[] $imageSources
      * @return Image
      */
-    public static function create($contentDescription = null, $imageSource = null): Image
+    public static function create($contentDescription = null, $imageSources = []): Image
     {
         $image = new self();
 
-        $image->contentDescription     = $contentDescription;
+        $image->contentDescription = $contentDescription;
 
-        if (!is_null($imageSource))
-        {
-            if (is_array($imageSource))
-            {
-                $image->sources = $imageSource;
-            }
-            else
-            {
-                $image->sources[] = $imageSource;
-            }
-        }
+        $image->sources = $imageSources;
+
         return $image;
     }
 }

@@ -32,9 +32,9 @@ class ListItem
     {
         $listItem = new self();
 
-        $listItem->token        = $token;
-        $listItem->image        = $image;
-        $listItem->textContent  = $textContent;
+        $listItem->token       = $token;
+        $listItem->image       = $image;
+        $listItem->textContent = $textContent;
 
         return $listItem;
     }

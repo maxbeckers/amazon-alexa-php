@@ -21,17 +21,17 @@ class Text
     public $type;
 
     /**
-     * @param string|null $text
+     * @param string|null $value
      * @param string|null $type
      * @return Text
      */
-    public static function create($text, $type = self::TYPE_PLAIN_TEXT): Text
+    public static function create($value, $type = self::TYPE_PLAIN_TEXT): Text
     {
-        $text_ = new self();
+        $text = new self();
 
-        $text_->text     = $text;
-        $text_->type     = $type;
+        $text->text = $value;
+        $text->type = $type;
 
-        return $text_;
+        return $text;
     }
 }

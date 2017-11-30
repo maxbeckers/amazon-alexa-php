@@ -7,6 +7,7 @@ use \MaxBeckers\AmazonAlexa\Response\Directives\Display\ImageSource;
 use \MaxBeckers\AmazonAlexa\Response\Directives\Display\Image;
 use \MaxBeckers\AmazonAlexa\Response\Directives\Display\Template;
 use \MaxBeckers\AmazonAlexa\Response\Directives\Display\ListItem;
+
 /**
  * @author Fabian Graßl <fabian.grassl@db-n.com>
  */
@@ -83,9 +84,6 @@ class DisplayTest extends TestCase
 
         $imgUrl = "http://example.com/some/image.jpg";
         $imgSource = ImageSource::create($imgUrl);
-
-        $img = Image::create("Test", $imgSource);
-        $this->assertEquals([$imgSource], $img->sources);
 
         $img = Image::create("Test", [$imgSource]);
         $this->assertEquals([$imgSource], $img->sources);

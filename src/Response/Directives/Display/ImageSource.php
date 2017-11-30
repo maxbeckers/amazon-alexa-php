@@ -59,10 +59,10 @@ class ImageSource implements \JsonSerializable
     {
         $imageSource = new self();
 
-        $imageSource->url           = $url;
-        $imageSource->size          = $size;
-        $imageSource->widthPixels   = $widthPixels;
-        $imageSource->heightPixels  = $heightPixels;
+        $imageSource->url          = $url;
+        $imageSource->size         = $size;
+        $imageSource->widthPixels  = $widthPixels;
+        $imageSource->heightPixels = $heightPixels;
 
         return $imageSource;
     }
