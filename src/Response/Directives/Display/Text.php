@@ -19,4 +19,19 @@ class Text
      * @var string|null
      */
     public $type;
+
+    /**
+     * @param string|null $value
+     * @param string|null $type
+     * @return Text
+     */
+    public static function create($value, $type = self::TYPE_PLAIN_TEXT): Text
+    {
+        $text = new self();
+
+        $text->text = $value;
+        $text->type = $type;
+
+        return $text;
+    }
 }
