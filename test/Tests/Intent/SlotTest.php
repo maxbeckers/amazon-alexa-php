@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use MaxBeckers\AmazonAlexa\Intent\Slot;
+use MaxBeckers\AmazonAlexa\Intent\IntentValue;
 
 /**
  * @author Fabian Graßl <fabian.grassl@db-n.com>
@@ -28,5 +29,18 @@ class SlotTest extends TestCase
         $json = file_get_contents(__DIR__.'/Data/slot_to_city.json');
         $slot = Slot::fromAmazonRequest("toCity", json_decode($json, true));
         $this->assertJsonStringEqualsJsonString($json, json_encode($slot));
+    }
+
+    /**
+     * @covers Slot::getFirstResolutionIntentValue()
+     */
+    public function testGetFirstResolutionIntentValue()
+    {
+        $json = file_get_contents(__DIR__.'/Data/slot_to_city.json');
+        $slot = Slot::fromAmazonRequest("toCity", json_decode($json, true));
+        $intentValue = $slot->getFirstResolutionIntentValue();
+        $this->assertInstanceOf(IntentValue::class, $intentValue);
+        $this->assertEquals("chicago", $intentValue->name);
+        $this->assertEquals("ORD", $intentValue->id);
     }
 }
