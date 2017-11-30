@@ -18,11 +18,11 @@ class ConfirmIntentDirective extends Directive
     public $updatedIntent;
 
     /**
-     * @param Intent $intent
+     * @param Intent|null $intent
      *
      * @return ConfirmIntentDirective
      */
-    public static function create(Intent $intent): ConfirmIntentDirective
+    public static function create(Intent $intent = null): ConfirmIntentDirective
     {
         $confirmIntentDirective = new self();
 
