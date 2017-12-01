@@ -61,10 +61,11 @@ class Resolution implements \JsonSerializable
             $data['values'] = [];
             foreach ($this->values as $value) {
                 $data['values'][] = [
-                    "value" => $value
+                    "value" => $value,
                 ];
             }
         }
+
         return $data;
     }
 }

@@ -23,7 +23,7 @@ class ConfirmSlotDirective extends Directive
     public $updatedIntent;
 
     /**
-     * @param string $slotToConfirm
+     * @param string      $slotToConfirm
      * @param Intent|null $intent
      *
      * @return ConfirmSlotDirective

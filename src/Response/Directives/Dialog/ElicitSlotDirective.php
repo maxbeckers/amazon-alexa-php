@@ -23,7 +23,7 @@ class ElicitSlotDirective extends Directive
     public $updatedIntent;
 
     /**
-     * @param string $slotToElicit
+     * @param string      $slotToElicit
      * @param Intent|null $intent
      *
      * @return ElicitSlotDirective

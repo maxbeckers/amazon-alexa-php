@@ -54,7 +54,7 @@ class Slot implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $data = [];
+        $data         = [];
         $data['name'] = $this->name;
         if (null !== $this->value) {
             $data['value'] = $this->value;
@@ -68,6 +68,7 @@ class Slot implements \JsonSerializable
                 $data['resolutions']['resolutionsPerAuthority'][] = $resolution->jsonSerialize();
             }
         }
+
         return $data;
     }
 
@@ -82,6 +83,7 @@ class Slot implements \JsonSerializable
                 return $resolution->values[0];
             }
         }
+
         return null;
     }
 }

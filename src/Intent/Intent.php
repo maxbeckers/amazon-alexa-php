@@ -72,6 +72,7 @@ class Intent implements \JsonSerializable
 
     /**
      * @param $name
+     *
      * @return null|Slot
      */
     public function getSlotByName($name)
@@ -81,6 +82,7 @@ class Intent implements \JsonSerializable
                 return $slot;
             }
         }
+
         return null;
     }
 }
