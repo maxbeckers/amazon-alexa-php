@@ -18,11 +18,11 @@ class DelegateDirective extends Directive
     public $updatedIntent;
 
     /**
-     * @param Intent $intent
+     * @param Intent|null $intent
      *
      * @return DelegateDirective
      */
-    public static function create(Intent $intent): DelegateDirective
+    public static function create(Intent $intent = null): DelegateDirective
     {
         $delegateDirective = new self();
 

@@ -1,0 +1,23 @@
+{
+  "name": "toCity",
+  "value": "the windy city",
+  "resolutions": {
+    "resolutionsPerAuthority": [
+      {
+        "authority": "amzn1.er-authority.echo-sdk.<skill_id>.AMAZON.US_CITY",
+        "status": {
+          "code": "ER_SUCCESS_MATCH"
+        },
+        "values": [
+          {
+            "value": {
+              "name": "chicago",
+              "id": "ORD"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "confirmationStatus": "NONE"
+}

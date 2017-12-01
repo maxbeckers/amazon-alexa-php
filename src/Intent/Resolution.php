@@ -5,7 +5,7 @@ namespace MaxBeckers\AmazonAlexa\Intent;
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class Resolution
+class Resolution implements \JsonSerializable
 {
     /**
      * @var string|null
@@ -13,14 +13,9 @@ class Resolution
     public $authority;
 
     /**
-     * @var string|null
-     */
-    public $value;
-
-    /**
      * @var IntentStatus|null
      */
-    public $confirmationStatus;
+    public $status;
 
     /**
      * @var IntentValue[]
@@ -48,5 +43,28 @@ class Resolution
         }
 
         return $resolution;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        $data = [];
+        if ($this->authority) {
+            $data['authority'] = $this->authority;
+        }
+        if ($this->status) {
+            $data['status'] = $this->status;
+        }
+        if (!empty($this->values)) {
+            $data['values'] = [];
+            foreach ($this->values as $value) {
+                $data['values'][] = [
+                    "value" => $value
+                ];
+            }
+        }
+        return $data;
     }
 }

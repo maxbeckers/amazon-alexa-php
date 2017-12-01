@@ -24,11 +24,11 @@ class ElicitSlotDirective extends Directive
 
     /**
      * @param string $slotToElicit
-     * @param Intent $intent
+     * @param Intent|null $intent
      *
      * @return ElicitSlotDirective
      */
-    public static function create(string $slotToElicit, Intent $intent): ElicitSlotDirective
+    public static function create(string $slotToElicit, Intent $intent = null): ElicitSlotDirective
     {
         $elicitSlotDirective = new self();
 
