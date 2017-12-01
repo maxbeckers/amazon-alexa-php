@@ -25,7 +25,7 @@ class VideoLaunchDirective extends Directive
     {
         $videoLaunchDirective = new self();
 
-        $videoLaunchDirective->type          = self::TYPE;
+        $videoLaunchDirective->type      = self::TYPE;
         $videoLaunchDirective->videoItem = $videoItem;
 
         return $videoLaunchDirective;
