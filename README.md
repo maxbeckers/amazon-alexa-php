@@ -1,7 +1,8 @@
 # Amazon alexa php library
+This library is a helper for amazon alexa skills with php.
+
 [![Build Status](https://travis-ci.org/maxbeckers/amazon-alexa-php.svg?branch=master)](https://travis-ci.org/maxbeckers/amazon-alexa-php)
 
-This library is a helper for amazon alexa skills with php.
 
 ## Install via composer
 Require the package with composer:
