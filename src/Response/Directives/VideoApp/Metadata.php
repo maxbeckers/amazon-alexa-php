@@ -31,4 +31,20 @@ class Metadata
 
         return $metadata;
     }
+
+
+    /**
+     * @param string|null $title
+     * @param string|null $subtitle
+     * @return Metadata
+     */
+    public static function create(string $title = null, string $subtitle = null): Metadata
+    {
+        $metadata = new self();
+
+        $metadata->title    = $title;
+        $metadata->subtitle = $subtitle;
+
+        return $metadata;
+    }
 }
