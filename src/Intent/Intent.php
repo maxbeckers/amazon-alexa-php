@@ -55,17 +55,14 @@ class Intent implements \JsonSerializable
         $data = [];
 
         $data['name'] = $this->name;
-        if (null !== $this->confirmationStatus)
-        {
+        if (null !== $this->confirmationStatus) {
             $data['confirmationStatus'] = $this->confirmationStatus;
         }
 
-        if (!empty($this->slots))
-        {
+        if (!empty($this->slots)) {
             $data['slots'] = [];
 
-            foreach ($this->slots as $slot)
-            {
+            foreach ($this->slots as $slot) {
                 $data['slots'][$slot->name] = $slot->jsonSerialize();
             }
         }
@@ -79,10 +76,8 @@ class Intent implements \JsonSerializable
      */
     public function getSlotByName($name)
     {
-        foreach ($this->slots as $slot)
-        {
-            if ($slot->name === $name)
-            {
+        foreach ($this->slots as $slot) {
+            if ($slot->name === $name) {
                 return $slot;
             }
         }

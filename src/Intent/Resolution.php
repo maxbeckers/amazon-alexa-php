@@ -51,19 +51,15 @@ class Resolution implements \JsonSerializable
     public function jsonSerialize()
     {
         $data = [];
-        if ($this->authority)
-        {
+        if ($this->authority) {
             $data['authority'] = $this->authority;
         }
-        if ($this->status)
-        {
+        if ($this->status) {
             $data['status'] = $this->status;
         }
-        if (!empty($this->values))
-        {
+        if (!empty($this->values)) {
             $data['values'] = [];
-            foreach ($this->values as $value)
-            {
+            foreach ($this->values as $value) {
                 $data['values'][] = [
                     "value" => $value
                 ];

@@ -42,5 +42,8 @@ class SlotTest extends TestCase
         $this->assertInstanceOf(IntentValue::class, $intentValue);
         $this->assertEquals("chicago", $intentValue->name);
         $this->assertEquals("ORD", $intentValue->id);
+        $json = file_get_contents(__DIR__.'/Data/slot_no_resolution.json');
+        $slot = Slot::fromAmazonRequest("toCity", json_decode($json, true));
+        $this->assertNull($slot->getFirstResolutionIntentValue());
     }
 }

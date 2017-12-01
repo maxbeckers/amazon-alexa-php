@@ -62,11 +62,9 @@ class Slot implements \JsonSerializable
         if (null !== $this->confirmationStatus) {
             $data['confirmationStatus'] = $this->confirmationStatus;
         }
-        if (!empty($this->resolutions))
-        {
+        if (!empty($this->resolutions)) {
             $data['resolutions']['resolutionsPerAuthority'] = [];
-            foreach ($this->resolutions as $resolution)
-            {
+            foreach ($this->resolutions as $resolution) {
                 $data['resolutions']['resolutionsPerAuthority'][] = $resolution->jsonSerialize();
             }
         }
@@ -78,11 +76,9 @@ class Slot implements \JsonSerializable
      */
     public function getFirstResolutionIntentValue()
     {
-        if ($this->resolutions[0])
-        {
+        if (isset($this->resolutions[0])) {
             $resolution = $this->resolutions[0];
-            if ($resolution->values[0])
-            {
+            if (isset($resolution->values[0])) {
                 return $resolution->values[0];
             }
         }
