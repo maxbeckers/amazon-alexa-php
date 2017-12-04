@@ -1,5 +1,6 @@
 <?php
 
+use MaxBeckers\AmazonAlexa\Response\Directives\Display\HintDirective;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\Image;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\ImageSource;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\ListItem;
@@ -126,5 +127,14 @@ class DisplayTest extends TestCase
         $this->assertSame($img, $listItem->image);
         $this->assertSame('TOKEN', $listItem->token);
         $this->assertSame($tc, $listItem->textContent);
+    }
+
+    public function testHint()
+    {
+        $txt  = Text::create('Test');
+        $hint = HintDirective::create($txt);
+        $this->assertInstanceOf(HintDirective::class, $hint);
+        $this->assertSame('Hint', $hint->type);
+        $this->assertSame($txt, $hint->hint);
     }
 }
