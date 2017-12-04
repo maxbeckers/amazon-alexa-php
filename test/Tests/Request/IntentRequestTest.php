@@ -29,6 +29,6 @@ class IntentRequestTest extends TestCase
         $requestBody = file_get_contents(__DIR__.'/RequestData/intent.json');
         $request     = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(IntentRequest::class, $request->request);
-        $this->assertEquals('my-application-id', $request->context->system->application->applicationId);
+        $this->assertSame('my-application-id', $request->context->system->application->applicationId);
     }
 }

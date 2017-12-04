@@ -29,7 +29,7 @@ class TextContent
      *
      * @return TextContent
      */
-    public static function create($primaryText = null, $secondaryText = null, $tertiaryText = null): TextContent
+    public static function create($primaryText = null, $secondaryText = null, $tertiaryText = null): self
     {
         $textContent = new self();
 

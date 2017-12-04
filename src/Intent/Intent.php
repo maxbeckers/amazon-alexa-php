@@ -31,7 +31,7 @@ class Intent implements \JsonSerializable
      *
      * @return Intent
      */
-    public static function fromAmazonRequest(array $amazonRequest): Intent
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $intent = new self();
 

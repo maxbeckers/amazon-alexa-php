@@ -24,7 +24,7 @@ abstract class AbstractRequestHandler
      */
     public function supportsApplication(Request $request): bool
     {
-        return in_array($request->getApplicationId(), $this->supportedApplicationIds);
+        return in_array($request->getApplicationId(), $this->supportedApplicationIds, true);
     }
 
     /**
@@ -38,7 +38,7 @@ abstract class AbstractRequestHandler
      *
      * @return bool
      */
-    public abstract function supportsRequest(Request $request): bool;
+    abstract public function supportsRequest(Request $request): bool;
 
     /**
      * Handle the given request end return a response object.
@@ -47,5 +47,5 @@ abstract class AbstractRequestHandler
      *
      * @return Response
      */
-    public abstract function handleRequest(Request $request): Response;
+    abstract public function handleRequest(Request $request): Response;
 }

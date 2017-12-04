@@ -1,8 +1,8 @@
 <?php
 
+use MaxBeckers\AmazonAlexa\Intent\Intent;
+use MaxBeckers\AmazonAlexa\Intent\Slot;
 use PHPUnit\Framework\TestCase;
-use \MaxBeckers\AmazonAlexa\Intent\Intent;
-use \MaxBeckers\AmazonAlexa\Intent\Slot;
 
 /**
  * @author Fabian Graßl <fabian.grassl@db-n.com>
@@ -10,8 +10,8 @@ use \MaxBeckers\AmazonAlexa\Intent\Slot;
 class IntentTest extends TestCase
 {
     /**
-     * @covers Intent::fromAmazonRequest()
-     * @covers Intent::jsonSerialize()
+     * @covers \Intent::fromAmazonRequest()
+     * @covers \Intent::jsonSerialize()
      */
     public function testWithoutResolutions()
     {
@@ -21,8 +21,8 @@ class IntentTest extends TestCase
     }
 
     /**
-     * @covers Intent::fromAmazonRequest()
-     * @covers Intent::jsonSerialize()
+     * @covers \Intent::fromAmazonRequest()
+     * @covers \Intent::jsonSerialize()
      */
     public function testWithResolutions()
     {
@@ -32,19 +32,19 @@ class IntentTest extends TestCase
     }
 
     /**
-     * @covers Intent::getSlotByName()
+     * @covers \Intent::getSlotByName()
      */
     public function testGetResolutionByName()
     {
         $json   = file_get_contents(__DIR__.'/Data/intent_without_resolutions.json');
         $intent = Intent::fromAmazonRequest(json_decode($json, true));
-        $slot   = $intent->getSlotByName("Age");
+        $slot   = $intent->getSlotByName('Age');
         $this->assertInstanceOf(Slot::class, $slot);
-        $this->assertEquals("Age", $slot->name);
-        $slot = $intent->getSlotByName("age");
+        $this->assertSame('Age', $slot->name);
+        $slot = $intent->getSlotByName('age');
         $this->assertNull($slot);
-        $slot = $intent->getSlotByName("Gender");
+        $slot = $intent->getSlotByName('Gender');
         $this->assertInstanceOf(Slot::class, $slot);
-        $this->assertEquals("Gender", $slot->name);
+        $this->assertSame('Gender', $slot->name);
     }
 }

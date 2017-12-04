@@ -22,7 +22,7 @@ class ConfirmIntentDirective extends Directive
      *
      * @return ConfirmIntentDirective
      */
-    public static function create(Intent $intent = null): ConfirmIntentDirective
+    public static function create(Intent $intent = null): self
     {
         $confirmIntentDirective = new self();
 

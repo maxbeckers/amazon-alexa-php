@@ -32,7 +32,7 @@ class Slot implements \JsonSerializable
      *
      * @return Slot
      */
-    public static function fromAmazonRequest(string $name, array $amazonRequest): Slot
+    public static function fromAmazonRequest(string $name, array $amazonRequest): self
     {
         $slot = new self();
 

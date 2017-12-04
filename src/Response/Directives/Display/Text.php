@@ -26,7 +26,7 @@ class Text
      *
      * @return Text
      */
-    public static function create($value, $type = self::TYPE_PLAIN_TEXT): Text
+    public static function create($value, $type = self::TYPE_PLAIN_TEXT): self
     {
         $text = new self();
 

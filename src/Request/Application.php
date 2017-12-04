@@ -19,7 +19,7 @@ class Application
      *
      * @return Application
      */
-    public static function fromAmazonRequest(array $amazonRequest): Application
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $application = new self();
 

@@ -22,7 +22,7 @@ class Metadata
      *
      * @return Metadata
      */
-    public static function fromAmazonRequest(array $amazonRequest): Metadata
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $metadata = new self();
 
@@ -38,7 +38,7 @@ class Metadata
      *
      * @return Metadata
      */
-    public static function create(string $title = null, string $subtitle = null): Metadata
+    public static function create(string $title = null, string $subtitle = null): self
     {
         $metadata = new self();
 

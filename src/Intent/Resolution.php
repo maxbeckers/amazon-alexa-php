@@ -27,7 +27,7 @@ class Resolution implements \JsonSerializable
      *
      * @return Resolution
      */
-    public static function fromAmazonRequest(array $amazonRequest): Resolution
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $resolution = new self();
 
@@ -61,7 +61,7 @@ class Resolution implements \JsonSerializable
             $data['values'] = [];
             foreach ($this->values as $value) {
                 $data['values'][] = [
-                    "value" => $value,
+                    'value' => $value,
                 ];
             }
         }

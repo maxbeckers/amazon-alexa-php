@@ -17,7 +17,7 @@ class Cause
      *
      * @return Cause
      */
-    public static function fromAmazonRequest(array $amazonRequest): Cause
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $cause = new self();
 

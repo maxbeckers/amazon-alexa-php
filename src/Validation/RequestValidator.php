@@ -26,7 +26,7 @@ class RequestValidator
 
     /**
      * Validate request timestamp. Request tolerance should be 150 seconds.
-     * For more details @see https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-web-service#timestamp
+     * For more details @see https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-web-service#timestamp.
      *
      * @param Request $request
      *
@@ -47,6 +47,7 @@ class RequestValidator
 
     /**
      * Validate request signature. The steps for signature validation are described at developer page.
+     *
      * @see https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-web-service#checking-the-signature-of-the-request
      *
      * @param Request $request
@@ -60,7 +61,7 @@ class RequestValidator
         }
 
         // validate cert url
-        if (false === (bool)preg_match("/https:\/\/s3.amazonaws.com(\:443)?\/echo.api\/*/i", $request->signatureCertChainUrl)) {
+        if (false === (bool) preg_match("/https:\/\/s3.amazonaws.com(\:443)?\/echo.api\/*/i", $request->signatureCertChainUrl)) {
             throw new RequestInvalidSignatureException('Invalid cert url.');
         }
 
@@ -74,7 +75,7 @@ class RequestValidator
         }
 
         // openssl cert validation
-        if (1 !== openssl_verify($request->amazonRequestBody, base64_decode($request->signature), $certData, 'sha1')) {
+        if (1 !== openssl_verify($request->amazonRequestBody, base64_decode($request->signature, true), $certData, 'sha1')) {
             throw new RequestInvalidSignatureException('Cert ssl verification failed.');
         }
 

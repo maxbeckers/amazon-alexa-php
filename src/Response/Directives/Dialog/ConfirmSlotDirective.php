@@ -28,7 +28,7 @@ class ConfirmSlotDirective extends Directive
      *
      * @return ConfirmSlotDirective
      */
-    public static function create(string $slotToConfirm, Intent $intent = null): ConfirmSlotDirective
+    public static function create(string $slotToConfirm, Intent $intent = null): self
     {
         $confirmSlotDirective = new self();
 

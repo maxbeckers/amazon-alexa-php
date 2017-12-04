@@ -22,7 +22,7 @@ class Context
      *
      * @return Context
      */
-    public static function fromAmazonRequest(array $amazonRequest): Context
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $context = new self();
 

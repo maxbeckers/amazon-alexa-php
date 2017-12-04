@@ -29,7 +29,7 @@ class ListItem
      *
      * @return ListItem
      */
-    public static function create($token = null, $image = null, $textContent = null): ListItem
+    public static function create($token = null, $image = null, $textContent = null): self
     {
         $listItem = new self();
 

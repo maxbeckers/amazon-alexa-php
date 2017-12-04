@@ -21,7 +21,7 @@ class RenderTemplateDirective extends Directive
      *
      * @return RenderTemplateDirective
      */
-    public static function create(Template $template): RenderTemplateDirective
+    public static function create(Template $template): self
     {
         $elicitSlotDirective = new self();
 

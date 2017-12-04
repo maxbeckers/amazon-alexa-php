@@ -14,7 +14,7 @@ class StopDirective extends Directive
     /**
      * @return StopDirective
      */
-    public static function create(): StopDirective
+    public static function create(): self
     {
         $stopDirective = new self();
 

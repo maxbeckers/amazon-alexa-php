@@ -30,7 +30,7 @@ class PlayDirective extends Directive
      *
      * @return PlayDirective
      */
-    public static function create(AudioItem $audioItem): PlayDirective
+    public static function create(AudioItem $audioItem): self
     {
         $playDirective = new self();
 

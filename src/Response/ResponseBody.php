@@ -35,7 +35,7 @@ class ResponseBody implements \JsonSerializable
     public $directives = [];
 
     /**
-     * Add a directive to response body
+     * Add a directive to response body.
      *
      * @param Directive $directive
      */

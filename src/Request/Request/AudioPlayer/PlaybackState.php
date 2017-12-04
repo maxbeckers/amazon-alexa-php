@@ -33,7 +33,7 @@ class PlaybackState
      *
      * @return PlaybackState
      */
-    public static function fromAmazonRequest(array $amazonRequest): PlaybackState
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $playbackState = new self();
 

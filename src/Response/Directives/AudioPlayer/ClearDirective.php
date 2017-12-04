@@ -24,7 +24,7 @@ class ClearDirective extends Directive
      *
      * @return ClearDirective
      */
-    public static function create(string $behavior): ClearDirective
+    public static function create(string $behavior): self
     {
         $stopDirective = new self();
 

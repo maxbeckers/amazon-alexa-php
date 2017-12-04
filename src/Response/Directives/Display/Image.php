@@ -31,7 +31,7 @@ class Image
      *
      * @return Image
      */
-    public static function create($contentDescription = null, $imageSources = []): Image
+    public static function create($contentDescription = null, $imageSources = []): self
     {
         $image = new self();
 

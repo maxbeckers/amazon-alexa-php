@@ -2,8 +2,6 @@
 
 namespace MaxBeckers\AmazonAlexa\Request;
 
-use MaxBeckers\AmazonAlexa\Request\Session;
-
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -34,7 +32,7 @@ class System
      *
      * @return System
      */
-    public static function fromAmazonRequest(array $amazonRequest): System
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $system = new self();
 

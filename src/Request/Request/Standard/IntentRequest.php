@@ -10,9 +10,9 @@ use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
  */
 class IntentRequest extends StandardRequest
 {
-    const DIALOG_STATE_STARTED     = "STARTED";
-    const DIALOG_STATE_IN_PROGRESS = "IN_PROGRESS";
-    const DIALOG_STATE_COMPLETED   = "COMPLETED";
+    const DIALOG_STATE_STARTED     = 'STARTED';
+    const DIALOG_STATE_IN_PROGRESS = 'IN_PROGRESS';
+    const DIALOG_STATE_COMPLETED   = 'COMPLETED';
 
     const TYPE = 'IntentRequest';
 

@@ -3,8 +3,8 @@
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestHandlerException;
 use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
 use MaxBeckers\AmazonAlexa\Request\Application;
-use MaxBeckers\AmazonAlexa\Request\Request;
 use MaxBeckers\AmazonAlexa\Request\Context;
+use MaxBeckers\AmazonAlexa\Request\Request;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest;
 use MaxBeckers\AmazonAlexa\Request\System;
 use MaxBeckers\AmazonAlexa\RequestHandler\AbstractRequestHandler;
@@ -38,7 +38,7 @@ class RequestHandlerRegistryTest extends TestCase
         $registry->addHandler($handler);
         $registry->getSupportingHandler($request);
 
-        $this->assertEquals($handler, $registry->getSupportingHandler($request));
+        $this->assertSame($handler, $registry->getSupportingHandler($request));
     }
 
     public function testMissingHandlerRequest()
@@ -62,9 +62,8 @@ class RequestHandlerRegistryTest extends TestCase
     }
 }
 
-
 /**
- * Just a simple test example
+ * Just a simple test example.
  *
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */

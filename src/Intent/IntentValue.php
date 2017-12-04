@@ -22,7 +22,7 @@ class IntentValue
      *
      * @return IntentValue
      */
-    public static function fromAmazonRequest(array $amazonRequest): IntentValue
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $intentValue = new self();
 

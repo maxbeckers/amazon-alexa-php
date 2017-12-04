@@ -4,7 +4,6 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\VideoApp;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 
-
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -22,7 +21,7 @@ class VideoLaunchDirective extends Directive
      *
      * @return VideoLaunchDirective
      */
-    public static function create(VideoItem $videoItem = null): VideoLaunchDirective
+    public static function create(VideoItem $videoItem = null): self
     {
         $videoLaunchDirective = new self();
 

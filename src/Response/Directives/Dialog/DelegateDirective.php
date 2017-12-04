@@ -22,7 +22,7 @@ class DelegateDirective extends Directive
      *
      * @return DelegateDirective
      */
-    public static function create(Intent $intent = null): DelegateDirective
+    public static function create(Intent $intent = null): self
     {
         $delegateDirective = new self();
 

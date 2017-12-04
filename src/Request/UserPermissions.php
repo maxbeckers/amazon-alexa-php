@@ -17,7 +17,7 @@ class UserPermissions
      *
      * @return UserPermissions
      */
-    public static function fromAmazonRequest(array $amazonRequest): UserPermissions
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $userPermissions = new self();
 

@@ -40,10 +40,18 @@ class ImageSource implements \JsonSerializable
     {
         $data = [];
 
-        if (null !== $this->url) $data['url'] = $this->url;
-        if (null !== $this->size) $data['size'] = $this->size;
-        if (null !== $this->widthPixels) $data['widthPixels'] = $this->widthPixels;
-        if (null !== $this->heightPixels) $data['heightPixels'] = $this->heightPixels;
+        if (null !== $this->url) {
+            $data['url']                   = $this->url;
+        }
+        if (null !== $this->size) {
+            $data['size']                 = $this->size;
+        }
+        if (null !== $this->widthPixels) {
+            $data['widthPixels']   = $this->widthPixels;
+        }
+        if (null !== $this->heightPixels) {
+            $data['heightPixels'] = $this->heightPixels;
+        }
 
         return $data;
     }
@@ -56,7 +64,7 @@ class ImageSource implements \JsonSerializable
      *
      * @return ImageSource
      */
-    public static function create($url, $size = null, $widthPixels = null, $heightPixels = null): ImageSource
+    public static function create($url, $size = null, $widthPixels = null, $heightPixels = null): self
     {
         $imageSource = new self();
 

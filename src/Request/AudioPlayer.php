@@ -34,12 +34,12 @@ class AudioPlayer
      *
      * @return AudioPlayer
      */
-    public static function fromAmazonRequest(array $amazonRequest): AudioPlayer
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $audioPlayer = new self();
 
         $audioPlayer->token                = isset($amazonRequest['token']) ? $amazonRequest['token'] : null;
-        $audioPlayer->offsetInMilliseconds = isset($amazonRequest['offsetInMilliseconds']) ? (int)$amazonRequest['offsetInMilliseconds'] : null;
+        $audioPlayer->offsetInMilliseconds = isset($amazonRequest['offsetInMilliseconds']) ? (int) $amazonRequest['offsetInMilliseconds'] : null;
         $audioPlayer->playerActivity       = isset($amazonRequest['playerActivity']) ? $amazonRequest['playerActivity'] : null;
 
         return $audioPlayer;

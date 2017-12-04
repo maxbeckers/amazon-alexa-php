@@ -22,7 +22,7 @@ class VideoItem
      *
      * @return VideoItem
      */
-    public static function fromAmazonRequest(array $amazonRequest): VideoItem
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $request = new self();
 
@@ -38,7 +38,7 @@ class VideoItem
      *
      * @return VideoItem
      */
-    public static function create(string $source, Metadata $metadata = null): VideoItem
+    public static function create(string $source, Metadata $metadata = null): self
     {
         $videoItem = new self();
 

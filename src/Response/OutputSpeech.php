@@ -38,7 +38,7 @@ class OutputSpeech
      *
      * @return OutputSpeech
      */
-    public static function createByText(string $test): OutputSpeech
+    public static function createByText(string $test): self
     {
         $outputSpeech = new self();
 
@@ -52,7 +52,7 @@ class OutputSpeech
      *
      * @return OutputSpeech
      */
-    public static function createBySsml(string $ssml): OutputSpeech
+    public static function createBySsml(string $ssml): self
     {
         $outputSpeech = new self(self::TYPE_SSML);
 

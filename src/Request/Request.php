@@ -83,7 +83,7 @@ class Request
      *
      * @return Request
      */
-    public static function fromAmazonRequest(string $amazonRequestBody, string $signatureCertChainUrl, string $signature): Request
+    public static function fromAmazonRequest(string $amazonRequestBody, string $signatureCertChainUrl, string $signature): self
     {
         $request = new self();
 

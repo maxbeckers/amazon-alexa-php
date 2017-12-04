@@ -27,7 +27,7 @@ class User
      *
      * @return User
      */
-    public static function fromAmazonRequest(array $amazonRequest): User
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $user = new self();
 

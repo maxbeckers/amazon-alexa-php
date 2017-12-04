@@ -22,7 +22,7 @@ abstract class AbstractRequest
      *
      * @return AbstractRequest
      */
-    public static abstract function fromAmazonRequest(array $amazonRequest): AbstractRequest;
+    abstract public static function fromAmazonRequest(array $amazonRequest): self;
 
     /**
      * @return bool

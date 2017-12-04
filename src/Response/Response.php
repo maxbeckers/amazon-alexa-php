@@ -25,7 +25,7 @@ class Response
     public $response;
 
     /**
-     * Create a new response with an empty response body
+     * Create a new response with an empty response body.
      *
      * @param array  $sessionAttributes
      * @param string $version

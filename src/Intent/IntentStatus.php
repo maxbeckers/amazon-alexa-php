@@ -17,7 +17,7 @@ class IntentStatus
      *
      * @return IntentStatus
      */
-    public static function fromAmazonRequest(array $amazonRequest): IntentStatus
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $intentStatus = new self();
 

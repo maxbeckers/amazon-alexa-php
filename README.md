@@ -2,7 +2,7 @@
 This library is a helper for amazon alexa skills with php.
 
 [![Build Status](https://travis-ci.org/maxbeckers/amazon-alexa-php.svg?branch=master)](https://travis-ci.org/maxbeckers/amazon-alexa-php)
-
+[![Coverage Status](https://coveralls.io/repos/github/maxbeckers/amazon-alexa-php/badge.svg?branch=master)](https://coveralls.io/github/maxbeckers/amazon-alexa-php?branch=master)
 
 ## Install via composer
 Require the package with composer:

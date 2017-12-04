@@ -127,7 +127,7 @@ class ResponseHelper
     }
 
     /**
-     * Add a new attribute to response session attributes
+     * Add a new attribute to response session attributes.
      *
      * @param string $key
      * @param string $value
@@ -138,7 +138,7 @@ class ResponseHelper
     }
 
     /**
-     * Reset the response in ResponseHelper
+     * Reset the response in ResponseHelper.
      */
     public function resetResponse()
     {

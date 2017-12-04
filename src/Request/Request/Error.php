@@ -31,7 +31,7 @@ class Error
      *
      * @return Error
      */
-    public static function fromAmazonRequest(array $amazonRequest): Error
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $error = new self();
 
