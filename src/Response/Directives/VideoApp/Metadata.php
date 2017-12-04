@@ -32,7 +32,6 @@ class Metadata
         return $metadata;
     }
 
-
     /**
      * @param string|null $title
      * @param string|null $subtitle

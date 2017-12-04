@@ -6,6 +6,7 @@ use \MaxBeckers\AmazonAlexa\Response\Card;
 use \MaxBeckers\AmazonAlexa\Response\OutputSpeech;
 use \MaxBeckers\AmazonAlexa\Response\Directives\Display\RenderTemplateDirective;
 use \MaxBeckers\AmazonAlexa\Response\Reprompt;
+
 /**
  * @author Fabian Graßl <fabian.grassl@db-n.com>
  */
