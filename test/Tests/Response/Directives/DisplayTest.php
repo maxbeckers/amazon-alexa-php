@@ -1,12 +1,12 @@
 <?php
 
+use MaxBeckers\AmazonAlexa\Response\Directives\Display\HintDirective;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\Image;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\ImageSource;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\ListItem;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\Template;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\Text;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\TextContent;
-use MaxBeckers\AmazonAlexa\Response\Directives\Display\HintDirective;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -131,10 +131,10 @@ class DisplayTest extends TestCase
 
     public function testHint()
     {
-        $txt = Text::create('Test');
+        $txt  = Text::create('Test');
         $hint = HintDirective::create($txt);
         $this->assertInstanceOf(HintDirective::class, $hint);
-        $this->assertEquals("Hint", $hint->type);
-        $this->assertEquals($txt, $hint->hint);
+        $this->assertSame('Hint', $hint->type);
+        $this->assertSame($txt, $hint->hint);
     }
 }

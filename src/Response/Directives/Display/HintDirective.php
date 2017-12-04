@@ -16,7 +16,6 @@ class HintDirective extends Directive
      */
     public $hint;
 
-
     public static function create(Text $text): self
     {
         $hint = new self();

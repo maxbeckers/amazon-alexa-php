@@ -19,7 +19,7 @@ class ElementSelectedRequest extends StandardRequest
     {
         $request = new self();
 
-        $request->type = self::TYPE;
+        $request->type  = self::TYPE;
         $request->token = $amazonRequest['token'];
         $request->setRequestData($amazonRequest);
 

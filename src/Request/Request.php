@@ -38,7 +38,7 @@ class Request
         // System types
         ExceptionEncounteredRequest::TYPE   => ExceptionEncounteredRequest::class,
         // Display types
-        ElementSelectedRequest::TYPE        => ElementSelectedRequest::class
+        ElementSelectedRequest::TYPE        => ElementSelectedRequest::class,
     ];
 
     /**
