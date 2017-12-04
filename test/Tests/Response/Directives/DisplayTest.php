@@ -13,9 +13,6 @@ use PHPUnit\Framework\TestCase;
  */
 class DisplayTest extends TestCase
 {
-    /**
-     * @covers \Text::create()
-     */
     public function testText()
     {
         $text = Text::create('Test');
@@ -28,9 +25,6 @@ class DisplayTest extends TestCase
         $this->assertSame(Text::TYPE_RICH_TEXT, $text->type);
     }
 
-    /**
-     * @covers \TextContent::create()
-     */
     public function testTextContent()
     {
         $textContent = TextContent::create(Text::create('Text1'));
@@ -50,10 +44,6 @@ class DisplayTest extends TestCase
         $this->assertSame('Text3', $textContent->tertiaryText->text);
     }
 
-    /**
-     * @covers \ImageSource::create()
-     * @covers \ImageSource::jsonSerialize()
-     */
     public function testImageSource()
     {
         $imgUrl      = 'http://example.com/some/image.jpg';
@@ -66,10 +56,6 @@ class DisplayTest extends TestCase
         $this->assertSame(['url' => $imgUrl], $imageSource->jsonSerialize());
     }
 
-    /**
-     * @covers \Image::create()
-     * @covers \Image::addImageSource()
-     */
     public function testImage()
     {
         $img = Image::create();
@@ -94,9 +80,6 @@ class DisplayTest extends TestCase
         $this->assertSame([$imgSource, $imgSource2], $img->sources);
     }
 
-    /**
-     * @covers \Template::create()
-     */
     public function testTemplate()
     {
         $tmp = Template::create('BodyTemplate1', 'BODY');
@@ -129,9 +112,6 @@ class DisplayTest extends TestCase
         $this->assertSame([$li, $li2], $tmp->listItems);
     }
 
-    /**
-     * @covers \ListItem::create()
-     */
     public function testListItem()
     {
         $listItem = ListItem::create();

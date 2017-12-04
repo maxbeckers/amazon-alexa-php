@@ -10,9 +10,6 @@ use PHPUnit\Framework\TestCase;
  */
 class VideoAppTest extends TestCase
 {
-    /**
-     * @covers \Metadata::create()
-     */
     public function testMetadata()
     {
         $meta = Metadata::create();
@@ -29,9 +26,6 @@ class VideoAppTest extends TestCase
         $this->assertSame('Sub', $meta->subtitle);
     }
 
-    /**
-     * @covers \VideoItem::create()
-     */
     public function testVideoItem()
     {
         $vi = VideoItem::create('http://example.com/video.mp4');
@@ -44,9 +38,6 @@ class VideoAppTest extends TestCase
         $this->assertSame($m, $vi->metadata);
     }
 
-    /**
-     * @covers \VideoLaunchDirective::create()
-     */
     public function testVideoLaunchDirective()
     {
         $vc = VideoLaunchDirective::create();

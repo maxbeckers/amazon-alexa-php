@@ -22,3 +22,6 @@ before_script:
 script:
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then php ./vendor/bin/phpunit --coverage-text --coverage-clover ./build/logs/clover.xml; else php ./vendor/bin/phpunit; fi
   - php ./vendor/bin/php-cs-fixer fix --config=.php_cs.php --verbose --diff --dry-run --allow-risky=yes;
+
+after_success:
+    - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then php coveralls.phar -v; fi

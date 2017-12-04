@@ -9,10 +9,6 @@ use PHPUnit\Framework\TestCase;
  */
 class IntentTest extends TestCase
 {
-    /**
-     * @covers \Intent::fromAmazonRequest()
-     * @covers \Intent::jsonSerialize()
-     */
     public function testWithoutResolutions()
     {
         $json   = file_get_contents(__DIR__.'/Data/intent_without_resolutions.json');
@@ -20,10 +16,6 @@ class IntentTest extends TestCase
         $this->assertJsonStringEqualsJsonString($json, json_encode($intent));
     }
 
-    /**
-     * @covers \Intent::fromAmazonRequest()
-     * @covers \Intent::jsonSerialize()
-     */
     public function testWithResolutions()
     {
         $json   = file_get_contents(__DIR__.'/Data/intent_resolution.json');
@@ -31,9 +23,6 @@ class IntentTest extends TestCase
         $this->assertJsonStringEqualsJsonString($json, json_encode($intent));
     }
 
-    /**
-     * @covers \Intent::getSlotByName()
-     */
     public function testGetResolutionByName()
     {
         $json   = file_get_contents(__DIR__.'/Data/intent_without_resolutions.json');

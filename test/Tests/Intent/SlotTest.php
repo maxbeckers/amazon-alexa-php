@@ -9,10 +9,6 @@ use PHPUnit\Framework\TestCase;
  */
 class SlotTest extends TestCase
 {
-    /**
-     * @covers \Slot::fromAmazonRequest()
-     * @covers \Slot::jsonSerialize()
-     */
     public function testSlotMediaType()
     {
         $json = file_get_contents(__DIR__.'/Data/slot_media_type.json');
@@ -20,10 +16,6 @@ class SlotTest extends TestCase
         $this->assertJsonStringEqualsJsonString($json, json_encode($slot));
     }
 
-    /**
-     * @covers \Slot::fromAmazonRequest()
-     * @covers \Slot::jsonSerialize()
-     */
     public function testSlottoCity()
     {
         $json = file_get_contents(__DIR__.'/Data/slot_to_city.json');
@@ -31,9 +23,6 @@ class SlotTest extends TestCase
         $this->assertJsonStringEqualsJsonString($json, json_encode($slot));
     }
 
-    /**
-     * @covers \Slot::getFirstResolutionIntentValue()
-     */
     public function testGetFirstResolutionIntentValue()
     {
         $json        = file_get_contents(__DIR__.'/Data/slot_to_city.json');
