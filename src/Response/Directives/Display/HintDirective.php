@@ -14,7 +14,7 @@ class HintDirective extends Directive
     /**
      * @var Text|null
      */
-    public $text;
+    public $hint;
 
 
     public static function create(Text $text): self
@@ -22,7 +22,7 @@ class HintDirective extends Directive
         $hint = new self();
 
         $hint->type = self::TYPE;
-        $hint->text = $text;
+        $hint->hint = $text;
 
         return $hint;
     }

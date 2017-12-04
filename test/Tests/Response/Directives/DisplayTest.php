@@ -135,6 +135,6 @@ class DisplayTest extends TestCase
         $hint = HintDirective::create($txt);
         $this->assertInstanceOf(HintDirective::class, $hint);
         $this->assertEquals("Hint", $hint->type);
-        $this->assertEquals($txt, $hint->text);
+        $this->assertEquals($txt, $hint->hint);
     }
 }
