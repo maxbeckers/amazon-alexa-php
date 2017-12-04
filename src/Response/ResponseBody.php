@@ -7,7 +7,7 @@ use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class ResponseBody
+class ResponseBody implements \JsonSerializable
 {
     /**
      * @var OutputSpeech|null
@@ -42,5 +42,30 @@ class ResponseBody
     public function addDirective(Directive $directive)
     {
         $this->directives[] = $directive;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        $data = [];
+        if (null !== $this->outputSpeech) {
+            $data['outputSpeech'] = $this->outputSpeech;
+        }
+        if (null !== $this->card) {
+            $data['card'] = $this->card;
+        }
+        if (null !== $this->reprompt) {
+            $data['reprompt'] = $this->reprompt;
+        }
+        if (null !== $this->shouldEndSession) {
+            $data['shouldEndSession'] = $this->shouldEndSession;
+        }
+        if (!empty($this->directives)) {
+            $data['directives'] = $this->directives;
+        }
+
+        return $data;
     }
 }

@@ -31,4 +31,19 @@ class VideoItem
 
         return $request;
     }
+
+    /**
+     * @param string $source
+     * @param Metadata|null $metadata
+     * @return VideoItem
+     */
+    public static function create(string $source, Metadata $metadata = null): VideoItem
+    {
+        $videoItem = new self();
+
+        $videoItem->source   = $source;
+        $videoItem->metadata = $metadata;
+
+        return $videoItem;
+    }
 }
