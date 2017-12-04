@@ -10,6 +10,7 @@ use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackFinishedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackNearlyFinishedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackStartedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackStoppedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\Display\ElementSelectedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\LaunchRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\SessionEndedRequest;
@@ -36,6 +37,8 @@ class Request
         PlaybackFailedRequest::TYPE         => PlaybackFailedRequest::class,
         // System types
         ExceptionEncounteredRequest::TYPE   => ExceptionEncounteredRequest::class,
+        // Display types
+        ElementSelectedRequest::TYPE        => ElementSelectedRequest::class
     ];
 
     /**
