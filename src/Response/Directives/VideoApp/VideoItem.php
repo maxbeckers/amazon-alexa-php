@@ -33,8 +33,9 @@ class VideoItem
     }
 
     /**
-     * @param string $source
+     * @param string        $source
      * @param Metadata|null $metadata
+     *
      * @return VideoItem
      */
     public static function create(string $source, Metadata $metadata = null): VideoItem

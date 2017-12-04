@@ -18,20 +18,20 @@ class ResponseBodyTest extends TestCase
         $this->assertEquals([], $rb->jsonSerialize());
         $rb->shouldEndSession = true;
         $this->assertEquals(["shouldEndSession" => true], $rb->jsonSerialize());
-        $card = new Card();
-        $rb->card = $card;
-        $os = new OutputSpeech();
+        $card             = new Card();
+        $rb->card         = $card;
+        $os               = new OutputSpeech();
         $rb->outputSpeech = $os;
-        $directive = new RenderTemplateDirective();
+        $directive        = new RenderTemplateDirective();
         $rb->addDirective($directive);
-        $reprompt = new Reprompt($rb->outputSpeech);
+        $reprompt     = new Reprompt($rb->outputSpeech);
         $rb->reprompt = $reprompt;
         $this->assertEquals([
-            "outputSpeech" => $os,
-            "card" => $card,
-            "reprompt" => $reprompt,
+            "outputSpeech"     => $os,
+            "card"             => $card,
+            "reprompt"         => $reprompt,
             "shouldEndSession" => true,
-            "directives" => [$directive]
+            "directives"       => [$directive],
         ], $rb->jsonSerialize());
     }
 }

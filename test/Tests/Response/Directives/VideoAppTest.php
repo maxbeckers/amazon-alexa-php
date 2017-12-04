@@ -39,7 +39,7 @@ class VideoAppTest extends TestCase
         $this->assertEquals("http://example.com/video.mp4", $vi->source);
         $this->assertNull($vi->metadata);
 
-        $m = Metadata::create();
+        $m  = Metadata::create();
         $vi = VideoItem::create("http://example.com/video.mp4", $m);
         $this->assertEquals($m, $vi->metadata);
     }

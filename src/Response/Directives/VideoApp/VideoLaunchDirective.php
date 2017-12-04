@@ -19,6 +19,7 @@ class VideoLaunchDirective extends Directive
 
     /**
      * @param VideoItem|null $videoItem
+     *
      * @return VideoLaunchDirective
      */
     public static function create(VideoItem $videoItem = null): VideoLaunchDirective
