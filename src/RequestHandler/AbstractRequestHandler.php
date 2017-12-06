@@ -41,11 +41,12 @@ abstract class AbstractRequestHandler
     abstract public function supportsRequest(Request $request): bool;
 
     /**
-     * Handle the given request end return a response object.
+     * Handle the given request and return a response object or null.
+     * Null may only be returned if Amazon does not allow a response to be sent. This is i.e. the case for a SessionEndedRequest.
      *
      * @param Request $request
      *
-     * @return Response
+     * @return Response|null
      */
-    abstract public function handleRequest(Request $request): Response;
+    abstract public function handleRequest(Request $request);
 }
