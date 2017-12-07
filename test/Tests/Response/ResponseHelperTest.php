@@ -110,4 +110,24 @@ class ResponseHelperTest extends TestCase
         $this->assertSame($renderTemplateDirective1, $responseHelper->response->response->directives[0]);
         $this->assertSame($renderTemplateDirective2, $responseHelper->response->response->directives[1]);
     }
+
+    public function testResetResponse()
+    {
+        $responseHelper = new ResponseHelper();
+        $response1      = $responseHelper->getResponse();
+
+        $responseHelper->resetResponse();
+        $response2 = $responseHelper->getResponse();
+
+        $this->assertNotSame($response1, $response2);
+    }
+
+    public function testAddSessionAttribute()
+    {
+        $responseHelper = new ResponseHelper();
+
+        $responseHelper->addSessionAttribute('key', 'val');
+
+        $this->assertSame($responseHelper->response->sessionAttributes, ['key' => 'val']);
+    }
 }

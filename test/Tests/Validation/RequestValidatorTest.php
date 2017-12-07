@@ -26,19 +26,33 @@ class RequestValidatorTest extends TestCase
         $requestValidator->validate($request);
     }
 
-    public function testInvalidRequestSignature()
+    public function testInvalidSignatureCertChainUrl()
     {
         $requestValidator = new RequestValidator();
 
-        $intentRequest                 = new IntentRequest();
-        $intentRequest->type           = 'test';
-        $intentRequest->timestamp      = new \DateTime();
-        $request                       = new Request();
-        $request->request              = $intentRequest;
-        $request->amazonRequestHeaders = [
-            'SIGNATURECERTCHAINURL' => 'wrong path',
-            'SIGNATURE'             => 'none',
-        ];
+        $intentRequest                  = new IntentRequest();
+        $intentRequest->type            = 'test';
+        $intentRequest->timestamp       = new \DateTime();
+        $request                        = new Request();
+        $request->request               = $intentRequest;
+        $request->signatureCertChainUrl = 'wrong path';
+        $request->signature             = 'none';
+
+        $this->expectException(RequestInvalidSignatureException::class);
+        $requestValidator->validate($request);
+    }
+
+    public function testWrongSignatureCertChainUrl()
+    {
+        $requestValidator = new RequestValidator();
+
+        $intentRequest                  = new IntentRequest();
+        $intentRequest->type            = 'test';
+        $intentRequest->timestamp       = new \DateTime();
+        $request                        = new Request();
+        $request->request               = $intentRequest;
+        $request->signatureCertChainUrl = 'https://s3.amazonaws.com/echo.api/test.pem';
+        $request->signature             = 'none';
 
         $this->expectException(RequestInvalidSignatureException::class);
         $requestValidator->validate($request);
