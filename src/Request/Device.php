@@ -32,7 +32,7 @@ class Device
         $device = new self();
 
         $device->deviceId            = isset($amazonRequest['deviceId']) ? $amazonRequest['deviceId'] : null;
-        $device->supportedInterfaces = isset($amazonRequest['supportedInterfaces']) ? (array)$amazonRequest['supportedInterfaces'] : [];
+        $device->supportedInterfaces = isset($amazonRequest['supportedInterfaces']) ? (array) $amazonRequest['supportedInterfaces'] : [];
         $device->accessToken         = isset($amazonRequest['accessToken']) ? $amazonRequest['accessToken'] : null;
 
         return $device;

@@ -61,7 +61,7 @@ class RequestValidator
         }
 
         // validate cert url
-        if (false === (bool)preg_match("/https:\/\/s3.amazonaws.com(\:443)?\/echo.api\/*/i", $request->signatureCertChainUrl)) {
+        if (false === (bool) preg_match("/https:\/\/s3.amazonaws.com(\:443)?\/echo.api\/*/i", $request->signatureCertChainUrl)) {
             throw new RequestInvalidSignatureException('Invalid cert url.');
         }
 

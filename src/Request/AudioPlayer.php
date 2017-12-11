@@ -39,7 +39,7 @@ class AudioPlayer
         $audioPlayer = new self();
 
         $audioPlayer->token                = isset($amazonRequest['token']) ? $amazonRequest['token'] : null;
-        $audioPlayer->offsetInMilliseconds = isset($amazonRequest['offsetInMilliseconds']) ? (int)$amazonRequest['offsetInMilliseconds'] : null;
+        $audioPlayer->offsetInMilliseconds = isset($amazonRequest['offsetInMilliseconds']) ? (int) $amazonRequest['offsetInMilliseconds'] : null;
         $audioPlayer->playerActivity       = isset($amazonRequest['playerActivity']) ? $amazonRequest['playerActivity'] : null;
 
         return $audioPlayer;
