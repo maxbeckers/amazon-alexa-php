@@ -41,13 +41,13 @@ class ImageSource implements \JsonSerializable
         $data = [];
 
         if (null !== $this->url) {
-            $data['url']                   = $this->url;
+            $data['url'] = $this->url;
         }
         if (null !== $this->size) {
-            $data['size']                 = $this->size;
+            $data['size'] = $this->size;
         }
         if (null !== $this->widthPixels) {
-            $data['widthPixels']   = $this->widthPixels;
+            $data['widthPixels'] = $this->widthPixels;
         }
         if (null !== $this->heightPixels) {
             $data['heightPixels'] = $this->heightPixels;
