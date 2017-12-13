@@ -6,7 +6,7 @@ use MaxBeckers\AmazonAlexa\RequestHandler\RequestHandlerRegistry;
 use MaxBeckers\AmazonAlexa\Validation\RequestValidator;
 
 require '../vendor/autoload.php';
-require 'Handlers/SimpleIntentRequestHandler.php';
+require 'Handlers/CardResponseRequestHandler.php';
 
 /**
  * Simple example for request handling workflow with
@@ -27,7 +27,7 @@ if ($requestBody) {
 
     // add handlers to registry
     $responseHelper         = new ResponseHelper();
-    $mySimpleRequestHandler = new SimpleIntentRequestHandler($responseHelper);
+    $mySimpleRequestHandler = new CardResponseRequestHandler($responseHelper);
     $requestHandlerRegistry = new RequestHandlerRegistry();
     $requestHandlerRegistry->addHandler($mySimpleRequestHandler);
 
