@@ -34,6 +34,26 @@ class ImageSource implements \JsonSerializable
     public $heightPixels;
 
     /**
+     * @param string      $url
+     * @param string|null $size
+     * @param int|null    $widthPixels
+     * @param int|null    $heightPixels
+     *
+     * @return ImageSource
+     */
+    public static function create($url, $size = null, $widthPixels = null, $heightPixels = null): self
+    {
+        $imageSource = new self();
+
+        $imageSource->url          = $url;
+        $imageSource->size         = $size;
+        $imageSource->widthPixels  = $widthPixels;
+        $imageSource->heightPixels = $heightPixels;
+
+        return $imageSource;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()
@@ -54,25 +74,5 @@ class ImageSource implements \JsonSerializable
         }
 
         return $data;
-    }
-
-    /**
-     * @param string      $url
-     * @param string|null $size
-     * @param int|null    $widthPixels
-     * @param int|null    $heightPixels
-     *
-     * @return ImageSource
-     */
-    public static function create($url, $size = null, $widthPixels = null, $heightPixels = null): self
-    {
-        $imageSource = new self();
-
-        $imageSource->url          = $url;
-        $imageSource->size         = $size;
-        $imageSource->widthPixels  = $widthPixels;
-        $imageSource->heightPixels = $heightPixels;
-
-        return $imageSource;
     }
 }

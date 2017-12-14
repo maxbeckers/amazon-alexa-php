@@ -43,9 +43,10 @@ class CardResponseRequestHandler extends AbstractRequestHandler
      */
     public function handleRequest(Request $request): Response
     {
-        $card = new Card(Card::TYPE_SIMPLE);
-        $card->title = 'Example of the Card Title';
-        $card->content = "Example of card content. This card has just plain text content.\nThe content is formatted with line breaks to improve readability.";
+        $card = Card::createSimple(
+            'Example of the Card Title',
+            "Example of card content. This card has just plain text content.\nThe content is formatted with line breaks to improve readability."
+        );
         $this->responseHelper->card($card);
 
         return $this->responseHelper->respond('Text to speak back to the user.');
