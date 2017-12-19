@@ -7,9 +7,10 @@ use MaxBeckers\AmazonAlexa\Validation\RequestValidator;
 
 require '../vendor/autoload.php';
 require 'Handlers/CardResponseRequestHandler.php';
+require 'Handlers/HelpRequestHandler.php';
 
 /**
- * Simple example for request handling workflow with
+ * Simple example for request handling workflow with card response and help example
  * loading json
  * creating request
  * validating request
@@ -27,8 +28,10 @@ if ($requestBody) {
 
     // add handlers to registry
     $responseHelper         = new ResponseHelper();
+    $helpRequestHandler     = new HelpRequestHandler($responseHelper);
     $mySimpleRequestHandler = new CardResponseRequestHandler($responseHelper);
     $requestHandlerRegistry = new RequestHandlerRegistry();
+    $requestHandlerRegistry->addHandler($helpRequestHandler);
     $requestHandlerRegistry->addHandler($mySimpleRequestHandler);
 
     // handle request
