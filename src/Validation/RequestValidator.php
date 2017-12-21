@@ -7,11 +7,29 @@ use MaxBeckers\AmazonAlexa\Exception\RequestInvalidTimestampException;
 use MaxBeckers\AmazonAlexa\Request\Request;
 
 /**
+ * This is a validator for amazon echo requests. It validates the timestamp of the request and the request signature.
+ *
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
 class RequestValidator
 {
+    /**
+     * Default value for timestamp validation. 150 seconds is suggested by amazon.
+     */
     const TIMESTAMP_VALID_TOLERANCE_SECONDS = 150;
+
+    /**
+     * @var int
+     */
+    protected $timestampTolerance;
+
+    /**
+     * @param int $timestampTolerance
+     */
+    public function __construct($timestampTolerance = self::TIMESTAMP_VALID_TOLERANCE_SECONDS)
+    {
+        $this->timestampTolerance = $timestampTolerance;
+    }
 
     /**
      * Validate request data.
@@ -40,7 +58,7 @@ class RequestValidator
 
         $differenceInSeconds = time() - $request->request->timestamp->getTimestamp();
 
-        if ($differenceInSeconds > self::TIMESTAMP_VALID_TOLERANCE_SECONDS) {
+        if ($differenceInSeconds > $this->timestampTolerance) {
             throw new RequestInvalidTimestampException('Invalid timestamp.');
         }
     }
@@ -66,7 +84,7 @@ class RequestValidator
         }
 
         // check if pem file is already downloaded to temp or download.
-        $localCertPath = sys_get_temp_dir().'/'.md5($request->signatureCertChainUrl).'.pem';
+        $localCertPath = sys_get_temp_dir().DIRECTORY_SEPARATOR.md5($request->signatureCertChainUrl).'.pem';
         if (!file_exists($localCertPath)) {
             $certData = @file_get_contents($request->signatureCertChainUrl);
             @file_put_contents($localCertPath, $certData);
