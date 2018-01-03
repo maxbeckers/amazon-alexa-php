@@ -83,5 +83,17 @@ public function handleRequest(Request $request): Response
     return $this->responseHelper->respond('Success :)');
 }
 ```
+## Generate SSML
+For SSML output you can use the `SsmlGenerator`. With the helper will generate valid SSML for alexa. All types of alexa known SSML tags have a function in the `SsmlGeneator`. 
+You can add all SSML you need to the generator and call `getSsml` to get the full string.
+```php
+$ssmlGenerator = new SsmlGenerator();
+$ssmlGenerator->say('one');
+$ssmlGenerator->pauseStrength(SsmlGenerator::BREAK_STRENGTH_MEDIUM);
+$ssmlGenerator->say('two');
+$ssml = $ssmlGenerator->getSsml();
+// $ssml === '<speak>one <break strength="medium" /> two</speak>'
+```
+
 ## Symfony Integration
 There is also a symfony bundle on [maxbeckers/amazon-alexa-bundle](https://github.com/maxbeckers/amazon-alexa-bundle).
