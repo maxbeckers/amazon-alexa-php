@@ -9,6 +9,16 @@ use PHPUnit\Framework\TestCase;
  */
 class SsmlGeneratorTest extends TestCase
 {
+    public function testClear()
+    {
+        $ssmlGenerator = new SsmlGenerator();
+        $this->assertSame('<speak></speak>', $ssmlGenerator->getSsml());
+        $ssmlGenerator->say('Just a Test.');
+        $this->assertSame('<speak>Just a Test.</speak>', $ssmlGenerator->getSsml());
+        $ssmlGenerator->clear();
+        $this->assertSame('<speak></speak>', $ssmlGenerator->getSsml());
+    }
+
     public function testSay()
     {
         $ssmlGenerator = new SsmlGenerator();
