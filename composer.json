@@ -18,7 +18,8 @@
     "php72",
     "skill",
     "alexa-custom-skill",
-    "library"
+    "library",
+    "ssml"
   ],
   "license": "MIT",
   "support": {

@@ -15,6 +15,14 @@ class SsmlGenerator implements SsmlTypes
     private $parts = [];
 
     /**
+     * Clear the current ssml parts.
+     */
+    public function clear()
+    {
+        $this->parts = [];
+    }
+
+    /**
      * @return string
      */
     public function getSsml()
