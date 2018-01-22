@@ -27,15 +27,17 @@ class PlayDirective extends Directive
 
     /**
      * @param AudioItem $audioItem
+     * @param string    $playBehavior
      *
      * @return PlayDirective
      */
-    public static function create(AudioItem $audioItem): self
+    public static function create(AudioItem $audioItem, string $playBehavior = self::PLAY_BEHAVIOR_REPLACE_ALL): self
     {
         $playDirective = new self();
 
-        $playDirective->type      = self::TYPE;
-        $playDirective->audioItem = $audioItem;
+        $playDirective->type         = self::TYPE;
+        $playDirective->audioItem    = $audioItem;
+        $playDirective->playBehavior = $playBehavior;
 
         return $playDirective;
     }
