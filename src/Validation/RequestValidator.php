@@ -2,6 +2,7 @@
 
 namespace MaxBeckers\AmazonAlexa\Validation;
 
+use MaxBeckers\AmazonAlexa\Exception\OutdatedCertExceptionException;
 use MaxBeckers\AmazonAlexa\Exception\RequestInvalidSignatureException;
 use MaxBeckers\AmazonAlexa\Exception\RequestInvalidTimestampException;
 use MaxBeckers\AmazonAlexa\Request\Request;
@@ -39,7 +40,12 @@ class RequestValidator
     public function validate(Request $request)
     {
         $this->validateTimestamp($request);
-        $this->validateSignature($request);
+        try {
+            $this->validateSignature($request);
+        } catch (OutdatedCertExceptionException $e) {
+            // load cert again and validate because temp file was outdatet.
+            $this->validateSignature($request);
+        }
     }
 
     /**
@@ -115,7 +121,7 @@ class RequestValidator
             if (file_exists($localCertPath)) {
                 @unlink($localCertPath);
             }
-            throw new RequestInvalidSignatureException('Cert is outdated.');
+            throw new OutdatedCertExceptionException('Cert is outdated.');
         }
     }
 }
