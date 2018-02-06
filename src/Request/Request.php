@@ -11,6 +11,10 @@ use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackNearlyFinishedReq
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackStartedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackStoppedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Display\ElementSelectedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\NextCommandIssued;
+use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\PauseCommandIssued;
+use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\PlayCommandIssued;
+use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\PreviousCommandIssued;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\LaunchRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\SessionEndedRequest;
@@ -35,6 +39,11 @@ class Request
         PlaybackFinishedRequest::TYPE       => PlaybackFinishedRequest::class,
         PlaybackStoppedRequest::TYPE        => PlaybackStoppedRequest::class,
         PlaybackFailedRequest::TYPE         => PlaybackFailedRequest::class,
+        // PlaybackController types
+        NextCommandIssued::TYPE             => NextCommandIssued::class,
+        PauseCommandIssued::TYPE            => PauseCommandIssued::class,
+        PlayCommandIssued::TYPE             => PlayCommandIssued::class,
+        PreviousCommandIssued::TYPE         => PreviousCommandIssued::class,
         // System types
         ExceptionEncounteredRequest::TYPE   => ExceptionEncounteredRequest::class,
         // Display types
