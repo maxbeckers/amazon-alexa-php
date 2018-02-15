@@ -1,7 +1,7 @@
 # Change Log
 
 ## [1.1.0](https://github.com/maxbeckers/amazon-alexa-php/tree/1.1.0) (2018-02-15)
-[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.0.16...1.1.0)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.0.0...1.1.0)
 
 **Closed issues:**
 
