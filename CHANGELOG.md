@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.1.0](https://github.com/maxbeckers/amazon-alexa-php/tree/1.1.0) (2018-02-15)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.0.16...1.1.0)
+
+**Closed issues:**
+
+- Service for device address information [\#20](https://github.com/maxbeckers/amazon-alexa-php/issues/20)
+
 ## [1.0.16](https://github.com/maxbeckers/amazon-alexa-php/tree/1.0.16) (2018-02-06)
 [Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.0.15...1.0.16)
 

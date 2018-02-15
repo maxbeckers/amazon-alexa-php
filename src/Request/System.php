@@ -25,6 +25,11 @@ class System
     /**
      * @var string|null
      */
+    public $apiAccessToken;
+
+    /**
+     * @var string|null
+     */
     public $apiEndpoint;
 
     /**
@@ -36,10 +41,11 @@ class System
     {
         $system = new self();
 
-        $system->application = isset($amazonRequest['application']) ? Application::fromAmazonRequest($amazonRequest['application']) : null;
-        $system->user        = isset($amazonRequest['user']) ? User::fromAmazonRequest($amazonRequest['user']) : null;
-        $system->device      = isset($amazonRequest['device']) ? Device::fromAmazonRequest($amazonRequest['device']) : null;
-        $system->apiEndpoint = isset($amazonRequest['apiEndpoint']) ? $amazonRequest['apiEndpoint'] : null;
+        $system->application    = isset($amazonRequest['application']) ? Application::fromAmazonRequest($amazonRequest['application']) : null;
+        $system->user           = isset($amazonRequest['user']) ? User::fromAmazonRequest($amazonRequest['user']) : null;
+        $system->device         = isset($amazonRequest['device']) ? Device::fromAmazonRequest($amazonRequest['device']) : null;
+        $system->apiAccessToken = isset($amazonRequest['apiAccessToken']) ? $amazonRequest['apiAccessToken'] : null;
+        $system->apiEndpoint    = isset($amazonRequest['apiEndpoint']) ? $amazonRequest['apiEndpoint'] : null;
 
         return $system;
     }
