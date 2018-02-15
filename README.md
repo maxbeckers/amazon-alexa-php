@@ -83,6 +83,13 @@ public function handleRequest(Request $request): Response
     return $this->responseHelper->respond('Success :)');
 }
 ```
+## Check device address information
+To get either "Full Address" or "Country & Postal Code" from the customer you need the permissions for user api call. More informations for the call see [device-address-api](https://developer.amazon.com/de/docs/custom-skills/device-address-api.html).
+```php
+$helper = new DeviceAddressInformationHelper();
+$fullAddress = $helper->getAddress($request);
+$countryAndPostalCode = $helper->getCountryAndPostalCode($request);
+```
 ## Generate SSML
 For SSML output you can use the `SsmlGenerator`. With the helper will generate valid SSML for alexa. All types of alexa known SSML tags have a function in the `SsmlGeneator`. 
 You can add all SSML you need to the generator and call `getSsml` to get the full string.

@@ -35,6 +35,7 @@
           "AudioPlayer": {}
         }
       },
+      "apiAccessToken": "apiAccessToken",
       "apiEndpoint": "apiEndpoint"
     },
     "AudioPlayer": {
