@@ -78,7 +78,7 @@ return
                          'php_unit_construct'                          => true,
                          'php_unit_dedicate_assert'                    => true,
                          'php_unit_fqcn_annotation'                    => true,
-                         'php_unit_strict'                             => true,
+                         'php_unit_strict'                             => false,
                          'phpdoc_add_missing_param_annotation'         => true,
                          'phpdoc_align'                                => true,
                          'phpdoc_annotation_without_dot'               => true,
