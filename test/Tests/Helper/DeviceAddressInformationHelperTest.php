@@ -1,7 +1,5 @@
 <?php
 
-namespace tet;
-
 use GuzzleHttp\Client;
 use MaxBeckers\AmazonAlexa\Exception\DeviceApiCallException;
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestDataException;
@@ -40,7 +38,7 @@ class DeviceAddressInformationHelperTest extends TestCase
                     ->willReturn(json_encode($responseData));
 
         $deviceAddressInformationHelper = new DeviceAddressInformationHelper($client);
-        $this->assertSame(
+        $this->assertEquals(
             Device\DeviceAddressInformation::fromApiResponse($responseData),
             $deviceAddressInformationHelper->getCountryAndPostalCode($this->createDummyRequest('id', 'https://test.com', 'test'))
         );
@@ -97,7 +95,7 @@ class DeviceAddressInformationHelperTest extends TestCase
                     ->willReturn(json_encode($responseData));
 
         $deviceAddressInformationHelper = new DeviceAddressInformationHelper($client);
-        $this->assertSame(
+        $this->assertEquals(
             Device\DeviceAddressInformation::fromApiResponse($responseData),
             $deviceAddressInformationHelper->getAddress($this->createDummyRequest('id', 'https://test.com', 'test'))
         );
