@@ -2,6 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/maxbeckers/amazon-alexa-php/badge.svg?branch=master)](https://coveralls.io/github/maxbeckers/amazon-alexa-php?branch=master)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/maxbeckers/amazon-alexa-php/issues)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/maxbeckers/amazon-alexa-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/maxbeckers/amazon-alexa-php/?branch=master)
 
 # Amazon alexa php library
 This library is a helper for amazon echo (alexa) skills with php. With this library it's very simple to handle alexa requests in your php application. You only create some handlers for the requests of your alexa skill and add them to a registry.
