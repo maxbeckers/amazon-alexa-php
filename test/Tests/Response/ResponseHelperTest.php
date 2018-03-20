@@ -25,11 +25,33 @@ class ResponseHelperTest extends TestCase
         $this->assertFalse($response->response->shouldEndSession);
     }
 
+    public function testAddResponseText()
+    {
+        $responseHelper = new ResponseHelper();
+
+        $response = $responseHelper->addResponseText(self::RESPOND)->getResponse();
+
+        $this->assertInstanceOf(OutputSpeech::class, $response->response->outputSpeech);
+        $this->assertSame(self::RESPOND, $response->response->outputSpeech->text);
+        $this->assertFalse($response->response->shouldEndSession);
+    }
+
     public function testRespondTextEndSession()
     {
         $responseHelper = new ResponseHelper();
 
         $response = $responseHelper->respond(self::RESPOND, true);
+
+        $this->assertInstanceOf(OutputSpeech::class, $response->response->outputSpeech);
+        $this->assertSame(self::RESPOND, $response->response->outputSpeech->text);
+        $this->assertTrue($response->response->shouldEndSession);
+    }
+
+    public function testAddResponseTextEndSession()
+    {
+        $responseHelper = new ResponseHelper();
+
+        $response = $responseHelper->addResponseText(self::RESPOND, true)->getResponse();
 
         $this->assertInstanceOf(OutputSpeech::class, $response->response->outputSpeech);
         $this->assertSame(self::RESPOND, $response->response->outputSpeech->text);
@@ -47,11 +69,33 @@ class ResponseHelperTest extends TestCase
         $this->assertFalse($response->response->shouldEndSession);
     }
 
+    public function testAddResponseSsml()
+    {
+        $responseHelper = new ResponseHelper();
+
+        $response = $responseHelper->addResponseSsml(self::RESPOND)->getResponse();
+
+        $this->assertInstanceOf(OutputSpeech::class, $response->response->outputSpeech);
+        $this->assertSame(self::RESPOND, $response->response->outputSpeech->ssml);
+        $this->assertFalse($response->response->shouldEndSession);
+    }
+
     public function testRespondSsmlEndSession()
     {
         $responseHelper = new ResponseHelper();
 
         $response = $responseHelper->respondSsml(self::RESPOND, true);
+
+        $this->assertInstanceOf(OutputSpeech::class, $response->response->outputSpeech);
+        $this->assertSame(self::RESPOND, $response->response->outputSpeech->ssml);
+        $this->assertTrue($response->response->shouldEndSession);
+    }
+
+    public function testAddResponseSsmlEndSession()
+    {
+        $responseHelper = new ResponseHelper();
+
+        $response = $responseHelper->addResponseSsml(self::RESPOND, true)->getResponse();
 
         $this->assertInstanceOf(OutputSpeech::class, $response->response->outputSpeech);
         $this->assertSame(self::RESPOND, $response->response->outputSpeech->ssml);
@@ -68,11 +112,31 @@ class ResponseHelperTest extends TestCase
         $this->assertSame(self::REPROMPT, $response->response->reprompt->outputSpeech->text);
     }
 
+    public function testAddRepromptText()
+    {
+        $responseHelper = new ResponseHelper();
+
+        $response = $responseHelper->addRepromptText(self::REPROMPT)->getResponse();
+
+        $this->assertInstanceOf(OutputSpeech::class, $response->response->reprompt->outputSpeech);
+        $this->assertSame(self::REPROMPT, $response->response->reprompt->outputSpeech->text);
+    }
+
     public function testRepromptSsml()
     {
         $responseHelper = new ResponseHelper();
 
         $response = $responseHelper->repromptSsml(self::REPROMPT);
+
+        $this->assertInstanceOf(OutputSpeech::class, $response->response->reprompt->outputSpeech);
+        $this->assertSame(self::REPROMPT, $response->response->reprompt->outputSpeech->ssml);
+    }
+
+    public function testAddRepromptSsml()
+    {
+        $responseHelper = new ResponseHelper();
+
+        $response = $responseHelper->addRepromptSsml(self::REPROMPT)->getResponse();
 
         $this->assertInstanceOf(OutputSpeech::class, $response->response->reprompt->outputSpeech);
         $this->assertSame(self::REPROMPT, $response->response->reprompt->outputSpeech->ssml);
@@ -88,12 +152,32 @@ class ResponseHelperTest extends TestCase
         $this->assertSame($testCard, $response->response->card);
     }
 
+    public function testAddCard()
+    {
+        $responseHelper = new ResponseHelper();
+        $testCard       = new Card();
+
+        $response = $responseHelper->addCard($testCard)->getResponse();
+
+        $this->assertSame($testCard, $response->response->card);
+    }
+
     public function testRenderTemplateDirective()
     {
         $responseHelper          = new ResponseHelper();
         $renderTemplateDirective = new RenderTemplateDirective();
 
         $response = $responseHelper->directive($renderTemplateDirective);
+
+        $this->assertSame($renderTemplateDirective, $response->response->directives[0]);
+    }
+
+    public function testFluentRenderTemplateDirective()
+    {
+        $responseHelper          = new ResponseHelper();
+        $renderTemplateDirective = new RenderTemplateDirective();
+
+        $response = $responseHelper->addDirective($renderTemplateDirective)->getResponse();
 
         $this->assertSame($renderTemplateDirective, $response->response->directives[0]);
     }
@@ -106,6 +190,19 @@ class ResponseHelperTest extends TestCase
 
         $responseHelper->directive($renderTemplateDirective1);
         $responseHelper->directive($renderTemplateDirective2);
+
+        $this->assertSame($renderTemplateDirective1, $responseHelper->response->response->directives[0]);
+        $this->assertSame($renderTemplateDirective2, $responseHelper->response->response->directives[1]);
+    }
+
+    public function testFluentRenderTemplateDirectives()
+    {
+        $responseHelper           = new ResponseHelper();
+        $renderTemplateDirective1 = new RenderTemplateDirective();
+        $renderTemplateDirective2 = new RenderTemplateDirective();
+
+        $responseHelper->addDirective($renderTemplateDirective1)
+                    ->addDirective($renderTemplateDirective2);
 
         $this->assertSame($renderTemplateDirective1, $responseHelper->response->response->directives[0]);
         $this->assertSame($renderTemplateDirective2, $responseHelper->response->response->directives[1]);
