@@ -38,12 +38,27 @@ class ResponseHelper
      */
     public function respond(string $text, $endSession = false): Response
     {
+        $this->addResponseText($text, $endSession);
+
+        return $this->response;
+    }
+
+    /**
+     * Add a plaintext respond to response.
+     *
+     * @param string $text
+     * @param bool   $endSession
+     *
+     * @return ResponseHelper
+     */
+    public function addResponseText(string $text, $endSession = false): ResponseHelper
+    {
         $outputSpeech = OutputSpeech::createByText($text);
 
         $this->response->response->outputSpeech     = $outputSpeech;
         $this->response->response->shouldEndSession = $endSession;
 
-        return $this->response;
+        return $this;
     }
 
     /**
@@ -56,12 +71,27 @@ class ResponseHelper
      */
     public function respondSsml(string $ssml, $endSession = false): Response
     {
+        $this->addResponseSsml($ssml, $endSession);
+
+        return $this->response;
+    }
+
+    /**
+     * Add a ssml respond to response.
+     *
+     * @param string $ssml
+     * @param bool   $endSession
+     *
+     * @return ResponseHelper
+     */
+    public function addResponseSsml(string $ssml, $endSession = false): ResponseHelper
+    {
         $outputSpeech = OutputSpeech::createBySsml($ssml);
 
         $this->response->response->outputSpeech     = $outputSpeech;
         $this->response->response->shouldEndSession = $endSession;
 
-        return $this->response;
+        return $this;
     }
 
     /**
@@ -73,12 +103,26 @@ class ResponseHelper
      */
     public function reprompt(string $text)
     {
+        $this->addRepromptText($text);
+
+        return $this->response;
+    }
+
+    /**
+     * Add a plaintext reprompt to response.
+     *
+     * @param string $text
+     *
+     * @return ResponseHelper
+     */
+    public function addRepromptText(string $text): ResponseHelper
+    {
         $outputSpeech = OutputSpeech::createByText($text);
         $reprompt     = new Reprompt($outputSpeech);
 
         $this->response->response->reprompt = $reprompt;
 
-        return $this->response;
+        return $this;
     }
 
     /**
@@ -90,12 +134,26 @@ class ResponseHelper
      */
     public function repromptSsml(string $ssml)
     {
+        $this->addRepromptSsml($ssml);
+
+        return $this->response;
+    }
+
+    /**
+     * Add a ssml reprompt to response.
+     *
+     * @param string $ssml
+     *
+     * @return ResponseHelper
+     */
+    public function addRepromptSsml(string $ssml): ResponseHelper
+    {
         $outputSpeech = OutputSpeech::createBySsml($ssml);
         $reprompt     = new Reprompt($outputSpeech);
 
         $this->response->response->reprompt = $reprompt;
 
-        return $this->response;
+        return $this;
     }
 
     /**
@@ -113,6 +171,20 @@ class ResponseHelper
     }
 
     /**
+     * Add a card to response.
+     *
+     * @param Card $card
+     *
+     * @return ResponseHelper
+     */
+    public function addCard(Card $card): ResponseHelper
+    {
+        $this->response->response->card = $card;
+
+        return $this;
+    }
+
+    /**
      * Add a directive to response.
      *
      * @param Directive $directive
@@ -127,14 +199,31 @@ class ResponseHelper
     }
 
     /**
+     * Add a directive to response.
+     *
+     * @param Directive $directive
+     *
+     * @return ResponseHelper
+     */
+    public function addDirective(Directive $directive): ResponseHelper
+    {
+        $this->response->response->addDirective($directive);
+
+        return $this;
+    }
+
+    /**
      * Add a new attribute to response session attributes.
      *
      * @param string $key
      * @param string $value
+     * @return ResponseHelper
      */
-    public function addSessionAttribute(string $key, string $value)
+    public function addSessionAttribute(string $key, string $value): ResponseHelper
     {
         $this->response->sessionAttributes[$key] = $value;
+
+        return $this;
     }
 
     /**
