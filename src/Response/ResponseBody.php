@@ -49,7 +49,8 @@ class ResponseBody implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $data = [];
+        $data = new \ArrayObject();
+
         if (null !== $this->outputSpeech) {
             $data['outputSpeech'] = $this->outputSpeech;
         }

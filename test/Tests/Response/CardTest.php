@@ -15,11 +15,11 @@ class CardTest extends TestCase
         $content = 'content';
 
         $card = Card::createSimple($title, $content);
-        $this->assertSame([
+        $this->assertEquals(new ArrayObject([
             'type'    => Card::TYPE_SIMPLE,
             'title'   => $title,
             'content' => $content,
-        ], $card->jsonSerialize());
+        ]), $card->jsonSerialize());
     }
 
     public function testStandardCardWithoutImage()
@@ -28,11 +28,11 @@ class CardTest extends TestCase
         $text  = 'content';
 
         $card = Card::createStandard($title, $text);
-        $this->assertSame([
+        $this->assertEquals(new ArrayObject([
             'type'  => Card::TYPE_STANDARD,
             'title' => $title,
             'text'  => $text,
-        ], $card->jsonSerialize());
+        ]), $card->jsonSerialize());
     }
 
     public function testStandardCardWithImage()
@@ -42,19 +42,19 @@ class CardTest extends TestCase
         $image  = CardImage::fromUrls('https://www.img.test/small.png', 'https://www.img.test/large.png');
 
         $card = Card::createStandard($title, $text, $image);
-        $this->assertSame([
+        $this->assertEquals(new ArrayObject([
             'type'   => Card::TYPE_STANDARD,
             'title'  => $title,
             'text'   => $text,
             'image'  => $image,
-        ], $card->jsonSerialize());
+        ]), $card->jsonSerialize());
     }
 
     public function testLinkAccount()
     {
         $card = Card::createLinkAccount();
-        $this->assertSame([
+        $this->assertEquals(new ArrayObject([
             'type'  => Card::TYPE_LINK_ACCOUNT,
-        ], $card->jsonSerialize());
+        ]), $card->jsonSerialize());
     }
 }
