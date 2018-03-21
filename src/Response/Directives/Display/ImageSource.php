@@ -58,7 +58,7 @@ class ImageSource implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $data = [];
+        $data = new \ArrayObject();
 
         if (null !== $this->url) {
             $data['url'] = $this->url;
