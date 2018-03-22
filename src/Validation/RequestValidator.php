@@ -58,7 +58,7 @@ class RequestValidator
      */
     private function validateTimestamp(Request $request)
     {
-        if (!$request->request->validateTimestamp()) {
+        if (null === $request->request || !$request->request->validateTimestamp()) {
             return;
         }
 
@@ -80,7 +80,7 @@ class RequestValidator
      */
     private function validateSignature(Request $request)
     {
-        if (!$request->request->validateSignature()) {
+        if (null === $request->request || !$request->request->validateSignature()) {
             return;
         }
 
