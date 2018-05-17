@@ -16,6 +16,14 @@ class RequestHandlerRegistry
     private $requestHandlers = [];
 
     /**
+     * @param AbstractRequestHandler[] $requestHandlers
+     */
+    public function __construct(array $requestHandlers = [])
+    {
+        $this->requestHandlers = $requestHandlers;
+    }
+
+    /**
      * @param Request $request
      *
      * @throws MissingRequestHandlerException
