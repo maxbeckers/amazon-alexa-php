@@ -13,7 +13,15 @@ class RequestHandlerRegistry
     /**
      * @var AbstractRequestHandler[]
      */
-    private $requestHandlers = [];
+    private $requestHandlers;
+
+    /**
+     * @param AbstractRequestHandler[] $requestHandlers
+     */
+    public function __construct(array $requestHandlers = [])
+    {
+        $this->requestHandlers = $requestHandlers;
+    }
 
     /**
      * @param Request $request

@@ -30,9 +30,7 @@ if ($requestBody) {
     $responseHelper         = new ResponseHelper();
     $helpRequestHandler     = new HelpRequestHandler($responseHelper);
     $mySimpleRequestHandler = new SimpleIntentRequestHandler($responseHelper);
-    $requestHandlerRegistry = new RequestHandlerRegistry();
-    $requestHandlerRegistry->addHandler($helpRequestHandler);
-    $requestHandlerRegistry->addHandler($mySimpleRequestHandler);
+    $requestHandlerRegistry = new RequestHandlerRegistry([$helpRequestHandler, $mySimpleRequestHandler]);
 
     // handle request
     $requestHandler = $requestHandlerRegistry->getSupportingHandler($alexaRequest);
