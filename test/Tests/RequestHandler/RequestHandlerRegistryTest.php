@@ -41,6 +41,29 @@ class RequestHandlerRegistryTest extends TestCase
         $this->assertSame($handler, $registry->getSupportingHandler($request));
     }
 
+    public function testSimpleRequestAddHandlerByConstructor()
+    {
+        $responseHelper = new ResponseHelper();
+        $handler        = new SimpleTestRequestHandler($responseHelper);
+        $registry       = new RequestHandlerRegistry([$handler]);
+
+        $intentRequest              = new IntentRequest();
+        $intentRequest->type        = 'test';
+        $application                = new Application();
+        $application->applicationId = 'my_amazon_skill_id';
+        $system                     = new System();
+        $system->application        = $application;
+        $context                    = new Context();
+        $context->system            = $system;
+        $request                    = new Request();
+        $request->request           = $intentRequest;
+        $request->context           = $context;
+
+        $registry->getSupportingHandler($request);
+
+        $this->assertSame($handler, $registry->getSupportingHandler($request));
+    }
+
     public function testMissingHandlerRequest()
     {
         $registry = new RequestHandlerRegistry();
