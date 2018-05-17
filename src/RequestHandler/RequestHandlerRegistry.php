@@ -13,7 +13,7 @@ class RequestHandlerRegistry
     /**
      * @var AbstractRequestHandler[]
      */
-    private $requestHandlers = [];
+    private $requestHandlers;
 
     /**
      * @param AbstractRequestHandler[] $requestHandlers
