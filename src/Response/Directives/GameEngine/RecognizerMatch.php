@@ -46,7 +46,7 @@ class RecognizerMatch extends Recognizer
      *
      * @return RecognizerMatch
      */
-    public static function create(string $anchor, bool $fuzzy, array $gadgetIds, array $actions, array $pattern): self
+    public static function create(string $anchor, bool $fuzzy, array $gadgetIds = [], array $actions = [], array $pattern = []): self
     {
         $recognizer = new self();
 

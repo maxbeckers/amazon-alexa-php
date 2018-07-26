@@ -7,9 +7,9 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\GameEngine;
  */
 class Event
 {
-    const REPORTS_HISTORY = "history";
-    const REPORTS_MATCHES = "matches";
-    const REPORTS_NOTHING = "nothing";
+    const REPORTS_HISTORY = 'history';
+    const REPORTS_MATCHES = 'matches';
+    const REPORTS_NOTHING = 'nothing';
 
     /**
      * @var array
