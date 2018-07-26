@@ -28,12 +28,14 @@ class GameEngineTest extends TestCase
             'test_progress'  => RecognizerProgress::create('test_match', 5),
         ];
         $events      = [
-            'test_match' => Event::create(['test_match'], true, Event::REPORTS_HISTORY, 1, 1000),
+            'test_match' => Event::create(['test_match'], true, ['test_deviation'], Event::REPORTS_HISTORY, 1, 1000),
         ];
 
         $startInputHandlerDirective = StartInputHandlerDirective::create(5000, $recognizers, $events);
         $this->assertSame('GameEngine.StartInputHandler', $startInputHandlerDirective->type);
         $this->assertSame(5000, $startInputHandlerDirective->timeout);
+        $this->assertSame('match', $startInputHandlerDirective->recognizers['test_match']->type);
+        $this->assertSame(Event::REPORTS_HISTORY, $startInputHandlerDirective->events['test_match']->reports);
     }
 
     public function testStopInputHandlerDirective()
