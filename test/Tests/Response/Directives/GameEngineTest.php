@@ -1,9 +1,5 @@
 <?php
 
-use MaxBeckers\AmazonAlexa\Response\Directives\GadgetController\Animations;
-use MaxBeckers\AmazonAlexa\Response\Directives\GadgetController\Parameters;
-use MaxBeckers\AmazonAlexa\Response\Directives\GadgetController\Sequence;
-use MaxBeckers\AmazonAlexa\Response\Directives\GadgetController\SetLightDirective;
 use MaxBeckers\AmazonAlexa\Response\Directives\GameEngine\Event;
 use MaxBeckers\AmazonAlexa\Response\Directives\GameEngine\Pattern;
 use MaxBeckers\AmazonAlexa\Response\Directives\GameEngine\RecognizerDeviation;
