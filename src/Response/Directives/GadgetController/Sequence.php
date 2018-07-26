@@ -27,16 +27,16 @@ class Sequence
      * @param string $color
      * @param bool   $blend
      *
-     * @return Parameters
+     * @return Sequence
      */
     public static function create(int $durationMs, string $color, bool $blend = false): self
     {
-        $animations = new self();
+        $sequence = new self();
 
-        $animations->durationMs       = $durationMs;
-        $animations->color            = $color;
-        $animations->blend            = $blend;
+        $sequence->durationMs = $durationMs;
+        $sequence->color      = $color;
+        $sequence->blend      = $blend;
 
-        return $animations;
+        return $sequence;
     }
 }
