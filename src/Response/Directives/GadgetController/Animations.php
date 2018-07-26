@@ -27,7 +27,7 @@ class Animations
      * @param array      $targetLights
      * @param Sequence[] $sequence
      *
-     * @return Parameters
+     * @return Animations
      */
     public static function create(int $repeat, array $targetLights = [], array $sequence = []): self
     {
