@@ -91,7 +91,7 @@ class Card implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $data = [];
+        $data = new \ArrayObject();
 
         if (null !== $this->type) {
             $data['type'] = $this->type;

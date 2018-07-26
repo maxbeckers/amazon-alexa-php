@@ -54,7 +54,7 @@ class DisplayTest extends TestCase
         $this->assertNull($imageSource->size);
         $this->assertNull($imageSource->widthPixels);
         $this->assertNull($imageSource->heightPixels);
-        $this->assertSame(['url' => $imgUrl], $imageSource->jsonSerialize());
+        $this->assertEquals(new ArrayObject(['url' => $imgUrl]), $imageSource->jsonSerialize());
     }
 
     public function testImage()
