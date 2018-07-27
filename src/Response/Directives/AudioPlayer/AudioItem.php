@@ -12,7 +12,12 @@ class AudioItem
      */
     public $stream;
 
-    public static function create(Stream $steam)
+    /**
+     * @param Stream $steam
+     *
+     * @return AudioItem
+     */
+    public static function create(Stream $steam): self
     {
         $audioItem = new self();
 

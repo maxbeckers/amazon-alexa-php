@@ -20,19 +20,20 @@ class Response
     public $sessionAttributes;
 
     /**
-     * @var ResponseBody
+     * @var ResponseBodyInterface
      */
     public $response;
 
     /**
      * Create a new response with an empty response body.
      *
-     * @param array  $sessionAttributes
-     * @param string $version
+     * @param array                      $sessionAttributes
+     * @param string                     $version
+     * @param ResponseBodyInterface|null $response
      */
-    public function __construct(array $sessionAttributes = [], string $version = '1.0')
+    public function __construct(array $sessionAttributes = [], string $version = '1.0', ResponseBodyInterface $response = null)
     {
-        $this->response          = new ResponseBody();
+        $this->response          = $response ?: new ResponseBody();
         $this->sessionAttributes = $sessionAttributes;
         $this->version           = $version;
     }

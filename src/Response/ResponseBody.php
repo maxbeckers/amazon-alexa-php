@@ -7,7 +7,7 @@ use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class ResponseBody implements \JsonSerializable
+class ResponseBody implements ResponseBodyInterface,\JsonSerializable
 {
     /**
      * @var OutputSpeech|null

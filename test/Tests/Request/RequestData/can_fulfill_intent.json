@@ -1,0 +1,82 @@
+{
+  "version": "1.0",
+  "session": {
+    "new": true,
+    "sessionId": "sessionId",
+    "application": {
+      "applicationId": "applicationId"
+    },
+    "attributes": {
+      "string": {}
+    },
+    "user": {
+      "userId": "userId",
+      "permissions": {
+        "consentToken": "consentToken"
+      },
+      "accessToken": "accessToken"
+    }
+  },
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "my-application-id"
+      },
+      "user": {
+        "userId": "userId",
+        "permissions": {
+          "consentToken": "consentToken"
+        },
+        "accessToken": "accessToken"
+      },
+      "device": {
+        "deviceId": "deviceId",
+        "supportedInterfaces": {
+          "AudioPlayer": {}
+        }
+      },
+      "apiEndpoint": "apiEndpoint"
+    },
+    "AudioPlayer": {
+      "token": "token",
+      "offsetInMilliseconds": 0,
+      "playerActivity": "playerActivity"
+    }
+  },
+  "request": {
+    "type": "CanFulfillIntentRequest",
+    "requestId": "requestId",
+    "timestamp": "now",
+    "dialogState": "dialogState",
+    "locale": "en-US",
+    "intent": {
+      "name": "name",
+      "confirmationStatus": "confirmationStatus",
+      "slots": {
+        "SlotName": {
+          "name": "name",
+          "value": "value",
+          "confirmationStatus": "confirmationStatus",
+          "resolutions": {
+            "resolutionsPerAuthority": [
+              {
+                "authority": "authority",
+                "status": {
+                  "code": "code"
+                },
+                "values": [
+                  {
+                    "value": {
+                      "name": "name",
+                      "id": "id"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
