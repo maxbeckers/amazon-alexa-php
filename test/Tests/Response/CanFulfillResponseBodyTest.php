@@ -17,8 +17,7 @@ class CanFulfillResponseBodyTest extends TestCase
         $slot3            = CanFulfillSlot::create(CanFulfillSlot::CAN_UNDERSTAND_NO, CanFulfillSlot::CAN_FULFILL_NO);
         $canFulfillIntent = CanFulfillIntentResponse::create(CanFulfillIntentResponse::CAN_FULFILL_YES, ['slot1' => $slot1, 'slot2' => $slot2]);
         $canFulfillIntent->addSlot('slot3', $slot3);
-        $canFulfillResponseBody                   = new CanFulfillResponseBody();
-        $canFulfillResponseBody->canFulfillIntent = $canFulfillIntent;
+        $canFulfillResponseBody = CanFulfillResponseBody::create($canFulfillIntent);
         $this->assertSame(json_encode([
             'canFulfillIntent' => [
                 'canFulfill' => 'YES',
