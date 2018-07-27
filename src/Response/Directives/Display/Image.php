@@ -18,14 +18,6 @@ class Image
     public $sources = [];
 
     /**
-     * @param ImageSource $imageSource
-     */
-    public function addImageSource(ImageSource $imageSource)
-    {
-        $this->sources[] = $imageSource;
-    }
-
-    /**
      * @param string|null   $contentDescription
      * @param ImageSource[] $imageSources
      *
@@ -40,5 +32,13 @@ class Image
         $image->sources = $imageSources;
 
         return $image;
+    }
+
+    /**
+     * @param ImageSource $imageSource
+     */
+    public function addImageSource(ImageSource $imageSource)
+    {
+        $this->sources[] = $imageSource;
     }
 }
