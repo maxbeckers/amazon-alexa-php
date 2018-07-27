@@ -10,6 +10,7 @@ use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackFinishedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackNearlyFinishedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackStartedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackStoppedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\CanFulfill\CanFulfillIntentRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Display\ElementSelectedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\NextCommandIssued;
 use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\PauseCommandIssued;
@@ -48,6 +49,8 @@ class Request
         ExceptionEncounteredRequest::TYPE   => ExceptionEncounteredRequest::class,
         // Display types
         ElementSelectedRequest::TYPE        => ElementSelectedRequest::class,
+        // can fulfill intent
+        CanFulfillIntentRequest::TYPE       => CanFulfillIntentRequest::class,
     ];
 
     /**
