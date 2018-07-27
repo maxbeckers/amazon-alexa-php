@@ -7,5 +7,4 @@ namespace MaxBeckers\AmazonAlexa\Response;
  */
 interface ResponseBodyInterface
 {
-
 }

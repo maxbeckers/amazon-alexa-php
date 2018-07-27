@@ -32,7 +32,7 @@ return
                          'heredoc_to_nowdoc'                           => true,
                          'include'                                     => true,
                          'indentation_type'                            => true,
-                         'line_ending'                                 => false,
+                         'line_ending'                                 => true,
                          'lowercase_cast'                              => true,
                          'lowercase_constants'                         => true,
                          'lowercase_keywords'                          => true,
