@@ -149,7 +149,7 @@ class ResponseHelper
     public function resetResponse()
     {
         $this->responseBody = new ResponseBody();
-        $this->response     = new Response([], "1.0", $this->responseBody);
+        $this->response     = new Response([], '1.0', $this->responseBody);
     }
 
     /**
