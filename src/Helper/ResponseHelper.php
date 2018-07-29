@@ -7,6 +7,7 @@ use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 use MaxBeckers\AmazonAlexa\Response\OutputSpeech;
 use MaxBeckers\AmazonAlexa\Response\Reprompt;
 use MaxBeckers\AmazonAlexa\Response\Response;
+use MaxBeckers\AmazonAlexa\Response\ResponseBody;
 
 /**
  * This helper class can create simple responses for the most needed intents.
@@ -21,11 +22,16 @@ class ResponseHelper
     public $response;
 
     /**
+     * @var ResponseBody
+     */
+    public $responseBody;
+
+    /**
      * ResponseHelper constructor creates a new response object.
      */
     public function __construct()
     {
-        $this->response = new Response();
+        $this->resetResponse();
     }
 
     /**
@@ -40,8 +46,8 @@ class ResponseHelper
     {
         $outputSpeech = OutputSpeech::createByText($text);
 
-        $this->response->response->outputSpeech     = $outputSpeech;
-        $this->response->response->shouldEndSession = $endSession;
+        $this->responseBody->outputSpeech     = $outputSpeech;
+        $this->responseBody->shouldEndSession = $endSession;
 
         return $this->response;
     }
@@ -58,8 +64,8 @@ class ResponseHelper
     {
         $outputSpeech = OutputSpeech::createBySsml($ssml);
 
-        $this->response->response->outputSpeech     = $outputSpeech;
-        $this->response->response->shouldEndSession = $endSession;
+        $this->responseBody->outputSpeech     = $outputSpeech;
+        $this->responseBody->shouldEndSession = $endSession;
 
         return $this->response;
     }
@@ -76,7 +82,7 @@ class ResponseHelper
         $outputSpeech = OutputSpeech::createByText($text);
         $reprompt     = new Reprompt($outputSpeech);
 
-        $this->response->response->reprompt = $reprompt;
+        $this->responseBody->reprompt = $reprompt;
 
         return $this->response;
     }
@@ -93,7 +99,7 @@ class ResponseHelper
         $outputSpeech = OutputSpeech::createBySsml($ssml);
         $reprompt     = new Reprompt($outputSpeech);
 
-        $this->response->response->reprompt = $reprompt;
+        $this->responseBody->reprompt = $reprompt;
 
         return $this->response;
     }
@@ -107,7 +113,7 @@ class ResponseHelper
      */
     public function card(Card $card)
     {
-        $this->response->response->card = $card;
+        $this->responseBody->card = $card;
 
         return $this->response;
     }
@@ -121,7 +127,7 @@ class ResponseHelper
      */
     public function directive(Directive $directive)
     {
-        $this->response->response->addDirective($directive);
+        $this->responseBody->addDirective($directive);
 
         return $this->response;
     }
@@ -142,7 +148,8 @@ class ResponseHelper
      */
     public function resetResponse()
     {
-        $this->response = new Response();
+        $this->responseBody = new ResponseBody();
+        $this->response     = new Response([], "1.0", $this->responseBody);
     }
 
     /**
