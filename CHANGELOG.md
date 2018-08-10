@@ -1,5 +1,26 @@
 # Change Log
 
+## [1.2.1](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.1) (2018-07-27)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.0...1.2.1)
+
+## [1.2.0](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.0) (2018-07-27)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.1.0...1.2.0)
+
+**Closed issues:**
+
+- Implement Gadgets Skill API [\#28](https://github.com/maxbeckers/amazon-alexa-php/issues/28)
+- Implement Game Engine interface [\#29](https://github.com/maxbeckers/amazon-alexa-php/issues/29)
+- Implement CanFulfillIntentRequest [\#30](https://github.com/maxbeckers/amazon-alexa-php/issues/30)
+
+## [1.1.3](https://github.com/maxbeckers/amazon-alexa-php/tree/1.1.3) (2018-05-17)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.1.2...1.1.3)
+
+## [1.1.2](https://github.com/maxbeckers/amazon-alexa-php/tree/1.1.2) (2018-03-21)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.1.1...1.1.2)
+
+## [1.1.1](https://github.com/maxbeckers/amazon-alexa-php/tree/1.1.1) (2018-03-15)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.1.0...1.1.1)
+
 ## [1.1.0](https://github.com/maxbeckers/amazon-alexa-php/tree/1.1.0) (2018-02-15)
 [Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.0.0...1.1.0)
 
