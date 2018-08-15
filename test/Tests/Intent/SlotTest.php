@@ -1,5 +1,7 @@
 <?php
 
+namespace MaxBeckers\AmazonAlexa\Tests;
+
 use MaxBeckers\AmazonAlexa\Intent\IntentValue;
 use MaxBeckers\AmazonAlexa\Intent\Slot;
 use PHPUnit\Framework\TestCase;

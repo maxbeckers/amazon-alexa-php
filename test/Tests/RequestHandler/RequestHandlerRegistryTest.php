@@ -1,5 +1,7 @@
 <?php
 
+namespace MaxBeckers\AmazonAlexa\Tests;
+
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestHandlerException;
 use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
 use MaxBeckers\AmazonAlexa\Request\Application;

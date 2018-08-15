@@ -1,5 +1,7 @@
 <?php
 
+namespace MaxBeckers\AmazonAlexa\Tests;
+
 use MaxBeckers\AmazonAlexa\Response\Directives\GameEngine\Event;
 use MaxBeckers\AmazonAlexa\Response\Directives\GameEngine\Pattern;
 use MaxBeckers\AmazonAlexa\Response\Directives\GameEngine\RecognizerDeviation;

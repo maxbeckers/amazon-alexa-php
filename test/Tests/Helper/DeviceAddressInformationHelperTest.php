@@ -1,5 +1,7 @@
 <?php
 
+namespace MaxBeckers\AmazonAlexa\Tests;
+
 use GuzzleHttp\Client;
 use MaxBeckers\AmazonAlexa\Exception\DeviceApiCallException;
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestDataException;
@@ -123,6 +125,15 @@ class DeviceAddressInformationHelperTest extends TestCase
         $deviceAddressInformationHelper = new DeviceAddressInformationHelper($client);
         $this->expectException(MissingRequestDataException::class);
         $deviceAddressInformationHelper->getCountryAndPostalCode(new Request());
+    }
+
+    public function testGetAddressOnInvalidRequestInstance()
+    {
+        $client = $this->createMock(Client::class);
+
+        $deviceAddressInformationHelper = new DeviceAddressInformationHelper($client);
+        $this->expectException(MissingRequestDataException::class);
+        $deviceAddressInformationHelper->getAddress(new Request());
     }
 
     /**

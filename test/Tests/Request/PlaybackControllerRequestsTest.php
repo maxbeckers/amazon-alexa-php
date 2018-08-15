@@ -1,5 +1,7 @@
 <?php
 
+namespace MaxBeckers\AmazonAlexa\Tests;
+
 use MaxBeckers\AmazonAlexa\Request\Request;
 use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\NextCommandIssued;
 use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\PauseCommandIssued;
