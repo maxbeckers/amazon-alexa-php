@@ -1,5 +1,7 @@
 <?php
 
+namespace MaxBeckers\AmazonAlexa\Tests;
+
 use MaxBeckers\AmazonAlexa\Response\Directives\VideoApp\Metadata;
 use MaxBeckers\AmazonAlexa\Response\Directives\VideoApp\VideoItem;
 use MaxBeckers\AmazonAlexa\Response\Directives\VideoApp\VideoLaunchDirective;

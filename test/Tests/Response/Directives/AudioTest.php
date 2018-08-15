@@ -1,5 +1,7 @@
 <?php
 
+namespace MaxBeckers\AmazonAlexa\Tests;
+
 use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\AudioItem;
 use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\ClearDirective;
 use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\PlayDirective;

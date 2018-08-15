@@ -1,5 +1,8 @@
 <?php
 
+namespace MaxBeckers\AmazonAlexa\Tests;
+
+use ArrayObject;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\HintDirective;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\Image;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\ImageSource;

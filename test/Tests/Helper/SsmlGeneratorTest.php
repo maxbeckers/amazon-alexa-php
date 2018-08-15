@@ -1,5 +1,7 @@
 <?php
 
+namespace MaxBeckers\AmazonAlexa\Tests;
+
 use MaxBeckers\AmazonAlexa\Exception\InvalidSsmlException;
 use MaxBeckers\AmazonAlexa\Helper\SsmlGenerator;
 use PHPUnit\Framework\TestCase;

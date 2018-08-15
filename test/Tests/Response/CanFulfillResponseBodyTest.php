@@ -1,5 +1,7 @@
 <?php
 
+namespace MaxBeckers\AmazonAlexa\Tests;
+
 use MaxBeckers\AmazonAlexa\Response\CanFulfill\CanFulfillIntentResponse;
 use MaxBeckers\AmazonAlexa\Response\CanFulfill\CanFulfillResponseBody;
 use MaxBeckers\AmazonAlexa\Response\CanFulfill\CanFulfillSlot;

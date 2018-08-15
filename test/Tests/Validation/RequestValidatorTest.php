@@ -1,5 +1,7 @@
 <?php
 
+namespace MaxBeckers\AmazonAlexa\Tests;
+
 use MaxBeckers\AmazonAlexa\Exception\RequestInvalidSignatureException;
 use MaxBeckers\AmazonAlexa\Exception\RequestInvalidTimestampException;
 use MaxBeckers\AmazonAlexa\Request\Request;

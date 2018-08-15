@@ -1,5 +1,7 @@
 <?php
 
+namespace MaxBeckers\AmazonAlexa\Tests;
+
 use MaxBeckers\AmazonAlexa\Response\Directives\GadgetController\Animations;
 use MaxBeckers\AmazonAlexa\Response\Directives\GadgetController\Parameters;
 use MaxBeckers\AmazonAlexa\Response\Directives\GadgetController\Sequence;
