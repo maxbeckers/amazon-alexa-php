@@ -130,6 +130,7 @@ return
                          'unary_operator_spaces'                       => true,
                          'visibility_required'                         => true,
                          'whitespace_after_comma_in_array'             => true,
+                         '@PSR1'                                       => true,
                          '@PSR2'                                       => true,
                      ])
                      ->setFinder($finder);
