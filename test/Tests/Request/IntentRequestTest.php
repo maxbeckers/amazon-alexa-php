@@ -33,4 +33,22 @@ class IntentRequestTest extends TestCase
         $this->assertInstanceOf(IntentRequest::class, $request->request);
         $this->assertSame('my-application-id', $request->context->system->application->applicationId);
     }
+
+    public function testIntentRequestShouldGetApplicationId()
+    {
+        $requestBody = file_get_contents(__DIR__.'/RequestData/intent.json');
+        $request     = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
+        $this->assertInstanceOf(IntentRequest::class, $request->request);
+        $this->assertSame('applicationId', $request->getApplicationId());
+    }
+
+    public function testIntentRequestWithNumericTimestamp()
+    {
+        $requestBody                         = json_decode(file_get_contents(__DIR__.'/RequestData/intent.json'), true);
+        $requestBody['request']['timestamp'] = 65545900;
+        $requestBody                         = json_encode($requestBody);
+        $request                             = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
+        $this->assertInstanceOf(IntentRequest::class, $request->request);
+        $this->assertSame('my-application-id', $request->context->system->application->applicationId);
+    }
 }
