@@ -28,8 +28,7 @@ class Image
         $image = new self();
 
         $image->contentDescription = $contentDescription;
-
-        $image->sources = $imageSources;
+        $image->sources            = $imageSources;
 
         return $image;
     }

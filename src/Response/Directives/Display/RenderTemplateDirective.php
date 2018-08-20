@@ -23,11 +23,11 @@ class RenderTemplateDirective extends Directive
      */
     public static function create(Template $template): self
     {
-        $elicitSlotDirective = new self();
+        $renderTemplateDirective = new self();
 
-        $elicitSlotDirective->type     = self::TYPE;
-        $elicitSlotDirective->template = $template;
+        $renderTemplateDirective->type     = self::TYPE;
+        $renderTemplateDirective->template = $template;
 
-        return $elicitSlotDirective;
+        return $renderTemplateDirective;
     }
 }

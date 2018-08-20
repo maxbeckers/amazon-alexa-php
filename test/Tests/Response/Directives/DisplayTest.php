@@ -7,6 +7,7 @@ use MaxBeckers\AmazonAlexa\Response\Directives\Display\HintDirective;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\Image;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\ImageSource;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\ListItem;
+use MaxBeckers\AmazonAlexa\Response\Directives\Display\RenderTemplateDirective;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\Template;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\Text;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\TextContent;
@@ -72,7 +73,7 @@ class DisplayTest extends TestCase
         $this->assertSame([], $img->sources);
 
         $imgUrl    = 'http://example.com/some/image.jpg';
-        $imgSource = ImageSource::create($imgUrl);
+        $imgSource = ImageSource::create($imgUrl, 1024, 100, 200);
 
         $img = Image::create('Test', [$imgSource]);
         $this->assertSame([$imgSource], $img->sources);
@@ -114,6 +115,15 @@ class DisplayTest extends TestCase
         $li2 = ListItem::create('T2');
         $tmp->addListItem($li2);
         $this->assertSame([$li, $li2], $tmp->listItems);
+    }
+
+    public function testRenderTemplate()
+    {
+        $tmp                     = Template::create('BodyTemplate1', 'BODY');
+        $renderTemplateDirective = RenderTemplateDirective::create($tmp);
+        $this->assertInstanceOf(RenderTemplateDirective::class, $renderTemplateDirective);
+        $this->assertSame($renderTemplateDirective->template->token, 'BODY');
+        $this->assertSame($renderTemplateDirective->template->type, 'BodyTemplate1');
     }
 
     public function testListItem()
