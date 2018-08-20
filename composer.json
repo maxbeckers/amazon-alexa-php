@@ -49,7 +49,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "MaxBeckers\\AmazonAlexa\\Tests\\": "src/Tests/"
+      "MaxBeckers\\AmazonAlexa\\Test\\": "test/Test/"
     }
   },
   "scripts": {
