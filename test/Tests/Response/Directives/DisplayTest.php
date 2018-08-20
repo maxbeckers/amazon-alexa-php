@@ -119,7 +119,7 @@ class DisplayTest extends TestCase
 
     public function testRenderTemplate()
     {
-        $tmp = Template::create('BodyTemplate1', 'BODY');
+        $tmp                     = Template::create('BodyTemplate1', 'BODY');
         $renderTemplateDirective = RenderTemplateDirective::create($tmp);
         $this->assertInstanceOf(RenderTemplateDirective::class, $renderTemplateDirective);
         $this->assertSame($renderTemplateDirective->template->token, 'BODY');
