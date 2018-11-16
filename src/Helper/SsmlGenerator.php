@@ -131,6 +131,22 @@ class SsmlGenerator implements SsmlTypes
     }
 
     /**
+     * Say a text pronounced in the given language.
+     *
+     * @param string $language
+     * @param string $text
+     *
+     * @throws InvalidSsmlException
+     */
+    public function pronounceInLanguage(string $language, string $text)
+    {
+        if (!in_array($language, self::LANGUAGE_LIST, true)) {
+            throw new InvalidSsmlException(sprintf('Language must be one of "%s"!', implode(',', self::LANGUAGE_LIST)));
+        }
+        $this->parts[] = sprintf('<lang xml:lang="%s">%s</lang>', $language, $text);
+    }
+
+    /**
      * Say a paragraph.
      *
      * @param string $paragraph
