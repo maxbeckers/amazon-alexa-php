@@ -31,6 +31,28 @@ interface SsmlTypes
         self::EMPHASIS_LEVEL_MODERATE,
         self::EMPHASIS_LEVEL_REDUCED,
     ];
+    const LANGUAGE_EN_US   = 'en-US';
+    const LANGUAGE_EN_GB   = 'en-GB';
+    const LANGUAGE_EN_IN   = 'en-IN';
+    const LANGUAGE_EN_AU   = 'en-AU';
+    const LANGUAGE_EN_CA   = 'en-CA';
+    const LANGUAGE_DE_DE   = 'de-DE';
+    const LANGUAGE_ES_ES   = 'es-ES';
+    const LANGUAGE_IT_IT   = 'it-IT';
+    const LANGUAGE_JA_JP   = 'ja-JP';
+    const LANGUAGE_FR_FR   = 'fr-FR';
+    const LANGUAGE_LIST    = [
+        self::LANGUAGE_EN_US,
+        self::LANGUAGE_EN_GB,
+        self::LANGUAGE_EN_IN,
+        self::LANGUAGE_EN_AU,
+        self::LANGUAGE_EN_CA,
+        self::LANGUAGE_DE_DE,
+        self::LANGUAGE_ES_ES,
+        self::LANGUAGE_IT_IT,
+        self::LANGUAGE_JA_JP,
+        self::LANGUAGE_FR_FR,
+    ];
     const PHONEME_ALPHABET_IPA     = 'ipa';
     const PHONEME_ALPHABET_X_SAMPA = 'x-sampa';
     const PHONEME_ALPHABETS        = [

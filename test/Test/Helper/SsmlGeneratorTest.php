@@ -118,6 +118,20 @@ class SsmlGeneratorTest extends TestCase
         $this->assertSame(sprintf('<speak><emphasis level="%s">Just a test.</emphasis></speak>', SsmlGenerator::EMPHASIS_LEVEL_STRONG), $ssmlGenerator->getSsml());
     }
 
+    public function testPronounceInLanguageInvalid()
+    {
+        $ssmlGenerator = new SsmlGenerator();
+        $this->expectException(InvalidSsmlException::class);
+        $ssmlGenerator->pronounceInLanguage('in-VA', 'invalid');
+    }
+
+    public function testEPronounceInLanguage()
+    {
+        $ssmlGenerator = new SsmlGenerator();
+        $ssmlGenerator->pronounceInLanguage(SsmlGenerator::LANGUAGE_EN_US, 'Just a test.');
+        $this->assertSame(sprintf('<speak><lang xml:lang="%s">Just a test.</lang></speak>', SsmlGenerator::LANGUAGE_EN_US), $ssmlGenerator->getSsml());
+    }
+
     public function testParagraph()
     {
         $ssmlGenerator = new SsmlGenerator();
