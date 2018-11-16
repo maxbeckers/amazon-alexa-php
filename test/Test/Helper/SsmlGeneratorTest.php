@@ -48,6 +48,13 @@ class SsmlGeneratorTest extends TestCase
         $this->assertSame('<speak><audio src="https://valid.mp3?start=3" /> <audio src="https://valid.mp3" /></speak>', $ssmlGenerator->getSsml());
     }
 
+    public function testPlayMp3Soundbank()
+    {
+        $ssmlGenerator = new SsmlGenerator();
+        $ssmlGenerator->playMp3('soundbank://valid.item');
+        $this->assertSame('<speak><audio src="soundbank://valid.item" /></speak>', $ssmlGenerator->getSsml());
+    }
+
     public function testPauseStrengthInvalid()
     {
         $ssmlGenerator = new SsmlGenerator();
