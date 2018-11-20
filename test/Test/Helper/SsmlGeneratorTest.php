@@ -225,7 +225,9 @@ class SsmlGeneratorTest extends TestCase
 
     public function getVoices()
     {
-        return array_map(function ($item) { return [$item];}, SsmlGenerator::VOICES);
+        return array_map(function ($item) {
+            return [$item];
+        }, SsmlGenerator::VOICES);
     }
 
     /**
