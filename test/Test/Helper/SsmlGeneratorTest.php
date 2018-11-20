@@ -223,11 +223,19 @@ class SsmlGeneratorTest extends TestCase
         $ssmlGenerator->sayWithVoice('invalid', 'Just a Test');
     }
 
-    public function estSayWithVoice()
+    public function getVoices()
+    {
+        return array_map(function ($item) { return [$item];}, SsmlGenerator::VOICES);
+    }
+
+    /**
+     * @dataProvider getVoices
+     */
+    public function testSayWithVoice(string $voice)
     {
         $ssmlGenerator = new SsmlGenerator();
-        $ssmlGenerator->word(SsmlGenerator::VOICE_EN_GB_AMY, 'Just a test.');
-        $this->assertSame(sprintf('<speak><voice name="%s">Just a test.</voice></speak>', SsmlGenerator::VOICE_EN_GB_AMY), $ssmlGenerator->getSsml());
+        $ssmlGenerator->sayWithVoice($voice, 'Just a test.');
+        $this->assertSame(sprintf('<speak><voice name="%s">Just a test.</voice></speak>', $voice), $ssmlGenerator->getSsml());
     }
 
     public function testWordInvalid()
