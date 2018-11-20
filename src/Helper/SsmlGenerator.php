@@ -238,6 +238,22 @@ class SsmlGenerator implements SsmlTypes
     }
 
     /**
+     * Say a text with the voice of the given person.
+     *
+     * @param string $voice
+     * @param string $text
+     *
+     * @throws InvalidSsmlException
+     */
+    public function sayWithVoice(string $voice, string $text)
+    {
+        if (!in_array($voice, self::VOICES, true)) {
+            throw new InvalidSsmlException(sprintf('Voice must be one of "%s"!', implode(',', self::VOICES)));
+        }
+        $this->parts[] = sprintf('<voice name="%s">%s</voice>', $voice, $text);
+    }
+
+    /**
      * Say a word with defined word's parts to speach.
      *
      * @param string $role

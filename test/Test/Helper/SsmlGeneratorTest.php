@@ -216,6 +216,20 @@ class SsmlGeneratorTest extends TestCase
         $this->assertSame('<speak><sub alias="magnesium">Mg</sub></speak>', $ssmlGenerator->getSsml());
     }
 
+    public function testSayWithVoiceInvalid()
+    {
+        $ssmlGenerator = new SsmlGenerator();
+        $this->expectException(InvalidSsmlException::class);
+        $ssmlGenerator->sayWithVoice('invalid', 'Just a Test');
+    }
+
+    public function estSayWithVoice()
+    {
+        $ssmlGenerator = new SsmlGenerator();
+        $ssmlGenerator->word(SsmlGenerator::VOICE_EN_GB_AMY, 'Just a test.');
+        $this->assertSame(sprintf('<speak><voice name="%s">Just a test.</voice></speak>', SsmlGenerator::VOICE_EN_GB_AMY), $ssmlGenerator->getSsml());
+    }
+
     public function testWordInvalid()
     {
         $ssmlGenerator = new SsmlGenerator();
