@@ -1,5 +1,23 @@
 # Change Log
 
+## [1.2.6](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.6) (2018-11-20)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.5...1.2.6)
+
+## [1.2.5](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.5) (2018-11-20)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.4...1.2.5)
+
+**Closed issues:**
+- Amazon Polly Integration [\#37](https://github.com/maxbeckers/amazon-alexa-php/issues/37)
+
+## [1.2.4](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.4) (2018-11-16)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.3...1.2.4)
+
+## [1.2.3](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.3) (2018-11-16)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.2...1.2.3)
+
+**Closed issues:**
+- SSML Generator implement lang-Tag [\#50](https://github.com/maxbeckers/amazon-alexa-php/issues/50)
+
 ## [1.2.2](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.2) (2018-08-20)
 [Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.1...1.2.2)
 
