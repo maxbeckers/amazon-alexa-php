@@ -4,24 +4,25 @@ php:
   - '7.0'
   - '7.1'
   - '7.2'
+  - '7.3'
 
 install:
   - composer install
   # Install coveralls.phar
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then wget -c -nc --retry-connrefused --tries=0 https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar; fi
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then chmod +x coveralls.phar; fi
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then php coveralls.phar --version; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then wget -c -nc --retry-connrefused --tries=0 https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then chmod +x coveralls.phar; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then php coveralls.phar --version; fi
 
 cache:
   directories:
     - $HOME/.php-cs-fixer
 
 before_script:
-    - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then mkdir -p build/logs; fi
+    - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then mkdir -p build/logs; fi
 
 script:
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then php ./vendor/bin/phpunit --coverage-text --coverage-clover ./build/logs/clover.xml; else php ./vendor/bin/phpunit; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then php ./vendor/bin/phpunit --coverage-text --coverage-clover ./build/logs/clover.xml; else php ./vendor/bin/phpunit; fi
   - php ./vendor/bin/php-cs-fixer fix --config=.php_cs.php --verbose --diff --dry-run --allow-risky=yes;
 
 after_success:
-    - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then php coveralls.phar -v; fi
+    - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then php coveralls.phar -v; fi
