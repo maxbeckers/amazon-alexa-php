@@ -1,5 +1,32 @@
 # Change Log
 
+## [1.2.6](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.6) (2018-11-20)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.5...1.2.6)
+
+## [1.2.5](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.5) (2018-11-20)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.4...1.2.5)
+
+**Closed issues:**
+- Amazon Polly Integration [\#37](https://github.com/maxbeckers/amazon-alexa-php/issues/37)
+
+## [1.2.4](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.4) (2018-11-16)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.3...1.2.4)
+
+## [1.2.3](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.3) (2018-11-16)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.2...1.2.3)
+
+**Closed issues:**
+- SSML Generator implement lang-Tag [\#50](https://github.com/maxbeckers/amazon-alexa-php/issues/50)
+
+## [1.2.2](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.2) (2018-08-20)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.1...1.2.2)
+
+**Closed issues:**
+
+- PSR-4 namespaces for tests [\#44](https://github.com/maxbeckers/amazon-alexa-php/issues/44)
+- UnitTests for MaxBeckers/AmazonAlexa/Response/Directives/Dialog namespace [\#42](https://github.com/maxbeckers/amazon-alexa-php/issues/42)
+- Missing the CONTRIBUTING.md [\#38](https://github.com/maxbeckers/amazon-alexa-php/issues/38)
+
 ## [1.2.1](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.1) (2018-07-27)
 [Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.0...1.2.1)
 
