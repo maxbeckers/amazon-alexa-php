@@ -2,14 +2,24 @@
 
 namespace MaxBeckers\AmazonAlexa\Response;
 
+use MaxBeckers\AmazonAlexa\Exception\InvalidCardPermissionsException;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
 class Card implements \JsonSerializable
 {
-    const TYPE_SIMPLE       = 'Simple';
-    const TYPE_STANDARD     = 'Standard';
-    const TYPE_LINK_ACCOUNT = 'LinkAccount';
+    const TYPE_SIMPLE                      = 'Simple';
+    const TYPE_STANDARD                    = 'Standard';
+    const TYPE_LINK_ACCOUNT                = 'LinkAccount';
+    const TYPE_ASK_FOR_PERMISSIONS_CONSENT = 'AskForPermissionsConsent';
+
+    const PERMISSION_FULL_ADDRESS                   = 'read::alexa:device:all:address';
+    const PERMISSION_COUNTRY_REGION_AND_POSTAL_CODE = 'read::alexa:device:all:address:country_and_postal_code';
+    const PERMISSIONS                               = [
+        self::PERMISSION_FULL_ADDRESS,
+        self::PERMISSION_COUNTRY_REGION_AND_POSTAL_CODE,
+    ];
 
     /**
      * @var string
@@ -35,6 +45,11 @@ class Card implements \JsonSerializable
      * @var CardImage|null
      */
     public $image;
+
+    /**
+     * @var array
+     */
+    public $permissions = [];
 
     /**
      * @param string $type
@@ -87,6 +102,26 @@ class Card implements \JsonSerializable
     }
 
     /**
+     * @param array $permissions
+     *
+     * @throws InvalidCardPermissionsException
+     *
+     * @return Card
+     */
+    public static function createAskForPermissionsConsent(array $permissions): self
+    {
+        if (empty($permissions) || !empty(array_diff($permissions, self::PERMISSIONS))) {
+            throw new InvalidCardPermissionsException();
+        }
+
+        $card = new self(self::TYPE_ASK_FOR_PERMISSIONS_CONSENT);
+
+        $card->permissions = $permissions;
+
+        return $card;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()
@@ -107,6 +142,9 @@ class Card implements \JsonSerializable
         }
         if (null !== $this->image) {
             $data['image'] = $this->image;
+        }
+        if (!empty($this->permissions)) {
+            $data['permissions'] = $this->permissions;
         }
 
         return $data;

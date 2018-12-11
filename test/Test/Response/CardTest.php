@@ -3,6 +3,7 @@
 namespace MaxBeckers\AmazonAlexa\Test\Response;
 
 use ArrayObject;
+use MaxBeckers\AmazonAlexa\Exception\InvalidCardPermissionsException;
 use MaxBeckers\AmazonAlexa\Response\Card;
 use MaxBeckers\AmazonAlexa\Response\CardImage;
 use PHPUnit\Framework\TestCase;
@@ -59,5 +60,44 @@ class CardTest extends TestCase
         $this->assertEquals(new ArrayObject([
             'type'  => Card::TYPE_LINK_ACCOUNT,
         ]), $card->jsonSerialize());
+    }
+
+    public function testCreateAskForPermissionsConsent()
+    {
+        $card = Card::createAskForPermissionsConsent(Card::PERMISSIONS);
+        $this->assertEquals(new ArrayObject([
+            'type'        => Card::TYPE_ASK_FOR_PERMISSIONS_CONSENT,
+            'permissions' => Card::PERMISSIONS,
+        ]), $card->jsonSerialize());
+    }
+
+    public function testCreateAskForPermissionsConsentFullAddress()
+    {
+        $card = Card::createAskForPermissionsConsent([Card::PERMISSION_FULL_ADDRESS]);
+        $this->assertEquals(new ArrayObject([
+            'type'        => Card::TYPE_ASK_FOR_PERMISSIONS_CONSENT,
+            'permissions' => [Card::PERMISSION_FULL_ADDRESS],
+        ]), $card->jsonSerialize());
+    }
+
+    public function testCreateAskForPermissionsConsentCountryRegionAndPostalCode()
+    {
+        $card = Card::createAskForPermissionsConsent([Card::PERMISSION_COUNTRY_REGION_AND_POSTAL_CODE]);
+        $this->assertEquals(new ArrayObject([
+            'type'        => Card::TYPE_ASK_FOR_PERMISSIONS_CONSENT,
+            'permissions' => [Card::PERMISSION_COUNTRY_REGION_AND_POSTAL_CODE],
+        ]), $card->jsonSerialize());
+    }
+
+    public function testCreateAskForPermissionsConsentEmptyPermissions()
+    {
+        $this->expectException(InvalidCardPermissionsException::class);
+        Card::createAskForPermissionsConsent([]);
+    }
+
+    public function testCreateAskForPermissionsConsentInvalidPermissions()
+    {
+        $this->expectException(InvalidCardPermissionsException::class);
+        Card::createAskForPermissionsConsent(['invalid']);
     }
 }

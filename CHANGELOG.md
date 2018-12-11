@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.2.7](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.7) (2018-12-11)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.6...1.2.7)
+
+**Closed issues:**
+- Permission Card [\#59](https://github.com/maxbeckers/amazon-alexa-php/issues/59)
+
 ## [1.2.6](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.6) (2018-11-20)
 [Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.5...1.2.6)
 
