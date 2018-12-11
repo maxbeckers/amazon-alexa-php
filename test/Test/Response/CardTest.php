@@ -89,19 +89,15 @@ class CardTest extends TestCase
         ]), $card->jsonSerialize());
     }
 
-    /**
-     * @expectedException InvalidCardPermissionsException
-     */
     public function testCreateAskForPermissionsConsentEmptyPermissions()
     {
+        $this->expectException(InvalidCardPermissionsException::class);
         Card::createAskForPermissionsConsent([]);
     }
 
-    /**
-     * @expectedException InvalidCardPermissionsException
-     */
     public function testCreateAskForPermissionsConsentInvalidPermissions()
     {
+        $this->expectException(InvalidCardPermissionsException::class);
         Card::createAskForPermissionsConsent(['invalid']);
     }
 }
