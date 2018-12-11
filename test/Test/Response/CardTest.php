@@ -3,6 +3,7 @@
 namespace MaxBeckers\AmazonAlexa\Test\Response;
 
 use ArrayObject;
+use MaxBeckers\AmazonAlexa\Exception\InvalidCardPermissionsException;
 use MaxBeckers\AmazonAlexa\Response\Card;
 use MaxBeckers\AmazonAlexa\Response\CardImage;
 use PHPUnit\Framework\TestCase;
@@ -61,7 +62,7 @@ class CardTest extends TestCase
         ]), $card->jsonSerialize());
     }
 
-    public function createAskForPermissionsConsent()
+    public function testCreateAskForPermissionsConsent()
     {
         $card = Card::createAskForPermissionsConsent(Card::PERMISSIONS);
         $this->assertEquals(new ArrayObject([
@@ -70,7 +71,7 @@ class CardTest extends TestCase
         ]), $card->jsonSerialize());
     }
 
-    public function createAskForPermissionsConsentFullAddress()
+    public function testCreateAskForPermissionsConsentFullAddress()
     {
         $card = Card::createAskForPermissionsConsent([Card::PERMISSION_FULL_ADDRESS]);
         $this->assertEquals(new ArrayObject([
@@ -79,7 +80,7 @@ class CardTest extends TestCase
         ]), $card->jsonSerialize());
     }
 
-    public function createAskForPermissionsConsentCountryRegionAndPostalCode()
+    public function testCreateAskForPermissionsConsentCountryRegionAndPostalCode()
     {
         $card = Card::createAskForPermissionsConsent([Card::PERMISSION_COUNTRY_REGION_AND_POSTAL_CODE]);
         $this->assertEquals(new ArrayObject([
@@ -89,17 +90,17 @@ class CardTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidCardPermissionsException
+     * @expectedException InvalidCardPermissionsException
      */
-    public function createAskForPermissionsConsentEmptyPermissions()
+    public function testCreateAskForPermissionsConsentEmptyPermissions()
     {
         Card::createAskForPermissionsConsent([]);
     }
 
     /**
-     * @expectedException \InvalidCardPermissionsException
+     * @expectedException InvalidCardPermissionsException
      */
-    public function createAskForPermissionsConsentInvalidPermissions()
+    public function testCreateAskForPermissionsConsentInvalidPermissions()
     {
         Card::createAskForPermissionsConsent(['invalid']);
     }
