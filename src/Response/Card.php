@@ -15,7 +15,7 @@ class Card implements \JsonSerializable
     const TYPE_ASK_FOR_PERMISSIONS_CONSENT = 'AskForPermissionsConsent';
 
     const PERMISSION_FULL_ADDRESS                   = 'read::alexa:device:all:address';
-    const PERMISSION_COUNTRY_REGION_AND_POSTAL_CODE = '	read::alexa:device:all:address:country_and_postal_code';
+    const PERMISSION_COUNTRY_REGION_AND_POSTAL_CODE = 'read::alexa:device:all:address:country_and_postal_code';
     const PERMISSIONS                               = [
         self::PERMISSION_FULL_ADDRESS,
         self::PERMISSION_COUNTRY_REGION_AND_POSTAL_CODE,
