@@ -60,4 +60,47 @@ class CardTest extends TestCase
             'type'  => Card::TYPE_LINK_ACCOUNT,
         ]), $card->jsonSerialize());
     }
+
+    public function createAskForPermissionsConsent()
+    {
+        $card = Card::createAskForPermissionsConsent(Card::PERMISSIONS);
+        $this->assertEquals(new ArrayObject([
+            'type'        => Card::TYPE_ASK_FOR_PERMISSIONS_CONSENT,
+            'permissions' => Card::PERMISSIONS,
+        ]), $card->jsonSerialize());
+    }
+
+    public function createAskForPermissionsConsentFullAddress()
+    {
+        $card = Card::createAskForPermissionsConsent([Card::PERMISSION_FULL_ADDRESS]);
+        $this->assertEquals(new ArrayObject([
+            'type'        => Card::TYPE_ASK_FOR_PERMISSIONS_CONSENT,
+            'permissions' => [Card::PERMISSION_FULL_ADDRESS],
+        ]), $card->jsonSerialize());
+    }
+
+    public function createAskForPermissionsConsentCountryRegionAndPostalCode()
+    {
+        $card = Card::createAskForPermissionsConsent([Card::PERMISSION_COUNTRY_REGION_AND_POSTAL_CODE]);
+        $this->assertEquals(new ArrayObject([
+            'type'        => Card::TYPE_ASK_FOR_PERMISSIONS_CONSENT,
+            'permissions' => [Card::PERMISSION_COUNTRY_REGION_AND_POSTAL_CODE],
+        ]), $card->jsonSerialize());
+    }
+
+    /**
+     * @expectedException \InvalidCardPermissionsException
+     */
+    public function createAskForPermissionsConsentEmptyPermissions()
+    {
+        Card::createAskForPermissionsConsent([]);
+    }
+
+    /**
+     * @expectedException \InvalidCardPermissionsException
+     */
+    public function createAskForPermissionsConsentInvalidPermissions()
+    {
+        Card::createAskForPermissionsConsent(['invalid']);
+    }
 }
