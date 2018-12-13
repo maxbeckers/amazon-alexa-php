@@ -72,6 +72,7 @@ class AudioTest extends TestCase
             'stream'   => $stream,
             'metadata' => $metadata,
         ], $audioItem->jsonSerialize());
+        $this->assertSame('{"stream":{"url":"https:\/\/url-of-the-stream-to-play","token":"opaque token representing this stream","expectedPreviousToken":"opaque token representing the previous stream","offsetInMilliseconds":0},"metadata":{"title":"title of the track to display","subtitle":"subtitle of the track to display","art":{"contentDescription":null,"sources":{"url":"https:\/\/url-of-the-album-art-image.png"}},"backgroundImage":{"contentDescription":null,"sources":{"url":"https:\/\/url-of-the-background-image.png"}}}}', json_encode($audioItem));
     }
 
     public function testPlayDirective()
