@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.2.8](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.8) (2018-12-13)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.7...1.2.8)
+
+**Closed issues:**
+- Response / Directives / AudioPlayer / AudioItem with metadata [\#58](https://github.com/maxbeckers/amazon-alexa-php/issues/58)
+
 ## [1.2.7](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.7) (2018-12-11)
 [Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.6...1.2.7)
 
