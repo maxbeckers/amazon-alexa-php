@@ -85,7 +85,7 @@ class DeviceAddressInformationHelper
     {
         $response = $this->client->request('GET', $url, [
             'headers' => [
-                'Authorization' => 'Basic '.$token,
+                'Authorization' => 'Bearer '.$token,
                 'Accept'        => 'application/json',
             ],
         ]);
