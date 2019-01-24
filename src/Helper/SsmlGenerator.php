@@ -10,6 +10,13 @@ use MaxBeckers\AmazonAlexa\Exception\InvalidSsmlException;
 class SsmlGenerator implements SsmlTypes
 {
     /**
+     * Enable this flag, when you need escaped special chars in your content (for example escaped "&").
+     *
+     * @var bool
+     */
+    public $escapeSpecialChars = false;
+
+    /**
      * @var string[]
      */
     private $parts = [];
@@ -37,7 +44,7 @@ class SsmlGenerator implements SsmlTypes
      */
     public function say(string $text)
     {
-        $this->parts[] = $text;
+        $this->parts[] = $this->textEscapeSpecialChars($text);
     }
 
     /**
@@ -101,7 +108,7 @@ class SsmlGenerator implements SsmlTypes
         if (!in_array($effect, self::AMAZON_EFFECTS, true)) {
             throw new InvalidSsmlException(sprintf('Amazon:effect name must be one of "%s"!', implode(',', self::AMAZON_EFFECTS)));
         }
-        $this->parts[] = sprintf('<amazon:effect name="%s">%s</amazon:effect>', $effect, $text);
+        $this->parts[] = sprintf('<amazon:effect name="%s">%s</amazon:effect>', $effect, $this->textEscapeSpecialChars($text));
     }
 
     /**
@@ -127,7 +134,7 @@ class SsmlGenerator implements SsmlTypes
         if (!in_array($level, self::EMPHASIS_LEVELS, true)) {
             throw new InvalidSsmlException(sprintf('Emphasis level must be one of "%s"!', implode(',', self::EMPHASIS_LEVELS)));
         }
-        $this->parts[] = sprintf('<emphasis level="%s">%s</emphasis>', $level, $text);
+        $this->parts[] = sprintf('<emphasis level="%s">%s</emphasis>', $level, $this->textEscapeSpecialChars($text));
     }
 
     /**
@@ -143,7 +150,7 @@ class SsmlGenerator implements SsmlTypes
         if (!in_array($language, self::LANGUAGE_LIST, true)) {
             throw new InvalidSsmlException(sprintf('Language must be one of "%s"!', implode(',', self::LANGUAGE_LIST)));
         }
-        $this->parts[] = sprintf('<lang xml:lang="%s">%s</lang>', $language, $text);
+        $this->parts[] = sprintf('<lang xml:lang="%s">%s</lang>', $language, $this->textEscapeSpecialChars($text));
     }
 
     /**
@@ -153,7 +160,7 @@ class SsmlGenerator implements SsmlTypes
      */
     public function paragraph(string $paragraph)
     {
-        $this->parts[] = sprintf('<p>%s</p>', $paragraph);
+        $this->parts[] = sprintf('<p>%s</p>', $this->textEscapeSpecialChars($paragraph));
     }
 
     /**
@@ -170,7 +177,7 @@ class SsmlGenerator implements SsmlTypes
         if (!in_array($alphabet, self::PHONEME_ALPHABETS, true)) {
             throw new InvalidSsmlException(sprintf('Phoneme alphabet must be one of "%s"!', implode(',', self::PHONEME_ALPHABETS)));
         }
-        $this->parts[] = sprintf('<phoneme alphabet="%s" ph="%s">%s</phoneme>', $alphabet, $ph, $text);
+        $this->parts[] = sprintf('<phoneme alphabet="%s" ph="%s">%s</phoneme>', $alphabet, $ph, $this->textEscapeSpecialChars($text));
     }
 
     /**
@@ -191,7 +198,7 @@ class SsmlGenerator implements SsmlTypes
             throw new InvalidSsmlException(sprintf('Prosody mode must be one of "%s"!', implode(',', array_keys(self::PROSODIES))));
         }
         // todo validate value for mode
-        $this->parts[] = sprintf('<prosody %s="%s">%s</prosody>', $mode, $value, $text);
+        $this->parts[] = sprintf('<prosody %s="%s">%s</prosody>', $mode, $value, $this->textEscapeSpecialChars($text));
     }
 
     /**
@@ -201,7 +208,7 @@ class SsmlGenerator implements SsmlTypes
      */
     public function sentence(string $text)
     {
-        $this->parts[] = sprintf('<s>%s</s>', $text);
+        $this->parts[] = sprintf('<s>%s</s>', $this->textEscapeSpecialChars($text));
     }
 
     /**
@@ -219,9 +226,9 @@ class SsmlGenerator implements SsmlTypes
             throw new InvalidSsmlException(sprintf('Interpret as attribute must be one of "%s"!', implode(',', self::SAY_AS_INTERPRET_AS)));
         }
         if ($format) {
-            $this->parts[] = sprintf('<say-as interpret-as="%s" format="%s">%s</say-as>', $interpretAs, $format, $text);
+            $this->parts[] = sprintf('<say-as interpret-as="%s" format="%s">%s</say-as>', $interpretAs, $format, $this->textEscapeSpecialChars($text));
         } else {
-            $this->parts[] = sprintf('<say-as interpret-as="%s">%s</say-as>', $interpretAs, $text);
+            $this->parts[] = sprintf('<say-as interpret-as="%s">%s</say-as>', $interpretAs, $this->textEscapeSpecialChars($text));
         }
     }
 
@@ -234,7 +241,7 @@ class SsmlGenerator implements SsmlTypes
      */
     public function alias(string $alias, string $text)
     {
-        $this->parts[] = sprintf('<sub alias="%s">%s</sub>', $alias, $text);
+        $this->parts[] = sprintf('<sub alias="%s">%s</sub>', $alias, $this->textEscapeSpecialChars($text));
     }
 
     /**
@@ -250,7 +257,7 @@ class SsmlGenerator implements SsmlTypes
         if (!in_array($voice, self::VOICES, true)) {
             throw new InvalidSsmlException(sprintf('Voice must be one of "%s"!', implode(',', self::VOICES)));
         }
-        $this->parts[] = sprintf('<voice name="%s">%s</voice>', $voice, $text);
+        $this->parts[] = sprintf('<voice name="%s">%s</voice>', $voice, $this->textEscapeSpecialChars($text));
     }
 
     /**
@@ -266,6 +273,22 @@ class SsmlGenerator implements SsmlTypes
         if (!in_array($role, self::INTERPRET_WORDS, true)) {
             throw new InvalidSsmlException(sprintf('Interpret as attribute must be one of "%s"!', implode(',', self::INTERPRET_WORDS)));
         }
-        $this->parts[] = sprintf('<w role="%s">%s</w>', $role, $text);
+        $this->parts[] = sprintf('<w role="%s">%s</w>', $role, $this->textEscapeSpecialChars($text));
+    }
+
+    /**
+     * Escape special chars for ssml output (for example "&").
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    private function textEscapeSpecialChars(string $text): string
+    {
+        if ($this->escapeSpecialChars) {
+            $text = htmlspecialchars($text);
+        }
+
+        return $text;
     }
 }

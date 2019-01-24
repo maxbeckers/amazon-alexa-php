@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.3.0](https://github.com/maxbeckers/amazon-alexa-php/tree/1.3.0) (2018-01-24)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.0...1.3.0)
+
+**Closed issues:**
+- Request validation fails if allow_url_fopen is disabled [\#65](https://github.com/maxbeckers/amazon-alexa-php/issues/65)
+- SSML generator should escape XML control characters [\#57](https://github.com/maxbeckers/amazon-alexa-php/issues/57)
+
 ## [1.2.8](https://github.com/maxbeckers/amazon-alexa-php/tree/1.2.8) (2018-12-13)
 [Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.2.7...1.2.8)
 
