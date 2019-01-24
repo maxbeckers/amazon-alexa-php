@@ -31,6 +31,14 @@ class SsmlGeneratorTest extends TestCase
         $this->assertSame('<speak>Just a Test. And add more text.</speak>', $ssmlGenerator->getSsml());
     }
 
+    public function testSaySpecialChars()
+    {
+        $ssmlGenerator                     = new SsmlGenerator();
+        $ssmlGenerator->escapeSpecialChars = true;
+        $ssmlGenerator->say('This & that.');
+        $this->assertSame('<speak>This &amp; that.</speak>', $ssmlGenerator->getSsml());
+    }
+
     public function testPlayMp3InvalidUrl()
     {
         $ssmlGenerator = new SsmlGenerator();
