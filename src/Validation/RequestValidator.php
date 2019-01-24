@@ -2,6 +2,7 @@
 
 namespace MaxBeckers\AmazonAlexa\Validation;
 
+use GuzzleHttp\Client;
 use MaxBeckers\AmazonAlexa\Exception\OutdatedCertExceptionException;
 use MaxBeckers\AmazonAlexa\Exception\RequestInvalidSignatureException;
 use MaxBeckers\AmazonAlexa\Exception\RequestInvalidTimestampException;
@@ -20,22 +21,33 @@ class RequestValidator
     const TIMESTAMP_VALID_TOLERANCE_SECONDS = 150;
 
     /**
+     * @var Client
+     */
+    public $client;
+
+    /**
      * @var int
      */
     protected $timestampTolerance;
 
     /**
-     * @param int $timestampTolerance
+     * @param int         $timestampTolerance
+     * @param Client|null $client
      */
-    public function __construct($timestampTolerance = self::TIMESTAMP_VALID_TOLERANCE_SECONDS)
+    public function __construct($timestampTolerance = self::TIMESTAMP_VALID_TOLERANCE_SECONDS, Client $client = null)
     {
         $this->timestampTolerance = $timestampTolerance;
+        $this->client             = $client ?: new Client();
     }
 
     /**
      * Validate request data.
      *
      * @param Request $request
+     *
+     * @throws OutdatedCertExceptionException
+     * @throws RequestInvalidSignatureException
+     * @throws RequestInvalidTimestampException
      */
     public function validate(Request $request)
     {
@@ -76,6 +88,7 @@ class RequestValidator
      *
      * @param Request $request
      *
+     * @throws OutdatedCertExceptionException
      * @throws RequestInvalidSignatureException
      */
     private function validateSignature(Request $request)
@@ -85,30 +98,101 @@ class RequestValidator
         }
 
         // validate cert url
+        $this->validateCertUrl($request);
+
+        // generate local cert path
+        $localCertPath = sys_get_temp_dir().DIRECTORY_SEPARATOR.md5($request->signatureCertChainUrl).'.pem';
+
+        // check if pem file is already downloaded to temp or download.
+        $certData = $this->fetchCertData($request, $localCertPath);
+
+        // openssl cert validation
+        $this->verifyCert($request, $certData);
+
+        // parse cert
+        $certContent = $this->parseCertData($certData);
+
+        // validate cert
+        $this->validateCertContent($certContent, $localCertPath);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @throws RequestInvalidSignatureException
+     */
+    private function validateCertUrl(Request $request)
+    {
         if (false === (bool) preg_match("/https:\/\/s3.amazonaws.com(\:443)?\/echo.api\/*/i", $request->signatureCertChainUrl)) {
             throw new RequestInvalidSignatureException('Invalid cert url.');
         }
+    }
 
-        // check if pem file is already downloaded to temp or download.
-        $localCertPath = sys_get_temp_dir().DIRECTORY_SEPARATOR.md5($request->signatureCertChainUrl).'.pem';
+    /**
+     * @param Request $request
+     * @param string  $localCertPath
+     *
+     * @throws RequestInvalidSignatureException
+     *
+     * @return string
+     */
+    private function fetchCertData(Request $request, string $localCertPath): string
+    {
         if (!file_exists($localCertPath)) {
-            $certData = @file_get_contents($request->signatureCertChainUrl);
+            $response = $this->client->request('GET', $request->signatureCertChainUrl);
+
+            if ($response->getStatusCode() !== 200) {
+                throw new RequestInvalidSignatureException('Can\'t fetch cert from URL.');
+            }
+
+            $certData = $response->getBody()->getContents();
             @file_put_contents($localCertPath, $certData);
         } else {
             $certData = @file_get_contents($localCertPath);
         }
 
-        // openssl cert validation
+        return $certData;
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $certData
+     *
+     * @throws RequestInvalidSignatureException
+     */
+    private function verifyCert(Request $request, string $certData)
+    {
         if (1 !== @openssl_verify($request->amazonRequestBody, base64_decode($request->signature, true), $certData, 'sha1')) {
             throw new RequestInvalidSignatureException('Cert ssl verification failed.');
         }
+    }
 
-        // parse cert
-        $cert = @openssl_x509_parse($certData);
-        if (empty($cert)) {
+    /**
+     * @param string $certData
+     *
+     * @throws RequestInvalidSignatureException
+     *
+     * @return array
+     */
+    private function parseCertData(string $certData): array
+    {
+        $certContent = @openssl_x509_parse($certData);
+        if (empty($certContent)) {
             throw new RequestInvalidSignatureException('Parse cert failed.');
         }
 
+        return $certContent;
+    }
+
+    /**
+     * @param array  $cert
+     * @param string $localCertPath
+     *
+     * @throws OutdatedCertExceptionException
+     * @throws RequestInvalidSignatureException
+     */
+    private function validateCertContent(array $cert, string $localCertPath)
+    {
         // validate cert subject
         if (false === isset($cert['extensions']['subjectAltName']) ||
             false === stristr($cert['extensions']['subjectAltName'], 'echo-api.amazon.com')
