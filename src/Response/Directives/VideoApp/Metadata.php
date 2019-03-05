@@ -18,21 +18,6 @@ class Metadata
     public $subtitle;
 
     /**
-     * @param array $amazonRequest
-     *
-     * @return Metadata
-     */
-    public static function fromAmazonRequest(array $amazonRequest): self
-    {
-        $metadata = new self();
-
-        $metadata->title    = isset($amazonRequest['title']) ? $amazonRequest['title'] : null;
-        $metadata->subtitle = isset($amazonRequest['subtitle']) ? $amazonRequest['subtitle'] : null;
-
-        return $metadata;
-    }
-
-    /**
      * @param string|null $title
      * @param string|null $subtitle
      *

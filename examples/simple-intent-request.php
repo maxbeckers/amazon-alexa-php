@@ -6,10 +6,11 @@ use MaxBeckers\AmazonAlexa\RequestHandler\RequestHandlerRegistry;
 use MaxBeckers\AmazonAlexa\Validation\RequestValidator;
 
 require '../vendor/autoload.php';
+require 'Handlers/HelpRequestHandler.php';
 require 'Handlers/SimpleIntentRequestHandler.php';
 
 /**
- * Simple exapmle for request handling workflow with
+ * Simple example for request handling workflow with help example
  * loading json
  * creating request
  * validating request
@@ -27,9 +28,9 @@ if ($requestBody) {
 
     // add handlers to registry
     $responseHelper         = new ResponseHelper();
+    $helpRequestHandler     = new HelpRequestHandler($responseHelper);
     $mySimpleRequestHandler = new SimpleIntentRequestHandler($responseHelper);
-    $requestHandlerRegistry = new RequestHandlerRegistry();
-    $requestHandlerRegistry->addHandler($mySimpleRequestHandler);
+    $requestHandlerRegistry = new RequestHandlerRegistry([$helpRequestHandler, $mySimpleRequestHandler]);
 
     // handle request
     $requestHandler = $requestHandlerRegistry->getSupportingHandler($alexaRequest);

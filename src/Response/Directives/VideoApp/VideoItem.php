@@ -18,21 +18,6 @@ class VideoItem
     public $metadata;
 
     /**
-     * @param array $amazonRequest
-     *
-     * @return VideoItem
-     */
-    public static function fromAmazonRequest(array $amazonRequest): self
-    {
-        $request = new self();
-
-        $request->source   = isset($amazonRequest['source']) ? $amazonRequest['source'] : null;
-        $request->metadata = isset($amazonRequest['metadata']) ? Metadata::fromAmazonRequest($amazonRequest['metadata']) : null;
-
-        return $request;
-    }
-
-    /**
      * @param string        $source
      * @param Metadata|null $metadata
      *

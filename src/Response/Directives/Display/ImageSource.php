@@ -34,29 +34,6 @@ class ImageSource implements \JsonSerializable
     public $heightPixels;
 
     /**
-     * {@inheritdoc}
-     */
-    public function jsonSerialize()
-    {
-        $data = [];
-
-        if (null !== $this->url) {
-            $data['url']                   = $this->url;
-        }
-        if (null !== $this->size) {
-            $data['size']                 = $this->size;
-        }
-        if (null !== $this->widthPixels) {
-            $data['widthPixels']   = $this->widthPixels;
-        }
-        if (null !== $this->heightPixels) {
-            $data['heightPixels'] = $this->heightPixels;
-        }
-
-        return $data;
-    }
-
-    /**
      * @param string      $url
      * @param string|null $size
      * @param int|null    $widthPixels
@@ -74,5 +51,28 @@ class ImageSource implements \JsonSerializable
         $imageSource->heightPixels = $heightPixels;
 
         return $imageSource;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        $data = new \ArrayObject();
+
+        if (null !== $this->url) {
+            $data['url'] = $this->url;
+        }
+        if (null !== $this->size) {
+            $data['size'] = $this->size;
+        }
+        if (null !== $this->widthPixels) {
+            $data['widthPixels'] = $this->widthPixels;
+        }
+        if (null !== $this->heightPixels) {
+            $data['heightPixels'] = $this->heightPixels;
+        }
+
+        return $data;
     }
 }

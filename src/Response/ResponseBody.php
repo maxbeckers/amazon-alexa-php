@@ -7,7 +7,7 @@ use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class ResponseBody implements \JsonSerializable
+class ResponseBody implements ResponseBodyInterface, \JsonSerializable
 {
     /**
      * @var OutputSpeech|null
@@ -49,7 +49,8 @@ class ResponseBody implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $data = [];
+        $data = new \ArrayObject();
+
         if (null !== $this->outputSpeech) {
             $data['outputSpeech'] = $this->outputSpeech;
         }

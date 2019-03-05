@@ -1,17 +1,25 @@
 {
   "name": "maxbeckers/amazon-alexa-php",
   "type": "library",
-  "description": "This library is a helper for amazon alexa skills with php.",
+  "description": "Php library for amazon echo (alexa) skill development.",
   "keywords": [
     "alexa",
-    "php",
-    "skill",
+    "alexa-skill",
+    "alexa-sdk",
     "amazon-alexa",
     "amazon-alexa-php",
     "amazon-echo",
     "amazon-echo-php",
-    "alexa-skill",
-    "alexa-skill-php"
+    "alexa-skill-php",
+    "echo",
+    "php",
+    "php7",
+    "php71",
+    "php72",
+    "skill",
+    "alexa-custom-skill",
+    "library",
+    "ssml"
   ],
   "license": "MIT",
   "support": {
@@ -27,16 +35,21 @@
   ],
   "minimum-stability": "dev",
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.0",
+    "guzzlehttp/guzzle": ">=6.0"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.8",
-    "phpunit/php-code-coverage": ">=5.0",
+    "friendsofphp/php-cs-fixer": ">=2.8",
     "phpunit/phpunit": ">=6.0"
   },
   "autoload": {
     "psr-4": {
       "MaxBeckers\\AmazonAlexa\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MaxBeckers\\AmazonAlexa\\Test\\": "test/Test/"
     }
   },
   "scripts": {
