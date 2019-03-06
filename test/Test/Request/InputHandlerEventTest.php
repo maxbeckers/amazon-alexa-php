@@ -31,7 +31,7 @@ class InputHandlerEventTest extends TestCase
         $this->assertInstanceOf(InputHandlerEvent::class, $inputHandlerEvent);
         $this->assertSame('amzn1.ask.skill.0000000-0000-0000-0000-00000000000', $request->context->system->application->applicationId);
         $this->assertCount(1, $inputHandlerEvent->events);
-        $this->assertIsArray($inputHandlerEvent->events);
+        $this->assertTrue(is_array($inputHandlerEvent->events));
         /**
          * @var Event
          */
@@ -39,7 +39,7 @@ class InputHandlerEventTest extends TestCase
         $this->assertInstanceOf(Event::class, $event);
         $this->assertSame('testEvent', $event->name);
         $this->assertCount(2, $event->inputEvents);
-        $this->assertIsArray($event->inputEvents);
+        $this->assertTrue(is_array($event->inputEvents));
         /**
          * @var InputEvent;
          */
