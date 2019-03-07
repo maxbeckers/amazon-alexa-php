@@ -27,19 +27,26 @@ class Pattern
     public $action;
 
     /**
+     * @var int|null
+     */
+    public $repeat;
+
+    /**
      * @param string|null $action
-     * @param array       $gadgetIds
-     * @param array       $colors
+     * @param array|null  $gadgetIds
+     * @param array|null  $colors
+     * @param int|null    $repeat
      *
      * @return Pattern
      */
-    public static function create(string $action = null, array $gadgetIds = [], array $colors = []): self
+    public static function create(string $action = null, $gadgetIds = null, $colors = null, $repeat = null): self
     {
         $pattern = new self();
 
         $pattern->action    = $action;
         $pattern->gadgetIds = $gadgetIds;
         $pattern->colors    = $colors;
+        $pattern->repeat    = $repeat;
 
         return $pattern;
     }
