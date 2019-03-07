@@ -19,7 +19,7 @@ class InputHandlerEvent extends StandardRequest
     public $originatingRequestId;
 
     /**
-     * @var Event
+     * @var Event[]
      */
     public $events = [];
 
