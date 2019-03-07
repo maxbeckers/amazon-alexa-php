@@ -17,9 +17,9 @@ class Event
     public $meets = [];
 
     /**
-     * @var array
+     * @var array|null
      */
-    public $fails = [];
+    public $fails;
 
     /**
      * @var string|null
@@ -44,14 +44,14 @@ class Event
     /**
      * @param array       $meets
      * @param bool        $shouldEndInputHandler
-     * @param array       $fails
+     * @param array|null  $fails
      * @param string|null $reports
      * @param int|null    $maximumInvocations
      * @param int|null    $triggerTimeMilliseconds
      *
      * @return Event
      */
-    public static function create(array $meets, bool $shouldEndInputHandler, array $fails = [], string $reports = null, int $maximumInvocations = null, int $triggerTimeMilliseconds = null): self
+    public static function create(array $meets, bool $shouldEndInputHandler, array $fails = null, string $reports = null, int $maximumInvocations = null, int $triggerTimeMilliseconds = null): self
     {
         $event = new self();
 
