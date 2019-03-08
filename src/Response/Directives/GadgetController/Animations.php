@@ -15,7 +15,7 @@ class Animations
     /**
      * @var array
      */
-    public $targetLights = [];
+    public $targetLights = ['1'];
 
     /**
      * @var Sequence[]
@@ -29,7 +29,7 @@ class Animations
      *
      * @return Animations
      */
-    public static function create(int $repeat, array $targetLights = [], array $sequence = []): self
+    public static function create(int $repeat, array $targetLights = ['1'], array $sequence = []): self
     {
         $animations = new self();
 
