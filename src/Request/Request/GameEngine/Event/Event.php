@@ -20,6 +20,8 @@ class Event
     /**
      * @param array $amazonRequest
      *
+     * @throws \Exception
+     *
      * @return Event
      */
     public static function fromAmazonRequest(array $amazonRequest): self
