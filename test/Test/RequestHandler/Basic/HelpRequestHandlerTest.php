@@ -4,14 +4,16 @@ namespace MaxBeckers\AmazonAlexa\RequestHandler\Basic;
 
 use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
 use MaxBeckers\AmazonAlexa\Request\Request;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class HelpRequestHandlerTest extends \PHPUnit_Framework_TestCase
+class HelpRequestHandlerTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|ResponseHelper
+     * @var MockObject|ResponseHelper
      */
     private $responseHelper;
 
