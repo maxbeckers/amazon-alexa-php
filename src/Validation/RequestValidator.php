@@ -16,7 +16,7 @@ use MaxBeckers\AmazonAlexa\Request\Request;
 class RequestValidator
 {
     /**
-     * Default value for timestamp validation. 150 seconds is suggested by amazon.
+     * Basic value for timestamp validation. 150 seconds is suggested by amazon.
      */
     const TIMESTAMP_VALID_TOLERANCE_SECONDS = 150;
 
