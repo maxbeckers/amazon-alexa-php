@@ -25,7 +25,7 @@ class HelpRequestHandlerTest extends TestCase
 
         $responseBody               = new ResponseBody();
         $responseBody->outputSpeech = $output;
-        $responseHelper->expects(static::once())->method('respond')->willReturn(new Response([], "1.0", $responseBody));
+        $responseHelper->expects(static::once())->method('respond')->willReturn(new Response([], '1.0', $responseBody));
 
         static::assertTrue($requestHandler->supportsRequest($request));
         static::assertSame($output, $requestHandler->handleRequest($request)->response->outputSpeech);
