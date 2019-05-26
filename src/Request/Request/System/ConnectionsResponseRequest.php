@@ -11,7 +11,6 @@ class ConnectionsResponseRequest extends SystemRequest
 {
     const TYPE = 'Connections.Response';
 
-
     /**
      * {@inheritdoc}
      */
