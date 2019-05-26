@@ -20,6 +20,7 @@ use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\PreviousCommandIss
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\LaunchRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\SessionEndedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\System\ConnectionsResponseRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\System\ExceptionEncounteredRequest;
 
 /**
@@ -54,6 +55,8 @@ class Request
         InputHandlerEvent::TYPE             => InputHandlerEvent::class,
         // can fulfill intent
         CanFulfillIntentRequest::TYPE       => CanFulfillIntentRequest::class,
+        // Connections Response Request
+        ConnectionsResponseRequest::TYPE    => ConnectionsResponseRequest::class,
     ];
 
     /**
