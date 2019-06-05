@@ -12,6 +12,7 @@ use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackStartedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackStoppedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\CanFulfill\CanFulfillIntentRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Display\ElementSelectedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\GameEngine\InputHandlerEvent;
 use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\NextCommandIssued;
 use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\PauseCommandIssued;
 use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\PlayCommandIssued;
@@ -19,6 +20,7 @@ use MaxBeckers\AmazonAlexa\Request\Request\PlaybackController\PreviousCommandIss
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\LaunchRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\SessionEndedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\System\ConnectionsResponseRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\System\ExceptionEncounteredRequest;
 
 /**
@@ -49,8 +51,12 @@ class Request
         ExceptionEncounteredRequest::TYPE   => ExceptionEncounteredRequest::class,
         // Display types
         ElementSelectedRequest::TYPE        => ElementSelectedRequest::class,
+        // Game engine types
+        InputHandlerEvent::TYPE             => InputHandlerEvent::class,
         // can fulfill intent
         CanFulfillIntentRequest::TYPE       => CanFulfillIntentRequest::class,
+        // Connections Response Request
+        ConnectionsResponseRequest::TYPE    => ConnectionsResponseRequest::class,
     ];
 
     /**

@@ -23,14 +23,14 @@ class RecognizerMatch extends Recognizer
     public $fuzzy;
 
     /**
-     * @var array
+     * @var array|null
      */
-    public $gadgetIds = [];
+    public $gadgetIds;
 
     /**
-     * @var array
+     * @var array|null
      */
-    public $actions = [];
+    public $actions;
 
     /**
      * @var Pattern[]
@@ -38,15 +38,15 @@ class RecognizerMatch extends Recognizer
     public $pattern = [];
 
     /**
-     * @param string    $anchor
-     * @param bool      $fuzzy
-     * @param array     $gadgetIds
-     * @param array     $actions
-     * @param Pattern[] $pattern
+     * @param Pattern[]  $pattern
+     * @param string     $anchor
+     * @param bool       $fuzzy
+     * @param array|null $gadgetIds
+     * @param array|null $actions
      *
      * @return RecognizerMatch
      */
-    public static function create(string $anchor, bool $fuzzy, array $gadgetIds = [], array $actions = [], array $pattern = []): self
+    public static function create(array $pattern, string $anchor = self::ANCHOR_START, bool $fuzzy = false, $gadgetIds = null, $actions = null): self
     {
         $recognizer = new self();
 

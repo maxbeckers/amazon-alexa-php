@@ -21,7 +21,7 @@ class GameEngineTest extends TestCase
         $pattern = Pattern::create(Pattern::ACTION_UP, ['gadgetId1', 'gadgetId2'], ['blue']);
 
         $recognizers = [
-            'test_match'     => RecognizerMatch::create(RecognizerMatch::ANCHOR_START, false, ['gadgetId1', 'gadgetId2'], [Pattern::ACTION_UP], [$pattern]),
+            'test_match'     => RecognizerMatch::create([Pattern::ACTION_UP], RecognizerMatch::ANCHOR_START, false, ['gadgetId1', 'gadgetId2'], [$pattern]),
             'test_deviation' => RecognizerDeviation::create('test_match'),
             'test_progress'  => RecognizerProgress::create('test_match', 5),
         ];
@@ -34,6 +34,14 @@ class GameEngineTest extends TestCase
         $this->assertSame(5000, $startInputHandlerDirective->timeout);
         $this->assertSame('match', $startInputHandlerDirective->recognizers['test_match']->type);
         $this->assertSame(Event::REPORTS_HISTORY, $startInputHandlerDirective->events['test_match']->reports);
+    }
+
+    public function testPattern()
+    {
+        $pattern = Pattern::create(Pattern::ACTION_UP, ['gadgetId1', 'gadgetId2'], ['blue']);
+        $this->assertJsonStringEqualsJsonString('{"gadgetIds":["gadgetId1","gadgetId2"],"colors":["blue"],"action":"up","repeat":null}', json_encode($pattern));
+        $pattern = Pattern::create(Pattern::ACTION_UP, null, null, 10);
+        $this->assertJsonStringEqualsJsonString('{"gadgetIds":null,"colors":null,"action":"up","repeat":10}', json_encode($pattern));
     }
 
     public function testStopInputHandlerDirective()
