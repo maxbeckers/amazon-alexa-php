@@ -16,5 +16,9 @@ class ConnectionsResponseRequestTest extends TestCase
 
         $request     = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(Request\System\ConnectionsResponseRequest::class, $request->request);
+        $this->assertEquals('apple_pie', $request->request->token);
+        $this->assertEquals('200', $request->request->status->code);
+        $this->assertEquals('Upsell', $request->request->name);
+        $this->assertEquals('ACCEPTED', $request->request->payload->purchaseResult);
     }
 }

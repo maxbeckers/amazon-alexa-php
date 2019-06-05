@@ -9,7 +9,30 @@ use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
  */
 class ConnectionsResponseRequest extends SystemRequest
 {
-    const TYPE = 'Connections.Response';
+    const TYPE        = 'Connections.Response';
+    const NAME_UPSELL = 'Upsell';
+    const NAME_BUY    = 'Buy';
+    const NAME_CANCEL = 'CANCEL';
+
+    /**
+     * @var string|null
+     */
+    public $name;
+
+    /**
+     * @var string|null
+     */
+    public $token;
+
+    /**
+     * @var Status|null
+     */
+    public $status;
+
+    /**
+     * @var Status|null
+     */
+    public $payload;
 
     /**
      * {@inheritdoc}
@@ -18,7 +41,11 @@ class ConnectionsResponseRequest extends SystemRequest
     {
         $request = new self();
 
-        $request->type = self::TYPE;
+        $request->type    = self::TYPE;
+        $request->name    = isset($amazonRequest['name']) ? $amazonRequest['name'] : null;
+        $request->token   = isset($amazonRequest['token']) ? $amazonRequest['token'] : null;
+        $request->status  = isset($amazonRequest['status']) ? Status::fromAmazonRequest($amazonRequest['status']) : null;
+        $request->payload = isset($amazonRequest['payload']) ? Payload::fromAmazonRequest($amazonRequest['payload']) : null;
 
         $request->setRequestData($amazonRequest);
 
