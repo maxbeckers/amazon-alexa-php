@@ -22,18 +22,18 @@ class Parameters
     public $triggerEventTimeMs;
 
     /**
-     * @var Animations|null
+     * @var Animation[]
      */
     public $animations;
 
     /**
-     * @param string          $triggerEvent
-     * @param int             $triggerEventTimeMs
-     * @param Animations|null $animations
+     * @param string      $triggerEvent
+     * @param int         $triggerEventTimeMs
+     * @param Animation[] $animations
      *
      * @return Parameters
      */
-    public static function create(string $triggerEvent = self::TRIGGER_EVENT_NONE, int $triggerEventTimeMs = 0, Animations $animations = null): self
+    public static function create(array $animations, string $triggerEvent = self::TRIGGER_EVENT_NONE, int $triggerEventTimeMs = 0): self
     {
         $parameters = new self();
 

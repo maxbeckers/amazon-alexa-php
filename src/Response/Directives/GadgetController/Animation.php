@@ -5,7 +5,7 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\GadgetController;
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class Animations
+class Animation
 {
     /**
      * @var int|null
@@ -15,7 +15,7 @@ class Animations
     /**
      * @var array
      */
-    public $targetLights = [];
+    public $targetLights = ['1'];
 
     /**
      * @var Sequence[]
@@ -27,9 +27,9 @@ class Animations
      * @param array      $targetLights
      * @param Sequence[] $sequence
      *
-     * @return Animations
+     * @return Animation
      */
-    public static function create(int $repeat, array $targetLights = [], array $sequence = []): self
+    public static function create(array $sequence, int $repeat=1, array $targetLights = ['1']): self
     {
         $animations = new self();
 
