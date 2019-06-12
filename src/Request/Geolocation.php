@@ -42,16 +42,16 @@ class Geolocation
      *
      * @return Geolocation
      */
-    public static function fromAmazonRequest(array $amazonRequest): Geolocation
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $geolocation = new self();
 
-        $geolocation->locationServices = isset($amazonRequest['locationServices']) ? LocationServices::fromAmazonRequest($amazonRequest['locationServices']) : null;
-        $geolocation->timestamp = new \DateTime($amazonRequest['timestamp']);
-        $geolocation->coordinate = isset($amazonRequest['coordinate']) ? Coordinate::fromAmazonRequest($amazonRequest['coordinate']) : null;
-        $geolocation->altitude = isset($amazonRequest['altitude']) ? Altitude::fromAmazonRequest($amazonRequest['altitude']) : null;
-        $geolocation->heading = isset($amazonRequest['heading']) ? Heading::fromAmazonRequest($amazonRequest['heading']) : null;
-        $geolocation->speed = isset($amazonRequest['speed']) ? Speed::fromAmazonRequest($amazonRequest['speed']) : null;
+        $geolocation->locationServices  = isset($amazonRequest['locationServices']) ? LocationServices::fromAmazonRequest($amazonRequest['locationServices']) : null;
+        $geolocation->timestamp         = new \DateTime($amazonRequest['timestamp']);
+        $geolocation->coordinate        = isset($amazonRequest['coordinate']) ? Coordinate::fromAmazonRequest($amazonRequest['coordinate']) : null;
+        $geolocation->altitude          = isset($amazonRequest['altitude']) ? Altitude::fromAmazonRequest($amazonRequest['altitude']) : null;
+        $geolocation->heading           = isset($amazonRequest['heading']) ? Heading::fromAmazonRequest($amazonRequest['heading']) : null;
+        $geolocation->speed             = isset($amazonRequest['speed']) ? Speed::fromAmazonRequest($amazonRequest['speed']) : null;
 
         return $geolocation;
     }

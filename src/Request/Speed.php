@@ -22,12 +22,12 @@ class Speed
      *
      * @return Speed
      */
-    public static function fromAmazonRequest(array $amazonRequest): Speed
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $speed = new self();
 
-        $speed->speedInMetersPerSecond = floatval($amazonRequest['speedInMetersPerSecond']);
-        $speed->accuracyInMetersPerSecond = isset($amazonRequest['accuracyInMetersPerSecond']) ? floatval($amazonRequest['accuracyInMetersPerSecond']) : null;
+        $speed->speedInMetersPerSecond      = floatval($amazonRequest['speedInMetersPerSecond']);
+        $speed->accuracyInMetersPerSecond   = isset($amazonRequest['accuracyInMetersPerSecond']) ? floatval($amazonRequest['accuracyInMetersPerSecond']) : null;
 
         return $speed;
     }

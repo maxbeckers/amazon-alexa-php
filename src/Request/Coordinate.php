@@ -27,13 +27,13 @@ class Coordinate
      *
      * @return Coordinate
      */
-    public static function fromAmazonRequest(array $amazonRequest): Coordinate
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $coordinate = new self();
 
-        $coordinate->latitudeInDegrees = floatval($amazonRequest['latitudeInDegrees']);
+        $coordinate->latitudeInDegrees  = floatval($amazonRequest['latitudeInDegrees']);
         $coordinate->longitudeInDegrees = floatval($amazonRequest['longitudeInDegrees']);
-        $coordinate->accuracyInMeters = floatval($amazonRequest['accuracyInMeters']);
+        $coordinate->accuracyInMeters   = floatval($amazonRequest['accuracyInMeters']);
 
         return $coordinate;
     }

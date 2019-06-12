@@ -22,12 +22,12 @@ class Heading
      *
      * @return Heading
      */
-    public static function fromAmazonRequest(array $amazonRequest): Heading
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $heading = new self();
 
-        $heading->directionInDegrees = floatval($amazonRequest['directionInDegrees']);
-        $heading->accuracyInDegrees = isset($amazonRequest['accuracyInDegrees']) ? floatval($amazonRequest['accuracyInDegrees']) : null;
+        $heading->directionInDegrees    = floatval($amazonRequest['directionInDegrees']);
+        $heading->accuracyInDegrees     = isset($amazonRequest['accuracyInDegrees']) ? floatval($amazonRequest['accuracyInDegrees']) : null;
 
         return $heading;
     }

@@ -28,12 +28,12 @@ class LocationServices
      *
      * @return LocationServices
      */
-    public static function fromAmazonRequest(array $amazonRequest): LocationServices
+    public static function fromAmazonRequest(array $amazonRequest): self
     {
         $locationServices = new self();
 
-        $locationServices->access = $amazonRequest['access'];
-        $locationServices->status = $amazonRequest['status'];
+        $locationServices->access   = $amazonRequest['access'];
+        $locationServices->status   = $amazonRequest['status'];
 
         return $locationServices;
     }
