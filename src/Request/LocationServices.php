@@ -7,7 +7,7 @@ namespace MaxBeckers\AmazonAlexa\Request;
  */
 class LocationServices
 {
-    const ACCESS_ENABLED = 'ENABLED';
+    const ACCESS_ENABLED  = 'ENABLED';
     const ACCESS_DISABLED = 'DISABLED';
 
     const STATUS_RUNNING = 'RUNNING';
