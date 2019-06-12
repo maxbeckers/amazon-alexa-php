@@ -1,0 +1,92 @@
+{
+  "version": "1.0",
+  "session": {
+    "new": true,
+    "sessionId": "sessionId",
+    "application": {
+      "applicationId": "applicationId"
+    },
+    "attributes": {
+      "string": {}
+    },
+    "user": {
+      "userId": "userId",
+      "permissions": {
+        "consentToken": "consentToken",
+        "scopes": {
+          "alexa::devices:all:geolocation:read": {
+            "status": "GRANTED"
+          }
+        }
+      },
+      "accessToken": "accessToken"
+    }
+  },
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "my-application-id"
+      },
+      "user": {
+        "userId": "userId",
+        "permissions": {
+          "consentToken": "consentToken",
+          "scopes": {
+            "alexa::devices:all:geolocation:read": {
+              "status": "GRANTED"
+            }
+          }
+        },
+        "accessToken": "accessToken"
+      },
+      "device": {
+        "deviceId": "deviceId",
+        "supportedInterfaces": {
+          "AudioPlayer": {},
+          "Geolocation": {}
+        }
+      },
+      "apiEndpoint": "apiEndpoint"
+    },
+    "AudioPlayer": {
+      "token": "token",
+      "offsetInMilliseconds": 0,
+      "playerActivity": "playerActivity"
+    },
+    "Geolocation": {
+      "locationServices": {
+        "access": "ENABLED",
+        "status": "RUNNING"
+      },
+      "timestamp": "2019-06-12T19:13:01+00:00",
+      "coordinate": {
+        "latitudeInDegrees": 40.3,
+        "longitudeInDegrees": -78.9,
+        "accuracyInMeters": 100.0
+      },
+      "altitude": {
+        "altitudeInMeters": 600.0,
+        "accuracyInMeters": 100.0
+      },
+      "heading": {
+        "directionInDegrees": 48.12,
+        "accuracyInDegrees": 5.0
+      },
+      "speed": {
+        "speedInMetersPerSecond": 1.0,
+        "accuracyInMetersPerSecond": 1.0
+      }
+    }
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "requestId",
+    "timestamp": "now",
+    "dialogState": "dialogState",
+    "locale": "en-US",
+    "intent": {
+      "name": "name",
+      "confirmationStatus": "confirmationStatus"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "version": "1.0",
+  "session": {
+    "new": true,
+    "sessionId": "sessionId",
+    "application": {
+      "applicationId": "applicationId"
+    },
+    "attributes": {
+      "string": {}
+    },
+    "user": {
+      "userId": "userId",
+      "permissions": {
+        "consentToken": "consentToken"
+      },
+      "accessToken": "accessToken"
+    }
+  },
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "my-application-id"
+      },
+      "user": {
+        "userId": "userId",
+        "permissions": {
+          "consentToken": "consentToken"
+        },
+        "accessToken": "accessToken"
+      },
+      "device": {
+        "deviceId": "deviceId",
+        "supportedInterfaces": {
+          "AudioPlayer": {},
+          "Geolocation": {}
+        }
+      },
+      "apiEndpoint": "apiEndpoint"
+    },
+    "AudioPlayer": {
+      "token": "token",
+      "offsetInMilliseconds": 0,
+      "playerActivity": "playerActivity"
+    }
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "requestId",
+    "timestamp": "now",
+    "dialogState": "dialogState",
+    "locale": "en-US",
+    "intent": {
+      "name": "name",
+      "confirmationStatus": "confirmationStatus"
+    }
+  }
+}
