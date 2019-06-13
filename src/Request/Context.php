@@ -18,6 +18,11 @@ class Context
     public $audioPlayer;
 
     /**
+     * @var Geolocation|null
+     */
+    public $geolocation;
+
+    /**
      * @param array $amazonRequest
      *
      * @return Context
@@ -28,6 +33,7 @@ class Context
 
         $context->system      = isset($amazonRequest['System']) ? System::fromAmazonRequest($amazonRequest['System']) : null;
         $context->audioPlayer = isset($amazonRequest['AudioPlayer']) ? AudioPlayer::fromAmazonRequest($amazonRequest['AudioPlayer']) : null;
+        $context->geolocation = isset($amazonRequest['Geolocation']) ? Geolocation::fromAmazonRequest($amazonRequest['Geolocation']) : null;
 
         return $context;
     }
