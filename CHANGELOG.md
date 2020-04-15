@@ -1,5 +1,17 @@
 # Change Log
 
+## [1.8.0](https://github.com/maxbeckers/amazon-alexa-php/tree/1.8.0) (2020-04-15)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.7.0...1.8.0)
+
+**Closed issues:**
+- Add handling for Alexa Event requests [\#82](https://github.com/maxbeckers/amazon-alexa-php/issues/82)
+
+## [1.7.0](https://github.com/maxbeckers/amazon-alexa-php/tree/1.7.0) (2019-12-19)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.6.0...1.7.0)
+
+## [1.6.0](https://github.com/maxbeckers/amazon-alexa-php/tree/1.6.0) (2018-06-13)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.5.0...1.6.0)
+
 ## [1.5.0](https://github.com/maxbeckers/amazon-alexa-php/tree/1.5.0) (2018-06-05)
 [Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.4.0...1.5.0)
 
