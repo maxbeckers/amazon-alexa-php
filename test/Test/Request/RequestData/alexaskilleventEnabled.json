@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "string"
+      },
+      "user": {
+        "userId": "string"
+      },
+      "apiEndpoint": "https://api.amazonalexa.com"
+    }
+  },
+  "request": {
+    "type": "AlexaSkillEvent.SkillEnabled",
+    "requestId": "string",
+    "timeStamp": "now",
+    "eventCreationTime": "now",
+    "eventPublishingTime": "now"
+  }
+}
