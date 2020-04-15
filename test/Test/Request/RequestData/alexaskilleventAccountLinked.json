@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "string"
+      },
+      "user": {
+        "userId": "string",
+        "accessToken": "string",
+        "permissions": {
+          "consentToken": "string"
+        }
+      },
+      "apiEndpoint": "https://api.amazonalexa.com"
+    }
+  },
+  "request": {
+    "type": "AlexaSkillEvent.SkillAccountLinked",
+    "requestId": "string",
+    "body": {
+      "accessToken": "string"
+    },
+    "timeStamp": "now",
+    "eventCreationTime": "now",
+    "eventPublishingTime": "now"
+  }
+}

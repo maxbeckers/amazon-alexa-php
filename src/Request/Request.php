@@ -5,6 +5,11 @@ namespace MaxBeckers\AmazonAlexa\Request;
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestDataException;
 use MaxBeckers\AmazonAlexa\Exception\MissingRequiredHeaderException;
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillAccountLinkedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillDisabledRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillEnabledRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillPermissionAcceptedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillPermissionChangedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackFailedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackFinishedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackNearlyFinishedRequest;
@@ -57,6 +62,12 @@ class Request
         CanFulfillIntentRequest::TYPE       => CanFulfillIntentRequest::class,
         // Connections Response Request
         ConnectionsResponseRequest::TYPE    => ConnectionsResponseRequest::class,
+        // Skill event types
+        SkillAccountLinkedRequest::TYPE         => SkillAccountLinkedRequest::class,
+        SkillEnabledRequest::TYPE               => SkillEnabledRequest::class,
+        SkillDisabledRequest::TYPE              => SkillDisabledRequest::class,
+        SkillPermissionAcceptedRequest::TYPE    => SkillPermissionAcceptedRequest::class,
+        SkillPermissionChangedRequest::TYPE     => SkillPermissionChangedRequest::class,
     ];
 
     /**

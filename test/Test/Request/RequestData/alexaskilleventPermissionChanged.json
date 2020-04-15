@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "string"
+      },
+      "user": {
+        "userId": "string",
+        "accessToken": "string",
+        "permissions":{
+          "consentToken":"string"
+        }
+      },
+      "apiEndpoint": "https://api.amazonalexa.com"
+    }
+  },
+  "request": {
+    "type": "AlexaSkillEvent.SkillPermissionChanged",
+    "requestId": "string",
+    "timeStamp": "now",
+    "eventCreationTime": "now",
+    "eventPublishingTime": "now",
+    "body": {
+      "acceptedPermissions":  [{
+        "scope": "string"
+      }]
+    }
+  }
+}
+
