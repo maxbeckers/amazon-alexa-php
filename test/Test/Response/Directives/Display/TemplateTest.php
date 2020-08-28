@@ -33,7 +33,7 @@ class TemplateTest extends TestCase
         $type            = 'BodyTemplate1';
         $token           = 'token';
         $backButton      = Template::BACK_BUTTON_MODE_VISIBLE;
-        $backgroundImage = "background image";
+        $backgroundImage = 'background image';
         $title           = 'title';
         $textContent     = TextContent::create();
         $image           = Image::create();
