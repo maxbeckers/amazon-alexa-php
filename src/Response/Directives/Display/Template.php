@@ -5,7 +5,7 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class Template
+class Template implements \JsonSerializable
 {
     const BACK_BUTTON_MODE_HIDDEN  = 'HIDDEN';
     const BACK_BUTTON_MODE_VISIBLE = 'VISIBLE';
@@ -84,5 +84,40 @@ class Template
         $template->listItems       = $listItems;
 
         return $template;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        $data = new \ArrayObject();
+
+        if (null !== $this->type) {
+            $data['type'] = $this->type;
+        }
+        if (null !== $this->token) {
+            $data['token'] = $this->token;
+        }
+        if (null !== $this->backButton) {
+            $data['backButton'] = $this->backButton;
+        }
+        if (null !== $this->backgroundImage) {
+            $data['backgroundImage'] = $this->backgroundImage;
+        }
+        if (null !== $this->title) {
+            $data['title'] = $this->title;
+        }
+        if (null !== $this->textContent) {
+            $data['textContent'] = $this->textContent;
+        }
+        if (null !== $this->image) {
+            $data['image'] = $this->image;
+        }
+        if (!empty($this->listItems)) {
+            $data['listItems'] = $this->listItems;
+        }
+
+        return $data;
     }
 }
