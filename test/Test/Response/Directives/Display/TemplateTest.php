@@ -19,13 +19,13 @@ class TemplateTest extends TestCase
         $type  = 'BodyTemplate1';
         $token = 'token';
 
-        $card = Template::create($type, $token);
+        $template = Template::create($type, $token);
 
         $this->assertEquals(new ArrayObject([
             'type'       => $type,
             'token'      => $token,
             'backButton' => Template::BACK_BUTTON_MODE_VISIBLE,
-        ]), $card->jsonSerialize());
+        ]), $template->jsonSerialize());
     }
 
     public function testSerializeAll()
@@ -39,7 +39,7 @@ class TemplateTest extends TestCase
         $image           = Image::create();
         $listItems       = [ListItem::create()];
 
-        $card = Template::create($type, $token, $backButton, $backgroundImage, $title, $textContent, $image, $listItems);
+        $template = Template::create($type, $token, $backButton, $backgroundImage, $title, $textContent, $image, $listItems);
 
         $this->assertEquals(new ArrayObject([
             'type'            => $type,
@@ -50,6 +50,6 @@ class TemplateTest extends TestCase
             'textContent'     => $textContent,
             'image'           => $image,
             'listItems'       => $listItems,
-        ]), $card->jsonSerialize());
+        ]), $template->jsonSerialize());
     }
 }

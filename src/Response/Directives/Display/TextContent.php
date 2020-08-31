@@ -5,7 +5,7 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class TextContent
+class TextContent implements \JsonSerializable
 {
     /**
      * @var Text|null
@@ -38,5 +38,25 @@ class TextContent
         $textContent->tertiaryText  = $tertiaryText;
 
         return $textContent;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        $data = new \ArrayObject();
+
+        if (null !== $this->primaryText) {
+            $data['primaryText'] = $this->primaryText;
+        }
+        if (null !== $this->secondaryText) {
+            $data['secondaryText'] = $this->secondaryText;
+        }
+        if (null !== $this->tertiaryText) {
+            $data['tertiaryText'] = $this->tertiaryText;
+        }
+
+        return $data;
     }
 }
