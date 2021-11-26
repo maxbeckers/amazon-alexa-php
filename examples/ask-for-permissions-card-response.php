@@ -22,6 +22,11 @@ $requestBody = file_get_contents('php://input');
 if ($requestBody) {
     $alexaRequest = Request::fromAmazonRequest($requestBody, $_SERVER['HTTP_SIGNATURECERTCHAINURL'], $_SERVER['HTTP_SIGNATURE']);
 
+    if (!$alexaRequest) {
+        http_response_code(400);
+        exit();
+    }
+
     // Request validation
     $validator = new RequestValidator();
     $validator->validate($alexaRequest);
@@ -39,6 +44,8 @@ if ($requestBody) {
     // render response
     header('Content-Type: application/json');
     echo json_encode($response);
+} else {
+    http_response_code(400);
 }
 
 exit();

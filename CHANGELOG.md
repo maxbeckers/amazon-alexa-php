@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.9.0](https://github.com/maxbeckers/amazon-alexa-php/tree/1.10.0) (2021-11-26)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.9.0...1.10.0)
+
 ## [1.9.0](https://github.com/maxbeckers/amazon-alexa-php/tree/1.9.0) (2020-08-28)
 [Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.8.0...1.9.0)
 
