@@ -13,7 +13,7 @@ class ElementSelectedRequest extends StandardRequest
     const TYPE = 'Display.ElementSelected';
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

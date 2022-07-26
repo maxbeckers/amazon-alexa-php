@@ -46,7 +46,7 @@ class Resolution implements \JsonSerializable
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function jsonSerialize()
     {

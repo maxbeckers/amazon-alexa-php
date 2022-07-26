@@ -48,7 +48,7 @@ class Intent implements \JsonSerializable
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function jsonSerialize()
     {

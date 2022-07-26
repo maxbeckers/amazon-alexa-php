@@ -14,7 +14,7 @@ class ConnectionsResponseRequestTest extends TestCase
     {
         $requestBody = file_get_contents(__DIR__.'/RequestData/connectionsResponseRequest.json');
 
-        $request     = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
+        $request = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(Request\System\ConnectionsResponseRequest::class, $request->request);
         $this->assertEquals('apple_pie', $request->request->token);
         $this->assertEquals('200', $request->request->status->code);

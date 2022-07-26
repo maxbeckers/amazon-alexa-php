@@ -28,7 +28,7 @@ class Event
     {
         $event = new self();
 
-        $event->name  = $amazonRequest['name'];
+        $event->name = $amazonRequest['name'];
 
         foreach ($amazonRequest['inputEvents'] as $_event) {
             $event->inputEvents[] = InputEvent::fromAmazonRequest($_event);

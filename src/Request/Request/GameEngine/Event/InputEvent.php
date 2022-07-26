@@ -46,11 +46,11 @@ class InputEvent
     {
         $event = new self();
 
-        $event->gadgetId   = $amazonRequest['gadgetId'];
-        $event->timestamp  = new \DateTime($amazonRequest['timestamp']);
-        $event->action     = $amazonRequest['action'];
-        $event->color      = $amazonRequest['color'];
-        $event->feature    = $amazonRequest['feature'];
+        $event->gadgetId  = $amazonRequest['gadgetId'];
+        $event->timestamp = new \DateTime($amazonRequest['timestamp']);
+        $event->action    = $amazonRequest['action'];
+        $event->color     = $amazonRequest['color'];
+        $event->feature   = $amazonRequest['feature'];
 
         return $event;
     }

@@ -12,7 +12,7 @@ class PauseCommandIssued extends AbstractPlaybackController
     const TYPE = 'PlaybackController.PauseCommandIssued';
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

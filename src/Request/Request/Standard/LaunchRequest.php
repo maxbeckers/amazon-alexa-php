@@ -12,7 +12,7 @@ class LaunchRequest extends StandardRequest
     const TYPE = 'LaunchRequest';
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

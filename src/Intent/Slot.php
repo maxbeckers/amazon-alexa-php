@@ -50,7 +50,7 @@ class Slot implements \JsonSerializable
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function jsonSerialize()
     {

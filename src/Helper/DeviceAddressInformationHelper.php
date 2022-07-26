@@ -42,9 +42,9 @@ class DeviceAddressInformationHelper
             throw new MissingRequestDataException();
         }
 
-        $deviceId    = $request->context->system->device->deviceId;
-        $token       = $request->context->system->apiAccessToken;
-        $endpoint    = $request->context->system->apiEndpoint;
+        $deviceId = $request->context->system->device->deviceId;
+        $token    = $request->context->system->apiAccessToken;
+        $endpoint = $request->context->system->apiEndpoint;
 
         $url = sprintf('%s/v1/devices/%s/settings/address/countryAndPostalCode', $endpoint, $deviceId);
 
@@ -64,9 +64,9 @@ class DeviceAddressInformationHelper
             throw new MissingRequestDataException();
         }
 
-        $deviceId    = $request->context->system->device->deviceId;
-        $token       = $request->context->system->apiAccessToken;
-        $endpoint    = $request->context->system->apiEndpoint;
+        $deviceId = $request->context->system->device->deviceId;
+        $token    = $request->context->system->apiAccessToken;
+        $endpoint = $request->context->system->apiEndpoint;
 
         $url = sprintf('%s/v1/devices/%s/settings/address', $endpoint, $deviceId);
 

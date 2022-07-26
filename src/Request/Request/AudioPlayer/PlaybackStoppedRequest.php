@@ -17,7 +17,7 @@ class PlaybackStoppedRequest extends AudioPlayerRequest
     public $offsetInMilliseconds;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

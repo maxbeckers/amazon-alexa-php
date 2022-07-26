@@ -36,7 +36,7 @@ class CancelRequestHandler extends AbstractRequestHandler
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function supportsRequest(Request $request): bool
     {
@@ -45,7 +45,7 @@ class CancelRequestHandler extends AbstractRequestHandler
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function handleRequest(Request $request): Response
     {

@@ -36,7 +36,7 @@ class HelpRequestHandler extends AbstractRequestHandler
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function supportsRequest(Request $request): bool
     {
@@ -45,7 +45,7 @@ class HelpRequestHandler extends AbstractRequestHandler
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function handleRequest(Request $request): Response
     {

@@ -24,7 +24,7 @@ class InputHandlerEvent extends StandardRequest
     public $events = [];
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

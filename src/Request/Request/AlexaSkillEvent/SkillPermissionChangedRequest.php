@@ -17,7 +17,7 @@ class SkillPermissionChangedRequest extends AlexaSkillEventRequest
     public $body;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

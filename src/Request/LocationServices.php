@@ -32,8 +32,8 @@ class LocationServices
     {
         $locationServices = new self();
 
-        $locationServices->access   = $amazonRequest['access'];
-        $locationServices->status   = $amazonRequest['status'];
+        $locationServices->access = $amazonRequest['access'];
+        $locationServices->status = $amazonRequest['status'];
 
         return $locationServices;
     }

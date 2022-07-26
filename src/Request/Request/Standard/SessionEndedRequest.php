@@ -23,7 +23,7 @@ class SessionEndedRequest extends StandardRequest
     public $error;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

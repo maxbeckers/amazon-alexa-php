@@ -26,8 +26,8 @@ class Heading
     {
         $heading = new self();
 
-        $heading->directionInDegrees    = floatval($amazonRequest['directionInDegrees']);
-        $heading->accuracyInDegrees     = isset($amazonRequest['accuracyInDegrees']) ? floatval($amazonRequest['accuracyInDegrees']) : null;
+        $heading->directionInDegrees = floatval($amazonRequest['directionInDegrees']);
+        $heading->accuracyInDegrees  = isset($amazonRequest['accuracyInDegrees']) ? floatval($amazonRequest['accuracyInDegrees']) : null;
 
         return $heading;
     }
