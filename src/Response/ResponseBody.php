@@ -45,7 +45,7 @@ class ResponseBody implements ResponseBodyInterface, \JsonSerializable
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function jsonSerialize()
     {

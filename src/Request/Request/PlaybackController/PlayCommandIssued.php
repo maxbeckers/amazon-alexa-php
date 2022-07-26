@@ -12,7 +12,7 @@ class PlayCommandIssued extends AbstractPlaybackController
     const TYPE = 'PlaybackController.PlayCommandIssued';
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

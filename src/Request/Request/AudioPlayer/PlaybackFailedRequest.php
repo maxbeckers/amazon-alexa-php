@@ -23,7 +23,7 @@ class PlaybackFailedRequest extends AudioPlayerRequest
     public $currentPlaybackState;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

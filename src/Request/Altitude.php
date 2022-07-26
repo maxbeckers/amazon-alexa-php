@@ -26,8 +26,8 @@ class Altitude
     {
         $altitude = new self();
 
-        $altitude->altitudeInMeters     = floatval($amazonRequest['altitudeInMeters']);
-        $altitude->accuracyInMeters     = isset($amazonRequest['accuracyInMeters']) ? floatval($amazonRequest['accuracyInMeters']) : null;
+        $altitude->altitudeInMeters = floatval($amazonRequest['altitudeInMeters']);
+        $altitude->accuracyInMeters = isset($amazonRequest['accuracyInMeters']) ? floatval($amazonRequest['accuracyInMeters']) : null;
 
         return $altitude;
     }

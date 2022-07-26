@@ -35,7 +35,7 @@ class ConnectionsResponseRequest extends SystemRequest
     public $payload;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

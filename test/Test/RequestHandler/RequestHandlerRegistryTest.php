@@ -109,7 +109,7 @@ class SimpleTestRequestHandler extends AbstractRequestHandler
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function supportsRequest(Request $request): bool
     {
@@ -118,7 +118,7 @@ class SimpleTestRequestHandler extends AbstractRequestHandler
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function handleRequest(Request $request): Response
     {

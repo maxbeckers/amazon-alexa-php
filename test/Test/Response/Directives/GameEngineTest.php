@@ -25,7 +25,7 @@ class GameEngineTest extends TestCase
             'test_deviation' => RecognizerDeviation::create('test_match'),
             'test_progress'  => RecognizerProgress::create('test_match', 5),
         ];
-        $events      = [
+        $events = [
             'test_match' => Event::create(['test_match'], true, ['test_deviation'], Event::REPORTS_HISTORY, 1, 1000),
         ];
 

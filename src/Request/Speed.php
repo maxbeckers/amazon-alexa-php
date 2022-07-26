@@ -26,8 +26,8 @@ class Speed
     {
         $speed = new self();
 
-        $speed->speedInMetersPerSecond      = floatval($amazonRequest['speedInMetersPerSecond']);
-        $speed->accuracyInMetersPerSecond   = isset($amazonRequest['accuracyInMetersPerSecond']) ? floatval($amazonRequest['accuracyInMetersPerSecond']) : null;
+        $speed->speedInMetersPerSecond    = floatval($amazonRequest['speedInMetersPerSecond']);
+        $speed->accuracyInMetersPerSecond = isset($amazonRequest['accuracyInMetersPerSecond']) ? floatval($amazonRequest['accuracyInMetersPerSecond']) : null;
 
         return $speed;
     }

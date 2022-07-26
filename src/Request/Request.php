@@ -38,9 +38,9 @@ class Request
      */
     const REQUEST_TYPES = [
         // Standard types
-        IntentRequest::TYPE                 => IntentRequest::class,
-        LaunchRequest::TYPE                 => LaunchRequest::class,
-        SessionEndedRequest::TYPE           => SessionEndedRequest::class,
+        IntentRequest::TYPE       => IntentRequest::class,
+        LaunchRequest::TYPE       => LaunchRequest::class,
+        SessionEndedRequest::TYPE => SessionEndedRequest::class,
         // AudioPlayer types
         PlaybackStartedRequest::TYPE        => PlaybackStartedRequest::class,
         PlaybackNearlyFinishedRequest::TYPE => PlaybackNearlyFinishedRequest::class,
@@ -48,26 +48,26 @@ class Request
         PlaybackStoppedRequest::TYPE        => PlaybackStoppedRequest::class,
         PlaybackFailedRequest::TYPE         => PlaybackFailedRequest::class,
         // PlaybackController types
-        NextCommandIssued::TYPE             => NextCommandIssued::class,
-        PauseCommandIssued::TYPE            => PauseCommandIssued::class,
-        PlayCommandIssued::TYPE             => PlayCommandIssued::class,
-        PreviousCommandIssued::TYPE         => PreviousCommandIssued::class,
+        NextCommandIssued::TYPE     => NextCommandIssued::class,
+        PauseCommandIssued::TYPE    => PauseCommandIssued::class,
+        PlayCommandIssued::TYPE     => PlayCommandIssued::class,
+        PreviousCommandIssued::TYPE => PreviousCommandIssued::class,
         // System types
-        ExceptionEncounteredRequest::TYPE   => ExceptionEncounteredRequest::class,
+        ExceptionEncounteredRequest::TYPE => ExceptionEncounteredRequest::class,
         // Display types
-        ElementSelectedRequest::TYPE        => ElementSelectedRequest::class,
+        ElementSelectedRequest::TYPE => ElementSelectedRequest::class,
         // Game engine types
-        InputHandlerEvent::TYPE             => InputHandlerEvent::class,
+        InputHandlerEvent::TYPE => InputHandlerEvent::class,
         // can fulfill intent
-        CanFulfillIntentRequest::TYPE       => CanFulfillIntentRequest::class,
+        CanFulfillIntentRequest::TYPE => CanFulfillIntentRequest::class,
         // Connections Response Request
-        ConnectionsResponseRequest::TYPE    => ConnectionsResponseRequest::class,
+        ConnectionsResponseRequest::TYPE => ConnectionsResponseRequest::class,
         // Skill event types
-        SkillAccountLinkedRequest::TYPE         => SkillAccountLinkedRequest::class,
-        SkillEnabledRequest::TYPE               => SkillEnabledRequest::class,
-        SkillDisabledRequest::TYPE              => SkillDisabledRequest::class,
-        SkillPermissionAcceptedRequest::TYPE    => SkillPermissionAcceptedRequest::class,
-        SkillPermissionChangedRequest::TYPE     => SkillPermissionChangedRequest::class,
+        SkillAccountLinkedRequest::TYPE      => SkillAccountLinkedRequest::class,
+        SkillEnabledRequest::TYPE            => SkillEnabledRequest::class,
+        SkillDisabledRequest::TYPE           => SkillDisabledRequest::class,
+        SkillPermissionAcceptedRequest::TYPE => SkillPermissionAcceptedRequest::class,
+        SkillPermissionChangedRequest::TYPE  => SkillPermissionChangedRequest::class,
     ];
 
     /**

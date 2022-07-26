@@ -23,7 +23,7 @@ class ExceptionEncounteredRequest extends SystemRequest
     public $cause;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

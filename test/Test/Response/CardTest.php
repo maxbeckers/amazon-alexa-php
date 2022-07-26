@@ -41,16 +41,16 @@ class CardTest extends TestCase
 
     public function testStandardCardWithImage()
     {
-        $title  = 'title';
-        $text   = 'content';
-        $image  = CardImage::fromUrls('https://www.img.test/small.png', 'https://www.img.test/large.png');
+        $title = 'title';
+        $text  = 'content';
+        $image = CardImage::fromUrls('https://www.img.test/small.png', 'https://www.img.test/large.png');
 
         $card = Card::createStandard($title, $text, $image);
         $this->assertEquals(new ArrayObject([
-            'type'   => Card::TYPE_STANDARD,
-            'title'  => $title,
-            'text'   => $text,
-            'image'  => $image,
+            'type'  => Card::TYPE_STANDARD,
+            'title' => $title,
+            'text'  => $text,
+            'image' => $image,
         ]), $card->jsonSerialize());
     }
 
@@ -58,7 +58,7 @@ class CardTest extends TestCase
     {
         $card = Card::createLinkAccount();
         $this->assertEquals(new ArrayObject([
-            'type'  => Card::TYPE_LINK_ACCOUNT,
+            'type' => Card::TYPE_LINK_ACCOUNT,
         ]), $card->jsonSerialize());
     }
 

@@ -12,7 +12,7 @@ class NextCommandIssued extends AbstractPlaybackController
     const TYPE = 'PlaybackController.NextCommandIssued';
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

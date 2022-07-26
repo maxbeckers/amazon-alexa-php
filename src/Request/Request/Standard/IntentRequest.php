@@ -27,7 +27,7 @@ class IntentRequest extends StandardRequest
     public $intent;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {

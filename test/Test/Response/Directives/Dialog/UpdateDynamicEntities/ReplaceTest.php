@@ -18,7 +18,7 @@ class ReplaceTest extends TestCase
         /** @var Replace $directive */
         $directive = Replace::create();
         $directive->addType($type);
-        $this->assertInternalType('array', $directive->types);
+        $this->assertIsArray($directive->types);
         $this->assertSame([$type], $directive->types);
         $this->assertSame('Dialog.UpdateDynamicEntities', $directive->type);
         $this->assertSame('REPLACE', $directive->updateBehavior);

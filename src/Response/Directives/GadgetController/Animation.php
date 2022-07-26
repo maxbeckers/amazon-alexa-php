@@ -29,7 +29,7 @@ class Animation
      *
      * @return Animation
      */
-    public static function create(array $sequence, int $repeat=1, array $targetLights = ['1']): self
+    public static function create(array $sequence, int $repeat = 1, array $targetLights = ['1']): self
     {
         $animations = new self();
 
