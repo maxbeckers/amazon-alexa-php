@@ -2,6 +2,7 @@
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\Standard;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 use MaxBeckers\AmazonAlexa\Intent\Intent;
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 
@@ -34,7 +35,7 @@ class IntentRequest extends StandardRequest
         $request = new static();
 
         $request->type        = static::TYPE;
-        $request->dialogState = isset($amazonRequest['dialogState']) ? $amazonRequest['dialogState'] : null;
+        $request->dialogState = PropertyHelper::checkNullValue($amazonRequest,'dialogState');
         $request->intent      = Intent::fromAmazonRequest($amazonRequest['intent']);
         $request->setRequestData($amazonRequest);
 

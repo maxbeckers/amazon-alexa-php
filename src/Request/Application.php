@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * Represents the current Skill.
  *
@@ -23,7 +25,7 @@ class Application
     {
         $application = new self();
 
-        $application->applicationId = isset($amazonRequest['applicationId']) ? $amazonRequest['applicationId'] : null;
+        $application->applicationId = PropertyHelper::checkNullValue($amazonRequest,'applicationId');
 
         return $application;
     }

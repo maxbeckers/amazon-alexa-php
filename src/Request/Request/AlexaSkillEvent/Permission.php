@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -21,7 +23,7 @@ class Permission
     {
         $permission = new self();
 
-        $permission->scope = isset($amazonRequest['scope']) ? $amazonRequest['scope'] : null;
+        $permission->scope = PropertyHelper::checkNullValue($amazonRequest, 'scope');
 
         return $permission;
     }

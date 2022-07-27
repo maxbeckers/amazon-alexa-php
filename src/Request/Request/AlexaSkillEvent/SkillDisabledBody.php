@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -24,7 +26,7 @@ class SkillDisabledBody
     {
         $body = new self();
 
-        $body->userInformationPersistenceStatus = isset($amazonRequest['userInformationPersistenceStatus']) ? $amazonRequest['userInformationPersistenceStatus'] : null;
+        $body->userInformationPersistenceStatus = PropertyHelper::checkNullValue($amazonRequest,'userInformationPersistenceStatus');
 
         return $body;
     }

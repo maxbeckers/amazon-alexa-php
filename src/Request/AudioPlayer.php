@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -38,9 +40,9 @@ class AudioPlayer
     {
         $audioPlayer = new self();
 
-        $audioPlayer->token                = isset($amazonRequest['token']) ? $amazonRequest['token'] : null;
+        $audioPlayer->token                = PropertyHelper::checkNullValue($amazonRequest,'token');
         $audioPlayer->offsetInMilliseconds = isset($amazonRequest['offsetInMilliseconds']) ? (int) $amazonRequest['offsetInMilliseconds'] : null;
-        $audioPlayer->playerActivity       = isset($amazonRequest['playerActivity']) ? $amazonRequest['playerActivity'] : null;
+        $audioPlayer->playerActivity       = PropertyHelper::checkNullValue($amazonRequest,'playerActivity');
 
         return $audioPlayer;
     }

@@ -2,6 +2,7 @@
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\System;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 
 /**
@@ -42,8 +43,8 @@ class ConnectionsResponseRequest extends SystemRequest
         $request = new self();
 
         $request->type    = self::TYPE;
-        $request->name    = isset($amazonRequest['name']) ? $amazonRequest['name'] : null;
-        $request->token   = isset($amazonRequest['token']) ? $amazonRequest['token'] : null;
+        $request->name    = PropertyHelper::checkNullValue($amazonRequest,'name');
+        $request->token   = PropertyHelper::checkNullValue($amazonRequest,'token');
         $request->status  = isset($amazonRequest['status']) ? Status::fromAmazonRequest($amazonRequest['status']) : null;
         $request->payload = isset($amazonRequest['payload']) ? Payload::fromAmazonRequest($amazonRequest['payload']) : null;
 

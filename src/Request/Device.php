@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -31,9 +33,9 @@ class Device
     {
         $device = new self();
 
-        $device->deviceId            = isset($amazonRequest['deviceId']) ? $amazonRequest['deviceId'] : null;
+        $device->deviceId            = PropertyHelper::checkNullValue($amazonRequest,'deviceId');
         $device->supportedInterfaces = isset($amazonRequest['supportedInterfaces']) ? (array) $amazonRequest['supportedInterfaces'] : [];
-        $device->accessToken         = isset($amazonRequest['accessToken']) ? $amazonRequest['accessToken'] : null;
+        $device->accessToken         = PropertyHelper::checkNullValue($amazonRequest,'accessToken');
 
         return $device;
     }

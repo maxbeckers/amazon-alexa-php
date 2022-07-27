@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -44,8 +46,8 @@ class System
         $system->application    = isset($amazonRequest['application']) ? Application::fromAmazonRequest($amazonRequest['application']) : null;
         $system->user           = isset($amazonRequest['user']) ? User::fromAmazonRequest($amazonRequest['user']) : null;
         $system->device         = isset($amazonRequest['device']) ? Device::fromAmazonRequest($amazonRequest['device']) : null;
-        $system->apiAccessToken = isset($amazonRequest['apiAccessToken']) ? $amazonRequest['apiAccessToken'] : null;
-        $system->apiEndpoint    = isset($amazonRequest['apiEndpoint']) ? $amazonRequest['apiEndpoint'] : null;
+        $system->apiAccessToken = PropertyHelper::checkNullValue($amazonRequest,'apiAccessToken');
+        $system->apiEndpoint    = PropertyHelper::checkNullValue($amazonRequest,'apiEndpoint');
 
         return $system;
     }

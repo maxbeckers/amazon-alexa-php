@@ -4,6 +4,7 @@ namespace MaxBeckers\AmazonAlexa\Request;
 
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestDataException;
 use MaxBeckers\AmazonAlexa\Exception\MissingRequiredHeaderException;
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillAccountLinkedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillDisabledRequest;
@@ -122,22 +123,19 @@ class Request
         $request->signatureCertChainUrl = $signatureCertChainUrl;
         $request->signature             = $signature;
         $request->amazonRequestBody     = $amazonRequestBody;
-        $amazonRequest                  = json_decode($amazonRequestBody, true);
+        $amazonRequest                  = (array)json_decode($amazonRequestBody, true);
 
-        $request->version = isset($amazonRequest['version']) ? $amazonRequest['version'] : null;
+        $request->version = PropertyHelper::checkNullValue($amazonRequest, 'version');
         $request->session = isset($amazonRequest['session']) ? Session::fromAmazonRequest($amazonRequest['session']) : null;
         $request->context = isset($amazonRequest['context']) ? Context::fromAmazonRequest($amazonRequest['context']) : null;
 
-        if (isset($amazonRequest['request']['type']) && isset(self::REQUEST_TYPES[$amazonRequest['request']['type']])) {
-            $request->request = (self::REQUEST_TYPES[$amazonRequest['request']['type']])::fromAmazonRequest($amazonRequest['request']);
-        } else {
+        if (!isset($amazonRequest['request']['type']) || !isset(self::REQUEST_TYPES[$amazonRequest['request']['type']])) {
             throw new MissingRequestDataException();
         }
+        $request->request = (self::REQUEST_TYPES[$amazonRequest['request']['type']])::fromAmazonRequest($amazonRequest['request']);
 
-        if ($request->request->validateSignature()) {
-            if (!$request->signatureCertChainUrl || !$request->signature) {
-                throw new MissingRequiredHeaderException();
-            }
+        if ($request->request->validateSignature() && (!$request->signatureCertChainUrl || !$request->signature)) {
+            throw new MissingRequiredHeaderException();
         }
 
         return $request;

@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -31,9 +33,9 @@ class User
     {
         $user = new self();
 
-        $user->userId      = isset($amazonRequest['userId']) ? $amazonRequest['userId'] : null;
+        $user->userId      = PropertyHelper::checkNullValue($amazonRequest,'userId');
         $user->permissions = isset($amazonRequest['permissions']) ? UserPermissions::fromAmazonRequest($amazonRequest['permissions']) : null;
-        $user->accessToken = isset($amazonRequest['accessToken']) ? $amazonRequest['accessToken'] : null;
+        $user->accessToken = PropertyHelper::checkNullValue($amazonRequest,'accessToken');
 
         return $user;
     }

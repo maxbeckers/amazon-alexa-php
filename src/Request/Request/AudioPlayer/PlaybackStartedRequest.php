@@ -2,6 +2,7 @@
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 
 /**
@@ -24,7 +25,7 @@ class PlaybackStartedRequest extends AudioPlayerRequest
         $request = new self();
 
         $request->type                 = self::TYPE;
-        $request->offsetInMilliseconds = isset($amazonRequest['offsetInMilliseconds']) ? $amazonRequest['offsetInMilliseconds'] : null;
+        $request->offsetInMilliseconds = PropertyHelper::checkNullValue($amazonRequest,'offsetInMilliseconds');
         $request->setRequestData($amazonRequest);
 
         return $request;
