@@ -1,6 +1,6 @@
 [![Build Status](https://scrutinizer-ci.com/g/maxbeckers/amazon-alexa-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/maxbeckers/amazon-alexa-php/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/maxbeckers/amazon-alexa-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/maxbeckers/amazon-alexa-php/?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/maxbeckers/amazon-alexa-php/badge.svg?branch=master)](https://coveralls.io/github/maxbeckers/amazon-alexa-php?branch=master)
+[![Coverage Status](https://scrutinizer-ci.com/g/maxbeckers/amazon-alexa-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/maxbeckers/amazon-alexa-php/?branch=master)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/maxbeckers/amazon-alexa-php/issues)
 
