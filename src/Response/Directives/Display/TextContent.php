@@ -2,11 +2,15 @@
 
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 
+use MaxBeckers\AmazonAlexa\Helper\SerializeValueMapper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
 class TextContent implements \JsonSerializable
 {
+    use SerializeValueMapper;
+
     /**
      * @var Text|null
      */
@@ -47,15 +51,9 @@ class TextContent implements \JsonSerializable
     {
         $data = new \ArrayObject();
 
-        if (null !== $this->primaryText) {
-            $data['primaryText'] = $this->primaryText;
-        }
-        if (null !== $this->secondaryText) {
-            $data['secondaryText'] = $this->secondaryText;
-        }
-        if (null !== $this->tertiaryText) {
-            $data['tertiaryText'] = $this->tertiaryText;
-        }
+        $this->valueToArrayIfSet($data, 'primaryText');
+        $this->valueToArrayIfSet($data, 'secondaryText');
+        $this->valueToArrayIfSet($data, 'tertiaryText');
 
         return $data;
     }

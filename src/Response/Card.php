@@ -3,12 +3,15 @@
 namespace MaxBeckers\AmazonAlexa\Response;
 
 use MaxBeckers\AmazonAlexa\Exception\InvalidCardPermissionsException;
+use MaxBeckers\AmazonAlexa\Helper\SerializeValueMapper;
 
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
 class Card implements \JsonSerializable
 {
+    use SerializeValueMapper;
+
     const TYPE_SIMPLE                      = 'Simple';
     const TYPE_STANDARD                    = 'Standard';
     const TYPE_LINK_ACCOUNT                = 'LinkAccount';
@@ -130,21 +133,12 @@ class Card implements \JsonSerializable
     {
         $data = new \ArrayObject();
 
-        if (null !== $this->type) {
-            $data['type'] = $this->type;
-        }
-        if (null !== $this->title) {
-            $data['title'] = $this->title;
-        }
-        if (null !== $this->content) {
-            $data['content'] = $this->content;
-        }
-        if (null !== $this->text) {
-            $data['text'] = $this->text;
-        }
-        if (null !== $this->image) {
-            $data['image'] = $this->image;
-        }
+        $this->valueToArrayIfSet($data, 'type');
+        $this->valueToArrayIfSet($data, 'title');
+        $this->valueToArrayIfSet($data, 'content');
+        $this->valueToArrayIfSet($data, 'text');
+        $this->valueToArrayIfSet($data, 'image');
+
         if (!empty($this->permissions)) {
             $data['permissions'] = $this->permissions;
         }
