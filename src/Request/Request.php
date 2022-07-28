@@ -111,10 +111,10 @@ class Request
      * @param string $signatureCertChainUrl
      * @param string $signature
      *
-     * @return Request
      * @throws MissingRequiredHeaderException
-     *
      * @throws MissingRequestDataException
+     *
+     * @return Request
      */
     public static function fromAmazonRequest(string $amazonRequestBody, string $signatureCertChainUrl, string $signature): self
     {

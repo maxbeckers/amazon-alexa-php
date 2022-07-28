@@ -99,7 +99,7 @@ class DeviceAddressInformationHelper
          * 429 Too Many Requests    The skill has been throttled due to an excessive number of requests.
          * 500 Internal Error       An unexpected error occurred.
          */
-        if(200 !== $response->getStatusCode()) {
+        if (200 !== $response->getStatusCode()) {
             throw new DeviceApiCallException(sprintf('Error in api call (status code:"%s")', $response->getStatusCode()));
         }
 

@@ -13,9 +13,9 @@ class PropertyHelperTest extends TestCase
 
     public function testCheckNullValueSuccess()
     {
-        $key = 'test';
+        $key   = 'test';
         $value = 'me';
-        $data = [
+        $data  = [
             $key => $value,
         ];
 
@@ -27,9 +27,9 @@ class PropertyHelperTest extends TestCase
 
     public function testCheckNullValueUnset()
     {
-        $key = 'test';
+        $key   = 'test';
         $value = 'me';
-        $data = [
+        $data  = [
             $key => $value,
         ];
 

@@ -11,7 +11,7 @@ trait SerializeValueMapper
 {
     /**
      * @param \ArrayObject $data
-     * @param string $property
+     * @param string       $property
      */
     protected function valueToArrayIfSet(\ArrayObject $data, string $property)
     {

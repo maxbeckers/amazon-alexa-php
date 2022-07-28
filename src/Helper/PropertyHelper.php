@@ -10,7 +10,7 @@ namespace MaxBeckers\AmazonAlexa\Helper;
 class PropertyHelper
 {
     /**
-     * @param array $data
+     * @param array  $data
      * @param string $key
      *
      * @return string|null
