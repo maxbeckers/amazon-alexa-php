@@ -39,9 +39,9 @@ class PlaybackState
     {
         $playbackState = new self();
 
-        $playbackState->token                = PropertyHelper::checkNullValue($amazonRequest,'token');
-        $playbackState->offsetInMilliseconds = PropertyHelper::checkNullValue($amazonRequest,'offsetInMilliseconds');
-        $playbackState->playerActivity       = PropertyHelper::checkNullValue($amazonRequest,'playerActivity');
+        $playbackState->token                = PropertyHelper::checkNullValue($amazonRequest, 'token');
+        $playbackState->offsetInMilliseconds = PropertyHelper::checkNullValue($amazonRequest, 'offsetInMilliseconds');
+        $playbackState->playerActivity       = PropertyHelper::checkNullValue($amazonRequest, 'playerActivity');
 
         return $playbackState;
     }

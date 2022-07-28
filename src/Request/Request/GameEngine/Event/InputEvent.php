@@ -38,9 +38,9 @@ class InputEvent
     /**
      * @param array $amazonRequest
      *
+     * @return InputEvent
      * @throws \Exception
      *
-     * @return InputEvent
      */
     public static function fromAmazonRequest(array $amazonRequest): self
     {

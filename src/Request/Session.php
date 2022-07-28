@@ -46,7 +46,7 @@ class Session
         $session = new self();
 
         $session->new         = isset($amazonRequest['new']) ? (bool) $amazonRequest['new'] : null;
-        $session->sessionId   = PropertyHelper::checkNullValue($amazonRequest,'sessionId');
+        $session->sessionId   = PropertyHelper::checkNullValue($amazonRequest, 'sessionId');
         $session->application = isset($amazonRequest['application']) ? Application::fromAmazonRequest($amazonRequest['application']) : null;
         $session->attributes  = isset($amazonRequest['attributes']) ? (array) $amazonRequest['attributes'] : [];
         $session->user        = isset($amazonRequest['user']) ? User::fromAmazonRequest($amazonRequest['user']) : null;

@@ -39,30 +39,30 @@ class Request
      */
     const REQUEST_TYPES = [
         // Standard types
-        IntentRequest::TYPE       => IntentRequest::class,
-        LaunchRequest::TYPE       => LaunchRequest::class,
-        SessionEndedRequest::TYPE => SessionEndedRequest::class,
+        IntentRequest::TYPE                  => IntentRequest::class,
+        LaunchRequest::TYPE                  => LaunchRequest::class,
+        SessionEndedRequest::TYPE            => SessionEndedRequest::class,
         // AudioPlayer types
-        PlaybackStartedRequest::TYPE        => PlaybackStartedRequest::class,
-        PlaybackNearlyFinishedRequest::TYPE => PlaybackNearlyFinishedRequest::class,
-        PlaybackFinishedRequest::TYPE       => PlaybackFinishedRequest::class,
-        PlaybackStoppedRequest::TYPE        => PlaybackStoppedRequest::class,
-        PlaybackFailedRequest::TYPE         => PlaybackFailedRequest::class,
+        PlaybackStartedRequest::TYPE         => PlaybackStartedRequest::class,
+        PlaybackNearlyFinishedRequest::TYPE  => PlaybackNearlyFinishedRequest::class,
+        PlaybackFinishedRequest::TYPE        => PlaybackFinishedRequest::class,
+        PlaybackStoppedRequest::TYPE         => PlaybackStoppedRequest::class,
+        PlaybackFailedRequest::TYPE          => PlaybackFailedRequest::class,
         // PlaybackController types
-        NextCommandIssued::TYPE     => NextCommandIssued::class,
-        PauseCommandIssued::TYPE    => PauseCommandIssued::class,
-        PlayCommandIssued::TYPE     => PlayCommandIssued::class,
-        PreviousCommandIssued::TYPE => PreviousCommandIssued::class,
+        NextCommandIssued::TYPE              => NextCommandIssued::class,
+        PauseCommandIssued::TYPE             => PauseCommandIssued::class,
+        PlayCommandIssued::TYPE              => PlayCommandIssued::class,
+        PreviousCommandIssued::TYPE          => PreviousCommandIssued::class,
         // System types
-        ExceptionEncounteredRequest::TYPE => ExceptionEncounteredRequest::class,
+        ExceptionEncounteredRequest::TYPE    => ExceptionEncounteredRequest::class,
         // Display types
-        ElementSelectedRequest::TYPE => ElementSelectedRequest::class,
+        ElementSelectedRequest::TYPE         => ElementSelectedRequest::class,
         // Game engine types
-        InputHandlerEvent::TYPE => InputHandlerEvent::class,
+        InputHandlerEvent::TYPE              => InputHandlerEvent::class,
         // can fulfill intent
-        CanFulfillIntentRequest::TYPE => CanFulfillIntentRequest::class,
+        CanFulfillIntentRequest::TYPE        => CanFulfillIntentRequest::class,
         // Connections Response Request
-        ConnectionsResponseRequest::TYPE => ConnectionsResponseRequest::class,
+        ConnectionsResponseRequest::TYPE     => ConnectionsResponseRequest::class,
         // Skill event types
         SkillAccountLinkedRequest::TYPE      => SkillAccountLinkedRequest::class,
         SkillEnabledRequest::TYPE            => SkillEnabledRequest::class,
@@ -111,10 +111,10 @@ class Request
      * @param string $signatureCertChainUrl
      * @param string $signature
      *
-     * @throws MissingRequestDataException
+     * @return Request
      * @throws MissingRequiredHeaderException
      *
-     * @return Request
+     * @throws MissingRequestDataException
      */
     public static function fromAmazonRequest(string $amazonRequestBody, string $signatureCertChainUrl, string $signature): self
     {
@@ -123,7 +123,7 @@ class Request
         $request->signatureCertChainUrl = $signatureCertChainUrl;
         $request->signature             = $signature;
         $request->amazonRequestBody     = $amazonRequestBody;
-        $amazonRequest                  = (array)json_decode($amazonRequestBody, true);
+        $amazonRequest                  = (array) json_decode($amazonRequestBody, true);
 
         $request->version = PropertyHelper::checkNullValue($amazonRequest, 'version');
         $request->session = isset($amazonRequest['session']) ? Session::fromAmazonRequest($amazonRequest['session']) : null;

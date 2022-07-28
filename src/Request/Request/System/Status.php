@@ -28,8 +28,8 @@ class Status
     {
         $status = new self();
 
-        $status->code    = PropertyHelper::checkNullValue($amazonRequest,'code');
-        $status->message = PropertyHelper::checkNullValue($amazonRequest,'message');
+        $status->code    = PropertyHelper::checkNullValue($amazonRequest, 'code');
+        $status->message = PropertyHelper::checkNullValue($amazonRequest, 'message');
 
         return $status;
     }

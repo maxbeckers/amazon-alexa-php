@@ -38,9 +38,9 @@ class Payload
     {
         $status = new self();
 
-        $status->purchaseResult = PropertyHelper::checkNullValue($amazonRequest,'purchaseResult');
-        $status->productId      = PropertyHelper::checkNullValue($amazonRequest,'productId');
-        $status->message        = PropertyHelper::checkNullValue($amazonRequest,'message');
+        $status->purchaseResult = PropertyHelper::checkNullValue($amazonRequest, 'purchaseResult');
+        $status->productId      = PropertyHelper::checkNullValue($amazonRequest, 'productId');
+        $status->message        = PropertyHelper::checkNullValue($amazonRequest, 'message');
 
         return $status;
     }

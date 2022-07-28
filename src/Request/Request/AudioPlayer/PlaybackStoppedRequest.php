@@ -25,7 +25,7 @@ class PlaybackStoppedRequest extends AudioPlayerRequest
         $request = new self();
 
         $request->type                 = self::TYPE;
-        $request->offsetInMilliseconds = PropertyHelper::checkNullValue($amazonRequest,'offsetInMilliseconds');
+        $request->offsetInMilliseconds = PropertyHelper::checkNullValue($amazonRequest, 'offsetInMilliseconds');
         $request->setRequestData($amazonRequest);
 
         return $request;

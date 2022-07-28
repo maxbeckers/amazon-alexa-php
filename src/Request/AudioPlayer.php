@@ -40,9 +40,9 @@ class AudioPlayer
     {
         $audioPlayer = new self();
 
-        $audioPlayer->token                = PropertyHelper::checkNullValue($amazonRequest,'token');
+        $audioPlayer->token                = PropertyHelper::checkNullValue($amazonRequest, 'token');
         $audioPlayer->offsetInMilliseconds = isset($amazonRequest['offsetInMilliseconds']) ? (int) $amazonRequest['offsetInMilliseconds'] : null;
-        $audioPlayer->playerActivity       = PropertyHelper::checkNullValue($amazonRequest,'playerActivity');
+        $audioPlayer->playerActivity       = PropertyHelper::checkNullValue($amazonRequest, 'playerActivity');
 
         return $audioPlayer;
     }

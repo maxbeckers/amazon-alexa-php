@@ -23,7 +23,7 @@ class SkillAccountLinkedBody
     {
         $body = new self();
 
-        $body->accessToken = PropertyHelper::checkNullValue($amazonRequest,'accessToken');
+        $body->accessToken = PropertyHelper::checkNullValue($amazonRequest, 'accessToken');
 
         return $body;
     }
