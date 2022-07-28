@@ -41,7 +41,7 @@ class AudioPlayer
         $audioPlayer = new self();
 
         $audioPlayer->token                = PropertyHelper::checkNullValueString($amazonRequest, 'token');
-        $audioPlayer->offsetInMilliseconds = PropertyHelper::checkNullValueString($amazonRequest, 'offsetInMilliseconds');
+        $audioPlayer->offsetInMilliseconds = PropertyHelper::checkNullValueInt($amazonRequest, 'offsetInMilliseconds');
         $audioPlayer->playerActivity       = PropertyHelper::checkNullValueString($amazonRequest, 'playerActivity');
 
         return $audioPlayer;

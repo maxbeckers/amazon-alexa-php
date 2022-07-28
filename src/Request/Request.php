@@ -129,14 +129,8 @@ class Request
         $request->session = isset($amazonRequest['session']) ? Session::fromAmazonRequest($amazonRequest['session']) : null;
         $request->context = isset($amazonRequest['context']) ? Context::fromAmazonRequest($amazonRequest['context']) : null;
 
-        if (!isset($amazonRequest['request']['type']) || !isset(self::REQUEST_TYPES[$amazonRequest['request']['type']])) {
-            throw new MissingRequestDataException();
-        }
-        $request->request = (self::REQUEST_TYPES[$amazonRequest['request']['type']])::fromAmazonRequest($amazonRequest['request']);
-
-        if ($request->request->validateSignature() && (!$request->signatureCertChainUrl || !$request->signature)) {
-            throw new MissingRequiredHeaderException();
-        }
+        $request->setRequest($amazonRequest);
+        $request->checkSignature();
 
         return $request;
     }
@@ -154,5 +148,28 @@ class Request
         }
 
         return null;
+    }
+
+    /**
+     * @param array $amazonRequest
+     *
+     * @throws MissingRequestDataException
+     */
+    private function setRequest(array $amazonRequest)
+    {
+        if (!isset($amazonRequest['request']['type']) || !isset(self::REQUEST_TYPES[$amazonRequest['request']['type']])) {
+            throw new MissingRequestDataException();
+        }
+        $this->request = (self::REQUEST_TYPES[$amazonRequest['request']['type']])::fromAmazonRequest($amazonRequest['request']);
+    }
+
+    /**
+     * @throws MissingRequiredHeaderException
+     */
+    private function checkSignature()
+    {
+        if ($this->request->validateSignature() && (!$this->signatureCertChainUrl || !$this->signature)) {
+            throw new MissingRequiredHeaderException();
+        }
     }
 }
