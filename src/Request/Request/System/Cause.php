@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\System;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -21,7 +23,7 @@ class Cause
     {
         $cause = new self();
 
-        $cause->requestId = isset($amazonRequest['requestId']) ? $amazonRequest['requestId'] : null;
+        $cause->requestId = PropertyHelper::checkNullValueString($amazonRequest, 'requestId');
 
         return $cause;
     }

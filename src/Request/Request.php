@@ -4,6 +4,7 @@ namespace MaxBeckers\AmazonAlexa\Request;
 
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestDataException;
 use MaxBeckers\AmazonAlexa\Exception\MissingRequiredHeaderException;
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillAccountLinkedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillDisabledRequest;
@@ -38,30 +39,30 @@ class Request
      */
     const REQUEST_TYPES = [
         // Standard types
-        IntentRequest::TYPE       => IntentRequest::class,
-        LaunchRequest::TYPE       => LaunchRequest::class,
-        SessionEndedRequest::TYPE => SessionEndedRequest::class,
+        IntentRequest::TYPE                  => IntentRequest::class,
+        LaunchRequest::TYPE                  => LaunchRequest::class,
+        SessionEndedRequest::TYPE            => SessionEndedRequest::class,
         // AudioPlayer types
-        PlaybackStartedRequest::TYPE        => PlaybackStartedRequest::class,
-        PlaybackNearlyFinishedRequest::TYPE => PlaybackNearlyFinishedRequest::class,
-        PlaybackFinishedRequest::TYPE       => PlaybackFinishedRequest::class,
-        PlaybackStoppedRequest::TYPE        => PlaybackStoppedRequest::class,
-        PlaybackFailedRequest::TYPE         => PlaybackFailedRequest::class,
+        PlaybackStartedRequest::TYPE         => PlaybackStartedRequest::class,
+        PlaybackNearlyFinishedRequest::TYPE  => PlaybackNearlyFinishedRequest::class,
+        PlaybackFinishedRequest::TYPE        => PlaybackFinishedRequest::class,
+        PlaybackStoppedRequest::TYPE         => PlaybackStoppedRequest::class,
+        PlaybackFailedRequest::TYPE          => PlaybackFailedRequest::class,
         // PlaybackController types
-        NextCommandIssued::TYPE     => NextCommandIssued::class,
-        PauseCommandIssued::TYPE    => PauseCommandIssued::class,
-        PlayCommandIssued::TYPE     => PlayCommandIssued::class,
-        PreviousCommandIssued::TYPE => PreviousCommandIssued::class,
+        NextCommandIssued::TYPE              => NextCommandIssued::class,
+        PauseCommandIssued::TYPE             => PauseCommandIssued::class,
+        PlayCommandIssued::TYPE              => PlayCommandIssued::class,
+        PreviousCommandIssued::TYPE          => PreviousCommandIssued::class,
         // System types
-        ExceptionEncounteredRequest::TYPE => ExceptionEncounteredRequest::class,
+        ExceptionEncounteredRequest::TYPE    => ExceptionEncounteredRequest::class,
         // Display types
-        ElementSelectedRequest::TYPE => ElementSelectedRequest::class,
+        ElementSelectedRequest::TYPE         => ElementSelectedRequest::class,
         // Game engine types
-        InputHandlerEvent::TYPE => InputHandlerEvent::class,
+        InputHandlerEvent::TYPE              => InputHandlerEvent::class,
         // can fulfill intent
-        CanFulfillIntentRequest::TYPE => CanFulfillIntentRequest::class,
+        CanFulfillIntentRequest::TYPE        => CanFulfillIntentRequest::class,
         // Connections Response Request
-        ConnectionsResponseRequest::TYPE => ConnectionsResponseRequest::class,
+        ConnectionsResponseRequest::TYPE     => ConnectionsResponseRequest::class,
         // Skill event types
         SkillAccountLinkedRequest::TYPE      => SkillAccountLinkedRequest::class,
         SkillEnabledRequest::TYPE            => SkillEnabledRequest::class,
@@ -110,8 +111,8 @@ class Request
      * @param string $signatureCertChainUrl
      * @param string $signature
      *
-     * @throws MissingRequestDataException
      * @throws MissingRequiredHeaderException
+     * @throws MissingRequestDataException
      *
      * @return Request
      */
@@ -122,23 +123,14 @@ class Request
         $request->signatureCertChainUrl = $signatureCertChainUrl;
         $request->signature             = $signature;
         $request->amazonRequestBody     = $amazonRequestBody;
-        $amazonRequest                  = json_decode($amazonRequestBody, true);
+        $amazonRequest                  = (array) json_decode($amazonRequestBody, true);
 
-        $request->version = isset($amazonRequest['version']) ? $amazonRequest['version'] : null;
+        $request->version = PropertyHelper::checkNullValueString($amazonRequest, 'version');
         $request->session = isset($amazonRequest['session']) ? Session::fromAmazonRequest($amazonRequest['session']) : null;
         $request->context = isset($amazonRequest['context']) ? Context::fromAmazonRequest($amazonRequest['context']) : null;
 
-        if (isset($amazonRequest['request']['type']) && isset(self::REQUEST_TYPES[$amazonRequest['request']['type']])) {
-            $request->request = (self::REQUEST_TYPES[$amazonRequest['request']['type']])::fromAmazonRequest($amazonRequest['request']);
-        } else {
-            throw new MissingRequestDataException();
-        }
-
-        if ($request->request->validateSignature()) {
-            if (!$request->signatureCertChainUrl || !$request->signature) {
-                throw new MissingRequiredHeaderException();
-            }
-        }
+        $request->setRequest($amazonRequest);
+        $request->checkSignature();
 
         return $request;
     }
@@ -156,5 +148,28 @@ class Request
         }
 
         return null;
+    }
+
+    /**
+     * @param array $amazonRequest
+     *
+     * @throws MissingRequestDataException
+     */
+    private function setRequest(array $amazonRequest)
+    {
+        if (!isset($amazonRequest['request']['type']) || !isset(self::REQUEST_TYPES[$amazonRequest['request']['type']])) {
+            throw new MissingRequestDataException();
+        }
+        $this->request = (self::REQUEST_TYPES[$amazonRequest['request']['type']])::fromAmazonRequest($amazonRequest['request']);
+    }
+
+    /**
+     * @throws MissingRequiredHeaderException
+     */
+    private function checkSignature()
+    {
+        if ($this->request->validateSignature() && (!$this->signatureCertChainUrl || !$this->signature)) {
+            throw new MissingRequiredHeaderException();
+        }
     }
 }

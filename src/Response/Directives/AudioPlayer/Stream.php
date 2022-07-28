@@ -2,11 +2,15 @@
 
 namespace MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer;
 
+use MaxBeckers\AmazonAlexa\Helper\SerializeValueMapper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
 class Stream implements \JsonSerializable
 {
+    use SerializeValueMapper;
+
     /**
      * @var string
      */
@@ -52,17 +56,13 @@ class Stream implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $data = [
+        $data = new \ArrayObject([
             'url'   => $this->url,
             'token' => $this->token,
-        ];
+        ]);
 
-        if (null !== $this->expectedPreviousToken) {
-            $data['expectedPreviousToken'] = $this->expectedPreviousToken;
-        }
-        if (null !== $this->offsetInMilliseconds) {
-            $data['offsetInMilliseconds'] = $this->offsetInMilliseconds;
-        }
+        $this->valueToArrayIfSet($data, 'expectedPreviousToken');
+        $this->valueToArrayIfSet($data, 'offsetInMilliseconds');
 
         return $data;
     }

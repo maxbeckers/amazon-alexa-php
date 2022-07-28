@@ -2,6 +2,7 @@
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\Standard;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\Error;
 
@@ -30,7 +31,7 @@ class SessionEndedRequest extends StandardRequest
         $request = new self();
 
         $request->type   = self::TYPE;
-        $request->reason = isset($amazonRequest['reason']) ? $amazonRequest['reason'] : null;
+        $request->reason = PropertyHelper::checkNullValueString($amazonRequest, 'reason');
         $request->error  = isset($amazonRequest['error']) ? Error::fromAmazonRequest($amazonRequest['error']) : null;
         $request->setRequestData($amazonRequest);
 

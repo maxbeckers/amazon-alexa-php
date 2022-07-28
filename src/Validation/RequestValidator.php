@@ -193,17 +193,35 @@ class RequestValidator
      */
     private function validateCertContent(array $cert, string $localCertPath)
     {
-        // validate cert subject
+        $this->validateCertSubject($cert);
+        $this->validateCertValidTime($cert, $localCertPath);
+    }
+
+    /**
+     * @param array $cert
+     *
+     * @throws RequestInvalidSignatureException
+     */
+    private function validateCertSubject(array $cert)
+    {
         if (false === isset($cert['extensions']['subjectAltName']) ||
             false === stristr($cert['extensions']['subjectAltName'], 'echo-api.amazon.com')
         ) {
             throw new RequestInvalidSignatureException('Cert subject error.');
         }
+    }
 
-        // validate cert validTo time
+    /**
+     * @param array  $cert
+     * @param string $localCertPath
+     *
+     * @throws OutdatedCertExceptionException
+     */
+    private function validateCertValidTime(array $cert, string $localCertPath)
+    {
         if (false === isset($cert['validTo_time_t']) || time() > $cert['validTo_time_t'] || false === isset($cert['validFrom_time_t']) || time() < $cert['validFrom_time_t']) {
             if (file_exists($localCertPath)) {
-                @unlink($localCertPath);
+                /* @scrutinizer ignore-unhandled */ @unlink($localCertPath);
             }
             throw new OutdatedCertExceptionException('Cert is outdated.');
         }

@@ -2,11 +2,15 @@
 
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 
+use MaxBeckers\AmazonAlexa\Helper\SerializeValueMapper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
 class ImageSource implements \JsonSerializable
 {
+    use SerializeValueMapper;
+
     const SIZE_X_SMALL = 'X_SMALL';
     const SIZE_SMALL   = 'SMALL';
     const SIZE_MEDIUM  = 'MEDIUM';
@@ -60,18 +64,10 @@ class ImageSource implements \JsonSerializable
     {
         $data = new \ArrayObject();
 
-        if (null !== $this->url) {
-            $data['url'] = $this->url;
-        }
-        if (null !== $this->size) {
-            $data['size'] = $this->size;
-        }
-        if (null !== $this->widthPixels) {
-            $data['widthPixels'] = $this->widthPixels;
-        }
-        if (null !== $this->heightPixels) {
-            $data['heightPixels'] = $this->heightPixels;
-        }
+        $this->valueToArrayIfSet($data, 'url');
+        $this->valueToArrayIfSet($data, 'size');
+        $this->valueToArrayIfSet($data, 'widthPixels');
+        $this->valueToArrayIfSet($data, 'heightPixels');
 
         return $data;
     }

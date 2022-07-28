@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -21,7 +23,7 @@ class UserPermissions
     {
         $userPermissions = new self();
 
-        $userPermissions->consentToken = isset($amazonRequest['consentToken']) ? $amazonRequest['consentToken'] : null;
+        $userPermissions->consentToken = PropertyHelper::checkNullValueString($amazonRequest, 'consentToken');
 
         return $userPermissions;
     }

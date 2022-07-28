@@ -24,12 +24,12 @@ class AudioTest extends TestCase
         $this->assertSame('testurl', $stream->url);
         $this->assertSame('token', $stream->token);
 
-        $json = [
+        $json = new \ArrayObject([
             'url'   => 'testurl',
             'token' => 'token',
-        ];
+        ]);
 
-        $this->assertSame($json, $stream->jsonSerialize());
+        $this->assertEquals($json, $stream->jsonSerialize());
     }
 
     public function testStreamAll()
@@ -41,14 +41,14 @@ class AudioTest extends TestCase
         $this->assertSame('prevToken', $stream->expectedPreviousToken);
         $this->assertSame(10, $stream->offsetInMilliseconds);
 
-        $json = [
+        $json = new \ArrayObject([
             'url'                   => 'testurl',
             'token'                 => 'token',
             'expectedPreviousToken' => 'prevToken',
             'offsetInMilliseconds'  => 10,
-        ];
+        ]);
 
-        $this->assertSame($json, $stream->jsonSerialize());
+        $this->assertEquals($json, $stream->jsonSerialize());
     }
 
     public function testAudioItem()

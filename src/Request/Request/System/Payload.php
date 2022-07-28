@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\System;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -36,9 +38,9 @@ class Payload
     {
         $status = new self();
 
-        $status->purchaseResult = isset($amazonRequest['purchaseResult']) ? $amazonRequest['purchaseResult'] : null;
-        $status->productId      = isset($amazonRequest['productId']) ? $amazonRequest['productId'] : null;
-        $status->message        = isset($amazonRequest['message']) ? $amazonRequest['message'] : null;
+        $status->purchaseResult = PropertyHelper::checkNullValueString($amazonRequest, 'purchaseResult');
+        $status->productId      = PropertyHelper::checkNullValueString($amazonRequest, 'productId');
+        $status->message        = PropertyHelper::checkNullValueString($amazonRequest, 'message');
 
         return $status;
     }

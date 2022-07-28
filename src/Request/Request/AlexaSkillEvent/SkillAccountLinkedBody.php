@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -21,7 +23,7 @@ class SkillAccountLinkedBody
     {
         $body = new self();
 
-        $body->accessToken = isset($amazonRequest['accessToken']) ? $amazonRequest['accessToken'] : null;
+        $body->accessToken = PropertyHelper::checkNullValueString($amazonRequest, 'accessToken');
 
         return $body;
     }

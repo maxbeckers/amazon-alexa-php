@@ -92,23 +92,15 @@ class DeviceAddressInformationHelper
 
         /*
          * Api Call response codes:
-         * 200 OK                    Successfully got the address associated with this deviceId.
-         * 204 No Content            The query did not return any results.
+         * 200 OK                   Successfully got the address associated with this deviceId.
+         * 204 No Content           The query did not return any results.
          * 403 Forbidden            The authentication token is invalid or doesn’t have access to the resource.
-         * 405 Method Not Allowed    The method is not supported.
+         * 405 Method Not Allowed   The method is not supported.
          * 429 Too Many Requests    The skill has been throttled due to an excessive number of requests.
-         * 500 Internal Error        An unexpected error occurred.
+         * 500 Internal Error       An unexpected error occurred.
          */
-        switch ($response->getStatusCode()) {
-            case 200:
-                break;
-            case 204:
-            case 403:
-            case 405:
-            case 429:
-            case 500:
-            default:
-                throw new DeviceApiCallException(sprintf('Error in api call (status code:"%s")', $response->getStatusCode()));
+        if (200 !== $response->getStatusCode()) {
+            throw new DeviceApiCallException(sprintf('Error in api call (status code:"%s")', $response->getStatusCode()));
         }
 
         return DeviceAddressInformation::fromApiResponse(json_decode($response->getBody()->getContents(), true));

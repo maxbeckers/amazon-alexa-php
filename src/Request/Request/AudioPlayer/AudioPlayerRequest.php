@@ -2,6 +2,7 @@
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 
 /**
@@ -38,6 +39,6 @@ abstract class AudioPlayerRequest extends AbstractRequest
             $this->timestamp = (new \DateTime())->setTimestamp(intval($amazonRequest['timestamp'] / 1000));
         }
         $this->locale = $amazonRequest['locale'];
-        $this->token  = isset($amazonRequest['token']) ? $amazonRequest['token'] : null;
+        $this->token  = PropertyHelper::checkNullValueString($amazonRequest, 'token');
     }
 }

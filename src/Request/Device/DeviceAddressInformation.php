@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request\Device;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -56,14 +58,14 @@ class DeviceAddressInformation
     {
         $deviceAddressInformation = new self();
 
-        $deviceAddressInformation->stateOrRegion    = isset($amazonApiResponse['stateOrRegion']) ? $amazonApiResponse['stateOrRegion'] : null;
-        $deviceAddressInformation->city             = isset($amazonApiResponse['city']) ? $amazonApiResponse['city'] : null;
-        $deviceAddressInformation->countryCode      = isset($amazonApiResponse['countryCode']) ? $amazonApiResponse['countryCode'] : null;
-        $deviceAddressInformation->postalCode       = isset($amazonApiResponse['postalCode']) ? $amazonApiResponse['postalCode'] : null;
-        $deviceAddressInformation->addressLine1     = isset($amazonApiResponse['addressLine1']) ? $amazonApiResponse['addressLine1'] : null;
-        $deviceAddressInformation->addressLine2     = isset($amazonApiResponse['addressLine2']) ? $amazonApiResponse['addressLine2'] : null;
-        $deviceAddressInformation->addressLine3     = isset($amazonApiResponse['addressLine3']) ? $amazonApiResponse['addressLine3'] : null;
-        $deviceAddressInformation->districtOrCounty = isset($amazonApiResponse['districtOrCounty']) ? $amazonApiResponse['districtOrCounty'] : null;
+        $deviceAddressInformation->stateOrRegion    = PropertyHelper::checkNullValueString($amazonApiResponse, 'stateOrRegion');
+        $deviceAddressInformation->city             = PropertyHelper::checkNullValueString($amazonApiResponse, 'city');
+        $deviceAddressInformation->countryCode      = PropertyHelper::checkNullValueString($amazonApiResponse, 'countryCode');
+        $deviceAddressInformation->postalCode       = PropertyHelper::checkNullValueString($amazonApiResponse, 'postalCode');
+        $deviceAddressInformation->addressLine1     = PropertyHelper::checkNullValueString($amazonApiResponse, 'addressLine1');
+        $deviceAddressInformation->addressLine2     = PropertyHelper::checkNullValueString($amazonApiResponse, 'addressLine2');
+        $deviceAddressInformation->addressLine3     = PropertyHelper::checkNullValueString($amazonApiResponse, 'addressLine3');
+        $deviceAddressInformation->districtOrCounty = PropertyHelper::checkNullValueString($amazonApiResponse, 'districtOrCounty');
 
         return $deviceAddressInformation;
     }

@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -44,7 +46,7 @@ class Session
         $session = new self();
 
         $session->new         = isset($amazonRequest['new']) ? (bool) $amazonRequest['new'] : null;
-        $session->sessionId   = isset($amazonRequest['sessionId']) ? $amazonRequest['sessionId'] : null;
+        $session->sessionId   = PropertyHelper::checkNullValueString($amazonRequest, 'sessionId');
         $session->application = isset($amazonRequest['application']) ? Application::fromAmazonRequest($amazonRequest['application']) : null;
         $session->attributes  = isset($amazonRequest['attributes']) ? (array) $amazonRequest['attributes'] : [];
         $session->user        = isset($amazonRequest['user']) ? User::fromAmazonRequest($amazonRequest['user']) : null;

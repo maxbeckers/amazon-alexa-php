@@ -2,6 +2,7 @@
 
 namespace MaxBeckers\AmazonAlexa\Response;
 
+use MaxBeckers\AmazonAlexa\Helper\SerializeValueMapper;
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 
 /**
@@ -9,6 +10,8 @@ use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
  */
 class ResponseBody implements ResponseBodyInterface, \JsonSerializable
 {
+    use SerializeValueMapper;
+
     /**
      * @var OutputSpeech|null
      */
@@ -51,18 +54,11 @@ class ResponseBody implements ResponseBodyInterface, \JsonSerializable
     {
         $data = new \ArrayObject();
 
-        if (null !== $this->outputSpeech) {
-            $data['outputSpeech'] = $this->outputSpeech;
-        }
-        if (null !== $this->card) {
-            $data['card'] = $this->card;
-        }
-        if (null !== $this->reprompt) {
-            $data['reprompt'] = $this->reprompt;
-        }
-        if (null !== $this->shouldEndSession) {
-            $data['shouldEndSession'] = $this->shouldEndSession;
-        }
+        $this->valueToArrayIfSet($data, 'outputSpeech');
+        $this->valueToArrayIfSet($data, 'card');
+        $this->valueToArrayIfSet($data, 'reprompt');
+        $this->valueToArrayIfSet($data, 'shouldEndSession');
+
         if (!empty($this->directives)) {
             $data['directives'] = $this->directives;
         }

@@ -2,6 +2,8 @@
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\System;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
+
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
@@ -26,8 +28,8 @@ class Status
     {
         $status = new self();
 
-        $status->code    = isset($amazonRequest['code']) ? $amazonRequest['code'] : null;
-        $status->message = isset($amazonRequest['message']) ? $amazonRequest['message'] : null;
+        $status->code    = PropertyHelper::checkNullValueString($amazonRequest, 'code');
+        $status->message = PropertyHelper::checkNullValueString($amazonRequest, 'message');
 
         return $status;
     }
