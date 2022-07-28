@@ -31,7 +31,7 @@ class SessionEndedRequest extends StandardRequest
         $request = new self();
 
         $request->type   = self::TYPE;
-        $request->reason = PropertyHelper::checkNullValue($amazonRequest, 'reason');
+        $request->reason = PropertyHelper::checkNullValueString($amazonRequest, 'reason');
         $request->error  = isset($amazonRequest['error']) ? Error::fromAmazonRequest($amazonRequest['error']) : null;
         $request->setRequestData($amazonRequest);
 

@@ -25,7 +25,7 @@ class Application
     {
         $application = new self();
 
-        $application->applicationId = PropertyHelper::checkNullValue($amazonRequest, 'applicationId');
+        $application->applicationId = PropertyHelper::checkNullValueString($amazonRequest, 'applicationId');
 
         return $application;
     }

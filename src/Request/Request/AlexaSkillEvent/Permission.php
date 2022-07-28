@@ -23,7 +23,7 @@ class Permission
     {
         $permission = new self();
 
-        $permission->scope = PropertyHelper::checkNullValue($amazonRequest, 'scope');
+        $permission->scope = PropertyHelper::checkNullValueString($amazonRequest, 'scope');
 
         return $permission;
     }

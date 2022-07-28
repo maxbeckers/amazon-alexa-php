@@ -23,7 +23,7 @@ class Cause
     {
         $cause = new self();
 
-        $cause->requestId = PropertyHelper::checkNullValue($amazonRequest, 'requestId');
+        $cause->requestId = PropertyHelper::checkNullValueString($amazonRequest, 'requestId');
 
         return $cause;
     }

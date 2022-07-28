@@ -58,14 +58,14 @@ class DeviceAddressInformation
     {
         $deviceAddressInformation = new self();
 
-        $deviceAddressInformation->stateOrRegion    = PropertyHelper::checkNullValue($amazonApiResponse, 'stateOrRegion');
-        $deviceAddressInformation->city             = PropertyHelper::checkNullValue($amazonApiResponse, 'city');
-        $deviceAddressInformation->countryCode      = PropertyHelper::checkNullValue($amazonApiResponse, 'countryCode');
-        $deviceAddressInformation->postalCode       = PropertyHelper::checkNullValue($amazonApiResponse, 'postalCode');
-        $deviceAddressInformation->addressLine1     = PropertyHelper::checkNullValue($amazonApiResponse, 'addressLine1');
-        $deviceAddressInformation->addressLine2     = PropertyHelper::checkNullValue($amazonApiResponse, 'addressLine2');
-        $deviceAddressInformation->addressLine3     = PropertyHelper::checkNullValue($amazonApiResponse, 'addressLine3');
-        $deviceAddressInformation->districtOrCounty = PropertyHelper::checkNullValue($amazonApiResponse, 'districtOrCounty');
+        $deviceAddressInformation->stateOrRegion    = PropertyHelper::checkNullValueString($amazonApiResponse, 'stateOrRegion');
+        $deviceAddressInformation->city             = PropertyHelper::checkNullValueString($amazonApiResponse, 'city');
+        $deviceAddressInformation->countryCode      = PropertyHelper::checkNullValueString($amazonApiResponse, 'countryCode');
+        $deviceAddressInformation->postalCode       = PropertyHelper::checkNullValueString($amazonApiResponse, 'postalCode');
+        $deviceAddressInformation->addressLine1     = PropertyHelper::checkNullValueString($amazonApiResponse, 'addressLine1');
+        $deviceAddressInformation->addressLine2     = PropertyHelper::checkNullValueString($amazonApiResponse, 'addressLine2');
+        $deviceAddressInformation->addressLine3     = PropertyHelper::checkNullValueString($amazonApiResponse, 'addressLine3');
+        $deviceAddressInformation->districtOrCounty = PropertyHelper::checkNullValueString($amazonApiResponse, 'districtOrCounty');
 
         return $deviceAddressInformation;
     }

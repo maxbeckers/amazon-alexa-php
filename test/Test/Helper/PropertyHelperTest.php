@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PropertyHelperTest extends TestCase
 {
-    public function testCheckNullValueSuccess()
+    public function testCheckNullValueStringSuccess()
     {
         $key   = 'test';
         $value = 'me';
@@ -20,11 +20,11 @@ class PropertyHelperTest extends TestCase
 
         $this->assertEquals(
             $value,
-            PropertyHelper::checkNullValue($data, $key)
+            PropertyHelper::checkNullValueString($data, $key)
         );
     }
 
-    public function testCheckNullValueUnset()
+    public function testCheckNullValueStringUnset()
     {
         $key   = 'test';
         $value = 'me';
@@ -32,6 +32,31 @@ class PropertyHelperTest extends TestCase
             $key => $value,
         ];
 
-        $this->assertNull(PropertyHelper::checkNullValue($data, 'unset'));
+        $this->assertNull(PropertyHelper::checkNullValueString($data, 'unset'));
+    }
+
+    public function testCheckNullValueIntSuccess()
+    {
+        $key   = 'test';
+        $value = 132;
+        $data  = [
+            $key => $value,
+        ];
+
+        $this->assertEquals(
+            $value,
+            PropertyHelper::checkNullValueInt($data, $key)
+        );
+    }
+
+    public function testCheckNullValueIntUnset()
+    {
+        $key   = 'test';
+        $value = 123;
+        $data  = [
+            $key => $value,
+        ];
+
+        $this->assertNull(PropertyHelper::checkNullValueInt($data, 'unset'));
     }
 }

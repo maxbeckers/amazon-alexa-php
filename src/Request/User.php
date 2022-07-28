@@ -33,9 +33,9 @@ class User
     {
         $user = new self();
 
-        $user->userId      = PropertyHelper::checkNullValue($amazonRequest, 'userId');
+        $user->userId      = PropertyHelper::checkNullValueString($amazonRequest, 'userId');
         $user->permissions = isset($amazonRequest['permissions']) ? UserPermissions::fromAmazonRequest($amazonRequest['permissions']) : null;
-        $user->accessToken = PropertyHelper::checkNullValue($amazonRequest, 'accessToken');
+        $user->accessToken = PropertyHelper::checkNullValueString($amazonRequest, 'accessToken');
 
         return $user;
     }

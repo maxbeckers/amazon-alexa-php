@@ -43,8 +43,8 @@ class ConnectionsResponseRequest extends SystemRequest
         $request = new self();
 
         $request->type    = self::TYPE;
-        $request->name    = PropertyHelper::checkNullValue($amazonRequest, 'name');
-        $request->token   = PropertyHelper::checkNullValue($amazonRequest, 'token');
+        $request->name    = PropertyHelper::checkNullValueString($amazonRequest, 'name');
+        $request->token   = PropertyHelper::checkNullValueString($amazonRequest, 'token');
         $request->status  = isset($amazonRequest['status']) ? Status::fromAmazonRequest($amazonRequest['status']) : null;
         $request->payload = isset($amazonRequest['payload']) ? Payload::fromAmazonRequest($amazonRequest['payload']) : null;
 

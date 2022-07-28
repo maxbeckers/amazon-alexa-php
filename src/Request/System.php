@@ -46,8 +46,8 @@ class System
         $system->application    = isset($amazonRequest['application']) ? Application::fromAmazonRequest($amazonRequest['application']) : null;
         $system->user           = isset($amazonRequest['user']) ? User::fromAmazonRequest($amazonRequest['user']) : null;
         $system->device         = isset($amazonRequest['device']) ? Device::fromAmazonRequest($amazonRequest['device']) : null;
-        $system->apiAccessToken = PropertyHelper::checkNullValue($amazonRequest, 'apiAccessToken');
-        $system->apiEndpoint    = PropertyHelper::checkNullValue($amazonRequest, 'apiEndpoint');
+        $system->apiAccessToken = PropertyHelper::checkNullValueString($amazonRequest, 'apiAccessToken');
+        $system->apiEndpoint    = PropertyHelper::checkNullValueString($amazonRequest, 'apiEndpoint');
 
         return $system;
     }

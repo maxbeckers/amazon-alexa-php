@@ -33,9 +33,9 @@ class Device
     {
         $device = new self();
 
-        $device->deviceId            = PropertyHelper::checkNullValue($amazonRequest, 'deviceId');
+        $device->deviceId            = PropertyHelper::checkNullValueString($amazonRequest, 'deviceId');
         $device->supportedInterfaces = isset($amazonRequest['supportedInterfaces']) ? (array) $amazonRequest['supportedInterfaces'] : [];
-        $device->accessToken         = PropertyHelper::checkNullValue($amazonRequest, 'accessToken');
+        $device->accessToken         = PropertyHelper::checkNullValueString($amazonRequest, 'accessToken');
 
         return $device;
     }

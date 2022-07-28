@@ -39,6 +39,6 @@ abstract class AudioPlayerRequest extends AbstractRequest
             $this->timestamp = (new \DateTime())->setTimestamp(intval($amazonRequest['timestamp'] / 1000));
         }
         $this->locale = $amazonRequest['locale'];
-        $this->token  = PropertyHelper::checkNullValue($amazonRequest, 'token');
+        $this->token  = PropertyHelper::checkNullValueString($amazonRequest, 'token');
     }
 }

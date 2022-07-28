@@ -23,7 +23,7 @@ class UserPermissions
     {
         $userPermissions = new self();
 
-        $userPermissions->consentToken = PropertyHelper::checkNullValue($amazonRequest, 'consentToken');
+        $userPermissions->consentToken = PropertyHelper::checkNullValueString($amazonRequest, 'consentToken');
 
         return $userPermissions;
     }

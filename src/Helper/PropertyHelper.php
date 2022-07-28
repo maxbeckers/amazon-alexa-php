@@ -15,7 +15,18 @@ class PropertyHelper
      *
      * @return string|null
      */
-    public static function checkNullValue(array $data, string $key)
+    public static function checkNullValueString(array $data, string $key)
+    {
+        return isset($data[$key]) ? $data[$key] : null;
+    }
+
+    /**
+     * @param array  $data
+     * @param string $key
+     *
+     * @return int|null
+     */
+    public static function checkNullValueInt(array $data, string $key)
     {
         return isset($data[$key]) ? $data[$key] : null;
     }

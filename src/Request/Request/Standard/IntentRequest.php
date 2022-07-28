@@ -35,7 +35,7 @@ class IntentRequest extends StandardRequest
         $request = new static();
 
         $request->type        = static::TYPE;
-        $request->dialogState = PropertyHelper::checkNullValue($amazonRequest, 'dialogState');
+        $request->dialogState = PropertyHelper::checkNullValueString($amazonRequest, 'dialogState');
         $request->intent      = Intent::fromAmazonRequest($amazonRequest['intent']);
         $request->setRequestData($amazonRequest);
 

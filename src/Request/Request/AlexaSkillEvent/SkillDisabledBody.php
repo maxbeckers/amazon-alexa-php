@@ -26,7 +26,7 @@ class SkillDisabledBody
     {
         $body = new self();
 
-        $body->userInformationPersistenceStatus = PropertyHelper::checkNullValue($amazonRequest, 'userInformationPersistenceStatus');
+        $body->userInformationPersistenceStatus = PropertyHelper::checkNullValueString($amazonRequest, 'userInformationPersistenceStatus');
 
         return $body;
     }
