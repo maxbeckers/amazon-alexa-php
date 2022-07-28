@@ -203,7 +203,7 @@ class RequestValidator
         // validate cert validTo time
         if (false === isset($cert['validTo_time_t']) || time() > $cert['validTo_time_t'] || false === isset($cert['validFrom_time_t']) || time() < $cert['validFrom_time_t']) {
             if (file_exists($localCertPath)) {
-                @unlink($localCertPath);
+                /** @scrutinizer ignore-unhandled */ @unlink($localCertPath);
             }
             throw new OutdatedCertExceptionException('Cert is outdated.');
         }

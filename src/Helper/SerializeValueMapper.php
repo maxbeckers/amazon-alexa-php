@@ -12,15 +12,11 @@ trait SerializeValueMapper
     /**
      * @param \ArrayObject $data
      * @param string $property
-     *
-     * @return \ArrayObject
      */
     protected function valueToArrayIfSet(\ArrayObject $data, string $property)
     {
         if (null !== $this->{$property}) {
             $data[$property] = $this->{$property};
         }
-
-        return $data;
     }
 }
