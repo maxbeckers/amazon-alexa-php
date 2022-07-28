@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
  */
 class PropertyHelperTest extends TestCase
 {
-
     public function testCheckNullValueSuccess()
     {
         $key   = 'test';
@@ -33,7 +32,6 @@ class PropertyHelperTest extends TestCase
             $key => $value,
         ];
 
-        $this->assertNull(PropertyHelper::checkNullValue($data, "unset"));
+        $this->assertNull(PropertyHelper::checkNullValue($data, 'unset'));
     }
-
 }
