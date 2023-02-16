@@ -1,9 +1,10 @@
 <?php
 
-namespace MaxBeckers\AmazonAlexa\RequestHandler\Basic;
+namespace MaxBeckers\AmazonAlexa\Test\RequestHandler\Basic;
 
 use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
 use MaxBeckers\AmazonAlexa\Request\Request;
+use MaxBeckers\AmazonAlexa\RequestHandler\Basic\ExceptionEncounteredRequestHandler;
 use MaxBeckers\AmazonAlexa\Response\Response;
 use MaxBeckers\AmazonAlexa\Response\ResponseBody;
 use PHPUnit\Framework\TestCase;

@@ -4,7 +4,7 @@ namespace MaxBeckers\AmazonAlexa\Test\RequestHandler\Basic;
 
 use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
 use MaxBeckers\AmazonAlexa\Request\Request;
-use MaxBeckers\AmazonAlexa\RequestHandler\Basic\HelpRequestHandler;
+use MaxBeckers\AmazonAlexa\RequestHandler\Basic\FallbackRequestHandler;
 use MaxBeckers\AmazonAlexa\Response\Response;
 use MaxBeckers\AmazonAlexa\Response\ResponseBody;
 use PHPUnit\Framework\TestCase;
@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
-class HelpRequestHandlerTest extends TestCase
+class FallbackRequestHandlerTest extends TestCase
 {
     public function testSupportsRequestAndOutput()
     {
@@ -20,9 +20,9 @@ class HelpRequestHandlerTest extends TestCase
                                ->disableOriginalConstructor()
                                ->getMock();
 
-        $request        = Request::fromAmazonRequest('{"request":{"type":"IntentRequest", "intent":{"name":"AMAZON.HelpIntent"}}}', 'true', 'true');
+        $request        = Request::fromAmazonRequest('{"request":{"type":"IntentRequest", "intent":{"name":"AMAZON.FallbackIntent"}}}', 'true', 'true');
         $output         = 'Just a simple Test';
-        $requestHandler = new HelpRequestHandler($responseHelper, $output, ['my_skill_id']);
+        $requestHandler = new FallbackRequestHandler($responseHelper, $output, ['my_skill_id']);
 
         $responseBody               = new ResponseBody();
         $responseBody->outputSpeech = $output;
@@ -36,7 +36,7 @@ class HelpRequestHandlerTest extends TestCase
     {
         $request        = Request::fromAmazonRequest('{"request":{"type":"IntentRequest", "intent":{"name":"InvalidIntent"}}}', 'true', 'true');
         $output         = 'Just a simple Test';
-        $requestHandler = new HelpRequestHandler(new ResponseHelper(), $output, ['my_skill_id']);
+        $requestHandler = new FallbackRequestHandler(new ResponseHelper(), $output, ['my_skill_id']);
 
         static::assertFalse($requestHandler->supportsRequest($request));
     }

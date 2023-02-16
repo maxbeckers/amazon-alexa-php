@@ -16,6 +16,7 @@ class InputHandlerEventTest extends TestCase
     /**
      * @throws \MaxBeckers\AmazonAlexa\Exception\MissingRequestDataException
      * @throws \MaxBeckers\AmazonAlexa\Exception\MissingRequiredHeaderException
+     *
      * @covers \MaxBeckers\AmazonAlexa\Request\Request\GameEngine\InputHandlerEvent::fromAmazonRequest
      * @covers \MaxBeckers\AmazonAlexa\Request\Request\GameEngine\Event\Event::fromAmazonRequest
      * @covers \MaxBeckers\AmazonAlexa\Request\Request\GameEngine\Event\InputEvent::fromAmazonRequest
