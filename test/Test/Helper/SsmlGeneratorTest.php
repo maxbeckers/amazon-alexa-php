@@ -11,6 +11,13 @@ use PHPUnit\Framework\TestCase;
  */
 class SsmlGeneratorTest extends TestCase
 {
+    public static function getVoices()
+    {
+        return array_map(function ($item) {
+            return [$item];
+        }, SsmlGenerator::VOICES);
+    }
+
     public function testClear()
     {
         $ssmlGenerator = new SsmlGenerator();
@@ -229,13 +236,6 @@ class SsmlGeneratorTest extends TestCase
         $ssmlGenerator = new SsmlGenerator();
         $this->expectException(InvalidSsmlException::class);
         $ssmlGenerator->sayWithVoice('invalid', 'Just a Test');
-    }
-
-    public function getVoices()
-    {
-        return array_map(function ($item) {
-            return [$item];
-        }, SsmlGenerator::VOICES);
     }
 
     /**
