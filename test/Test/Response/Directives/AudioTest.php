@@ -4,12 +4,19 @@ namespace MaxBeckers\AmazonAlexa\Test\Response\Directives;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\AudioItem;
 use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\ClearDirective;
+use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\CurrentPlaybackState;
 use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\Metadata;
+use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\PlaybackFailed;
+use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\PlaybackFinished;
+use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\PlaybackNearlyFinished;
+use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\PlaybackStarted;
+use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\PlaybackStopped;
 use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\PlayDirective;
 use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\StopDirective;
 use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\Stream;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\Image;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\ImageSource;
+use MaxBeckers\AmazonAlexa\Response\Directives\System\Error;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -109,5 +116,58 @@ class AudioTest extends TestCase
         $stopDirective = StopDirective::create();
         $this->assertInstanceOf(StopDirective::class, $stopDirective);
         $this->assertSame(StopDirective::TYPE, $stopDirective->type);
+    }
+
+    public function testPlaybackStartedDirective()
+    {
+        $playbackStarted = PlaybackStarted::create('requestId', 'timestamp', 'token', 0, 'en-US');
+        $this->assertInstanceOf(PlaybackStarted::class, $playbackStarted);
+        $this->assertSame(PlaybackStarted::TYPE, $playbackStarted->type);
+    }
+
+    public function testPlaybackFinishedDirective()
+    {
+        $playbackFinished = PlaybackFinished::create('requestId', 'timestamp', 'token', 0, 'en-US');
+        $this->assertInstanceOf(PlaybackFinished::class, $playbackFinished);
+        $this->assertSame(PlaybackFinished::TYPE, $playbackFinished->type);
+    }
+
+    public function testPlaybackStoppedDirective()
+    {
+        $playbackStopped = PlaybackStopped::create('requestId', 'timestamp', 'token', 0, 'en-US');
+        $this->assertInstanceOf(PlaybackStopped::class, $playbackStopped);
+        $this->assertSame(PlaybackStopped::TYPE, $playbackStopped->type);
+    }
+
+    public function testPlaybackNearlyFinishedDirective()
+    {
+        $playbackNearlyFinished = PlaybackNearlyFinished::create('requestId', 'timestamp', 'token', 0, 'en-US');
+        $this->assertInstanceOf(PlaybackNearlyFinished::class, $playbackNearlyFinished);
+        $this->assertSame(PlaybackNearlyFinished::TYPE, $playbackNearlyFinished->type);
+    }
+
+    /**
+     * @dataProvider getPlaybackFailed
+     */
+    public function testPlaybackFailedDirective(string $errorReason, string $playerActivity)
+    {
+        $error                = Error::create($errorReason, 'message');
+        $currentPlaybackState = CurrentPlaybackState::create('token', 0, $playerActivity);
+        $playbackFailed       = PlaybackFailed::create('requestId', 'timestamp', 'token', 0, 'en-US', $error, $currentPlaybackState);
+        $this->assertInstanceOf(PlaybackFailed::class, $playbackFailed);
+        $this->assertSame(PlaybackFailed::TYPE, $playbackFailed->type);
+        $this->assertSame($errorReason, $playbackFailed->error->type);
+        $this->assertSame($playerActivity, $playbackFailed->currentPlaybackState->playerActivity);
+    }
+
+    public static function getPlaybackFailed()
+    {
+        return [
+            [Error::MEDIA_ERROR_UNKNOWN, CurrentPlaybackState::PLAYER_ACTIVITY_PLAYING],
+            [Error::MEDIA_ERROR_SERVICE_UNAVAILABLE, CurrentPlaybackState::PLAYER_ACTIVITY_FINISHED],
+            [Error::MEDIA_ERROR_INVALID_REQUEST, CurrentPlaybackState::PLAYER_ACTIVITY_IDLE],
+            [Error::MEDIA_ERROR_INTERNAL_SERVER_ERROR, CurrentPlaybackState::PLAYER_ACTIVITY_PAUSED],
+            [Error::MEDIA_ERROR_INTERNAL_DEVICE_ERROR, CurrentPlaybackState::PLAYER_ACTIVITY_BUFFER_UNDERRUN],
+        ];
     }
 }
