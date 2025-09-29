@@ -1,5 +1,32 @@
 # Change Log
 
+## [2.0.0](https://github.com/maxbeckers/amazon-alexa-php/tree/2.0.0) (TBD)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.13.0...2.0.0)
+
+**Breaking Changes:**
+- **PHP 8.2+ Required**: Minimum PHP version upgraded from 7.1 to 8.2
+- **Strict Types**: Added `declare(strict_types=1);` to all PHP files
+- **Type Declarations**: Added proper type hints to all properties and method parameters
+- **Modern PHP Features**: Updated code to use PHP 8.2+ features including:
+  - Nullable type declarations (`?Type`)
+  - Union types (`string|int`)
+  - Readonly properties where appropriate
+  - Updated class constant syntax
+
+**Improvements:**
+- Enhanced type safety with strict typing
+- Better IDE support and auto-completion
+- Improved error detection at development time
+- Fixed timestamp handling for numeric values in `AlexaSkillEventRequest`
+- Fixed property type mismatch in `ConnectionsResponseRequest`
+- Updated GitHub Actions workflow to test PHP 8.2, 8.3, and 8.4
+- Updated CS Fixer configuration for PHP 8.2+ compatibility
+
+**Migration Guide:**
+- Ensure your project runs on PHP 8.2 or higher
+- Update any custom request handlers to include proper type declarations
+- Review any code that depends on loose type handling
+
 ## [1.11.0](https://github.com/maxbeckers/amazon-alexa-php/tree/1.11.0) (2022-07-26)
 [Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.10.0...1.11.0)
 
