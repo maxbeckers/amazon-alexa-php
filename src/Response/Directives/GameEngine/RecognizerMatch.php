@@ -1,61 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\GameEngine;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class RecognizerMatch extends Recognizer
 {
-    const TYPE            = 'match';
-    const ANCHOR_START    = 'start';
-    const ANCHOR_END      = 'end';
-    const ANCHOR_ANYWHERE = 'anywhere';
+    public const TYPE = 'match';
+    public const ANCHOR_START = 'start';
+    public const ANCHOR_END = 'end';
+    public const ANCHOR_ANYWHERE = 'anywhere';
+
+    public ?string $anchor = null;
+    public ?bool $fuzzy = null;
+    public ?array $gadgetIds = null;
+    public ?array $actions = null;
+
+    /** @var Pattern[] */
+    public array $pattern = [];
 
     /**
-     * @var string|null
-     */
-    public $anchor;
-
-    /**
-     * @var bool|null
-     */
-    public $fuzzy;
-
-    /**
-     * @var array|null
-     */
-    public $gadgetIds;
-
-    /**
-     * @var array|null
-     */
-    public $actions;
-
-    /**
-     * @var Pattern[]
-     */
-    public $pattern = [];
-
-    /**
-     * @param Pattern[]  $pattern
-     * @param string     $anchor
-     * @param bool       $fuzzy
+     * @param Pattern[] $pattern
+     * @param string $anchor
+     * @param bool $fuzzy
      * @param array|null $gadgetIds
      * @param array|null $actions
      *
      * @return RecognizerMatch
      */
-    public static function create(array $pattern, string $anchor = self::ANCHOR_START, bool $fuzzy = false, $gadgetIds = null, $actions = null): self
+    public static function create(array $pattern, string $anchor = self::ANCHOR_START, bool $fuzzy = false, ?array $gadgetIds = null, ?array $actions = null): self
     {
         $recognizer = new self();
 
-        $recognizer->type      = self::TYPE;
-        $recognizer->anchor    = $anchor;
-        $recognizer->fuzzy     = $fuzzy;
+        $recognizer->type = self::TYPE;
+        $recognizer->anchor = $anchor;
+        $recognizer->fuzzy = $fuzzy;
         $recognizer->gadgetIds = $gadgetIds;
-        $recognizer->actions   = $actions;
-        $recognizer->pattern   = $pattern;
+        $recognizer->actions = $actions;
+        $recognizer->pattern = $pattern;
 
         return $recognizer;
     }

@@ -1,32 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Dialog;
 
 use MaxBeckers\AmazonAlexa\Intent\Intent;
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class DelegateDirective extends Directive
 {
-    const TYPE = 'Dialog.Delegate';
+    public const TYPE = 'Dialog.Delegate';
 
-    /**
-     * @var Intent|null
-     */
-    public $updatedIntent;
+    public ?Intent $updatedIntent = null;
 
-    /**
-     * @param Intent|null $intent
-     *
-     * @return DelegateDirective
-     */
-    public static function create(Intent $intent = null): self
+    public static function create(?Intent $intent = null): self
     {
         $delegateDirective = new self();
 
-        $delegateDirective->type          = self::TYPE;
+        $delegateDirective->type = self::TYPE;
         $delegateDirective->updatedIntent = $intent;
 
         return $delegateDirective;

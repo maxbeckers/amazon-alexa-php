@@ -1,31 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Intent;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class Slot implements \JsonSerializable
 {
-    /**
-     * @var string
-     */
-    public $name;
+    public string $name;
+    public ?string $value = null;
+    public ?string $confirmationStatus = null;
 
-    /**
-     * @var string|null
-     */
-    public $value;
-
-    /**
-     * @var string|null
-     */
-    public $confirmationStatus;
-
-    /**
-     * @var Resolution[]
-     */
-    public $resolutions = [];
+    /** @var Resolution[] */
+    public array $resolutions = [];
 
     /**
      * @param array $amazonRequest
@@ -36,8 +22,8 @@ class Slot implements \JsonSerializable
     {
         $slot = new self();
 
-        $slot->name               = $name;
-        $slot->value              = isset($amazonRequest['value']) ? $amazonRequest['value'] : null;
+        $slot->name = $name;
+        $slot->value = isset($amazonRequest['value']) ? $amazonRequest['value'] : null;
         $slot->confirmationStatus = isset($amazonRequest['confirmationStatus']) ? $amazonRequest['confirmationStatus'] : null;
 
         if (isset($amazonRequest['resolutions']['resolutionsPerAuthority'])) {
@@ -50,11 +36,11 @@ class Slot implements \JsonSerializable
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
-        $data         = [];
+        $data = [];
         $data['name'] = $this->name;
         if (null !== $this->value) {
             $data['value'] = $this->value;
@@ -75,7 +61,7 @@ class Slot implements \JsonSerializable
     /**
      * @return IntentValue|null
      */
-    public function getFirstResolutionIntentValue()
+    public function getFirstResolutionIntentValue(): ?IntentValue
     {
         if (isset($this->resolutions[0])) {
             $resolution = $this->resolutions[0];

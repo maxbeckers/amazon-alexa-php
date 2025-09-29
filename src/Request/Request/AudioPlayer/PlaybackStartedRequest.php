@@ -1,30 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer;
 
 use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class PlaybackStartedRequest extends AudioPlayerRequest
 {
-    const TYPE = 'AudioPlayer.PlaybackStarted';
+    public const TYPE = 'AudioPlayer.PlaybackStarted';
 
-    /**
-     * @var int|null
-     */
-    public $offsetInMilliseconds;
+    public ?int $offsetInMilliseconds = null;
 
-    /**
-     * @inheritdoc
-     */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {
         $request = new self();
 
-        $request->type                 = self::TYPE;
+        $request->type = self::TYPE;
         $request->offsetInMilliseconds = PropertyHelper::checkNullValueInt($amazonRequest, 'offsetInMilliseconds');
         $request->setRequestData($amazonRequest);
 

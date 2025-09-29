@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Test\Response\Directives;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\GameEngine\Event;
@@ -11,19 +13,16 @@ use MaxBeckers\AmazonAlexa\Response\Directives\GameEngine\StartInputHandlerDirec
 use MaxBeckers\AmazonAlexa\Response\Directives\GameEngine\StopInputHandlerDirective;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class GameEngineTest extends TestCase
 {
-    public function testStartInputHandlerDirective()
+    public function testStartInputHandlerDirective(): void
     {
         $pattern = Pattern::create(Pattern::ACTION_UP, ['gadgetId1', 'gadgetId2'], ['blue']);
 
         $recognizers = [
-            'test_match'     => RecognizerMatch::create([Pattern::ACTION_UP], RecognizerMatch::ANCHOR_START, false, ['gadgetId1', 'gadgetId2'], [$pattern]),
+            'test_match' => RecognizerMatch::create([Pattern::ACTION_UP], RecognizerMatch::ANCHOR_START, false, ['gadgetId1', 'gadgetId2'], [$pattern]),
             'test_deviation' => RecognizerDeviation::create('test_match'),
-            'test_progress'  => RecognizerProgress::create('test_match', 5),
+            'test_progress' => RecognizerProgress::create('test_match', 5),
         ];
         $events = [
             'test_match' => Event::create(['test_match'], true, ['test_deviation'], Event::REPORTS_HISTORY, 1, 1000),
@@ -36,7 +35,7 @@ class GameEngineTest extends TestCase
         $this->assertSame(Event::REPORTS_HISTORY, $startInputHandlerDirective->events['test_match']->reports);
     }
 
-    public function testPattern()
+    public function testPattern(): void
     {
         $pattern = Pattern::create(Pattern::ACTION_UP, ['gadgetId1', 'gadgetId2'], ['blue']);
         $this->assertJsonStringEqualsJsonString('{"gadgetIds":["gadgetId1","gadgetId2"],"colors":["blue"],"action":"up","repeat":null}', json_encode($pattern));
@@ -44,7 +43,7 @@ class GameEngineTest extends TestCase
         $this->assertJsonStringEqualsJsonString('{"gadgetIds":null,"colors":null,"action":"up","repeat":10}', json_encode($pattern));
     }
 
-    public function testStopInputHandlerDirective()
+    public function testStopInputHandlerDirective(): void
     {
         $startInputHandlerDirective = StopInputHandlerDirective::create('originatingRequestId');
         $this->assertSame('GameEngine.StopInputHandler', $startInputHandlerDirective->type);

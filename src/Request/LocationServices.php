@@ -1,33 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request;
 
-/**
- * @author Brandon Olivares <programmer2188@gmail.com>
- */
 class LocationServices
 {
-    const ACCESS_ENABLED  = 'ENABLED';
-    const ACCESS_DISABLED = 'DISABLED';
+    public const ACCESS_ENABLED = 'ENABLED';
+    public const ACCESS_DISABLED = 'DISABLED';
 
-    const STATUS_RUNNING = 'RUNNING';
-    const STATUS_STOPPED = 'STOPPED';
+    public const STATUS_RUNNING = 'RUNNING';
+    public const STATUS_STOPPED = 'STOPPED';
 
-    /**
-     * @var string
-     */
-    public $access;
+    public string $access;
+    public string $status;
 
-    /**
-     * @var string
-     */
-    public $status;
-
-    /**
-     * @param array $amazonRequest
-     *
-     * @return LocationServices
-     */
     public static function fromAmazonRequest(array $amazonRequest): self
     {
         $locationServices = new self();

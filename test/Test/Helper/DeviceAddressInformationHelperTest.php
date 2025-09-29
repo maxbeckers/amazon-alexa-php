@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Test\Helper;
 
 use GuzzleHttp\Client;
@@ -14,20 +16,17 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class DeviceAddressInformationHelperTest extends TestCase
 {
-    public function testGetCountryAndPostalCodeSuccess()
+    public function testGetCountryAndPostalCodeSuccess(): void
     {
         $responseData = [
             'countryCode' => 'US',
-            'postalCode'  => '98109',
+            'postalCode' => '98109',
         ];
 
-        $client          = $this->createMock(Client::class);
-        $apiResponse     = $this->createMock(ResponseInterface::class);
+        $client = $this->createMock(Client::class);
+        $apiResponse = $this->createMock(ResponseInterface::class);
         $apiResponseBody = $this->createMock(StreamInterface::class);
 
         $client->method('request')
@@ -46,9 +45,9 @@ class DeviceAddressInformationHelperTest extends TestCase
         );
     }
 
-    public function testGetCountryAndPostalCodeError()
+    public function testGetCountryAndPostalCodeError(): void
     {
-        $client      = $this->createMock(Client::class);
+        $client = $this->createMock(Client::class);
         $apiResponse = $this->createMock(ResponseInterface::class);
 
         $client->method('request')
@@ -61,7 +60,7 @@ class DeviceAddressInformationHelperTest extends TestCase
         $deviceAddressInformationHelper->getCountryAndPostalCode($this->createDummyRequest('id', 'https://test.com', 'test'));
     }
 
-    public function testGetCountryAndPostalCodeMissingData()
+    public function testGetCountryAndPostalCodeMissingData(): void
     {
         $client = $this->createMock(Client::class);
 
@@ -70,21 +69,21 @@ class DeviceAddressInformationHelperTest extends TestCase
         $deviceAddressInformationHelper->getCountryAndPostalCode($this->createDummyRequest());
     }
 
-    public function testGetAddressSuccess()
+    public function testGetAddressSuccess(): void
     {
         $responseData = [
-            'stateOrRegion'    => 'WA',
-            'city'             => 'Seattle',
-            'countryCode'      => 'US',
-            'postalCode'       => '98109',
-            'addressLine1'     => '410 Terry Ave North',
-            'addressLine2'     => '',
-            'addressLine3'     => 'aeiou',
+            'stateOrRegion' => 'WA',
+            'city' => 'Seattle',
+            'countryCode' => 'US',
+            'postalCode' => '98109',
+            'addressLine1' => '410 Terry Ave North',
+            'addressLine2' => '',
+            'addressLine3' => 'aeiou',
             'districtOrCounty' => '',
         ];
 
-        $client          = $this->createMock(Client::class);
-        $apiResponse     = $this->createMock(ResponseInterface::class);
+        $client = $this->createMock(Client::class);
+        $apiResponse = $this->createMock(ResponseInterface::class);
         $apiResponseBody = $this->createMock(StreamInterface::class);
 
         $client->method('request')
@@ -103,9 +102,9 @@ class DeviceAddressInformationHelperTest extends TestCase
         );
     }
 
-    public function testGetAddressError()
+    public function testGetAddressError(): void
     {
-        $client      = $this->createMock(Client::class);
+        $client = $this->createMock(Client::class);
         $apiResponse = $this->createMock(ResponseInterface::class);
 
         $client->method('request')
@@ -118,7 +117,7 @@ class DeviceAddressInformationHelperTest extends TestCase
         $deviceAddressInformationHelper->getAddress($this->createDummyRequest('id', 'https://test.com', 'test'));
     }
 
-    public function testGetAddressMissingData()
+    public function testGetAddressMissingData(): void
     {
         $client = $this->createMock(Client::class);
 
@@ -127,7 +126,7 @@ class DeviceAddressInformationHelperTest extends TestCase
         $deviceAddressInformationHelper->getCountryAndPostalCode(new Request());
     }
 
-    public function testGetAddressOnInvalidRequestInstance()
+    public function testGetAddressOnInvalidRequestInstance(): void
     {
         $client = $this->createMock(Client::class);
 
@@ -136,27 +135,20 @@ class DeviceAddressInformationHelperTest extends TestCase
         $deviceAddressInformationHelper->getAddress(new Request());
     }
 
-    /**
-     * @param string $deviceId
-     * @param string $apiEndpoint
-     * @param string $apiAccessToken
-     *
-     * @return Request
-     */
-    private function createDummyRequest(string $deviceId = null, string $apiEndpoint = null, string $apiAccessToken = null): Request
+    private function createDummyRequest(?string $deviceId = null, ?string $apiEndpoint = null, ?string $apiAccessToken = null): Request
     {
-        $device           = new Device();
+        $device = new Device();
         $device->deviceId = $deviceId;
 
-        $system                 = new System();
-        $system->device         = $device;
-        $system->apiEndpoint    = $apiEndpoint;
+        $system = new System();
+        $system->device = $device;
+        $system->apiEndpoint = $apiEndpoint;
         $system->apiAccessToken = $apiAccessToken;
 
-        $context         = new Context();
+        $context = new Context();
         $context->system = $system;
 
-        $request          = new Request();
+        $request = new Request();
         $request->context = $context;
 
         return $request;

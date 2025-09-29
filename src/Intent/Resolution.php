@@ -1,38 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Intent;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class Resolution implements \JsonSerializable
 {
-    /**
-     * @var string|null
-     */
-    public $authority;
+    public ?string $authority = null;
+    public ?IntentStatus $status = null;
 
-    /**
-     * @var IntentStatus|null
-     */
-    public $status;
+    /** @var IntentValue[] */
+    public array $values = [];
 
-    /**
-     * @var IntentValue[]
-     */
-    public $values = [];
-
-    /**
-     * @param array $amazonRequest
-     *
-     * @return Resolution
-     */
     public static function fromAmazonRequest(array $amazonRequest): self
     {
         $resolution = new self();
 
-        $resolution->authority = isset($amazonRequest['authority']) ? $amazonRequest['authority'] : null;
-        $resolution->status    = isset($amazonRequest['status']) ? IntentStatus::fromAmazonRequest($amazonRequest['status']) : null;
+        $resolution->authority = $amazonRequest['authority'] ?? null;
+        $resolution->status = isset($amazonRequest['status']) ? IntentStatus::fromAmazonRequest($amazonRequest['status']) : null;
 
         if (isset($amazonRequest['values'])) {
             foreach ($amazonRequest['values'] as $value) {
@@ -45,10 +30,7 @@ class Resolution implements \JsonSerializable
         return $resolution;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $data = [];
         if ($this->authority) {

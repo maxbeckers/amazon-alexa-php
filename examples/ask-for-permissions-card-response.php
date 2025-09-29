@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
 use MaxBeckers\AmazonAlexa\Request\Request;
 use MaxBeckers\AmazonAlexa\RequestHandler\Basic\HelpRequestHandler;
@@ -32,14 +34,14 @@ if ($requestBody) {
     $validator->validate($alexaRequest);
 
     // add handlers to registry
-    $responseHelper         = new ResponseHelper();
-    $helpRequestHandler     = new HelpRequestHandler($responseHelper, 'Help Text', ['my_amazon_skill_id']);
+    $responseHelper = new ResponseHelper();
+    $helpRequestHandler = new HelpRequestHandler($responseHelper, 'Help Text', ['my_amazon_skill_id']);
     $mySimpleRequestHandler = new AskForPermissionsConsentCardResponseRequestHandler($responseHelper);
     $requestHandlerRegistry = new RequestHandlerRegistry([$helpRequestHandler, $mySimpleRequestHandler]);
 
     // handle request
     $requestHandler = $requestHandlerRegistry->getSupportingHandler($alexaRequest);
-    $response       = $requestHandler->handleRequest($alexaRequest);
+    $response = $requestHandler->handleRequest($alexaRequest);
 
     // render response
     header('Content-Type: application/json');

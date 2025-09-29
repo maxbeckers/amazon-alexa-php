@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request;
 
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestDataException;
@@ -29,101 +31,68 @@ use MaxBeckers\AmazonAlexa\Request\Request\Standard\SessionEndedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\System\ConnectionsResponseRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\System\ExceptionEncounteredRequest;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class Request
 {
     /**
      * List of all supported amazon request types.
      */
-    const REQUEST_TYPES = [
+    public const REQUEST_TYPES = [
         // Standard types
-        IntentRequest::TYPE                  => IntentRequest::class,
-        LaunchRequest::TYPE                  => LaunchRequest::class,
-        SessionEndedRequest::TYPE            => SessionEndedRequest::class,
+        IntentRequest::TYPE => IntentRequest::class,
+        LaunchRequest::TYPE => LaunchRequest::class,
+        SessionEndedRequest::TYPE => SessionEndedRequest::class,
         // AudioPlayer types
-        PlaybackStartedRequest::TYPE         => PlaybackStartedRequest::class,
-        PlaybackNearlyFinishedRequest::TYPE  => PlaybackNearlyFinishedRequest::class,
-        PlaybackFinishedRequest::TYPE        => PlaybackFinishedRequest::class,
-        PlaybackStoppedRequest::TYPE         => PlaybackStoppedRequest::class,
-        PlaybackFailedRequest::TYPE          => PlaybackFailedRequest::class,
+        PlaybackStartedRequest::TYPE => PlaybackStartedRequest::class,
+        PlaybackNearlyFinishedRequest::TYPE => PlaybackNearlyFinishedRequest::class,
+        PlaybackFinishedRequest::TYPE => PlaybackFinishedRequest::class,
+        PlaybackStoppedRequest::TYPE => PlaybackStoppedRequest::class,
+        PlaybackFailedRequest::TYPE => PlaybackFailedRequest::class,
         // PlaybackController types
-        NextCommandIssued::TYPE              => NextCommandIssued::class,
-        PauseCommandIssued::TYPE             => PauseCommandIssued::class,
-        PlayCommandIssued::TYPE              => PlayCommandIssued::class,
-        PreviousCommandIssued::TYPE          => PreviousCommandIssued::class,
+        NextCommandIssued::TYPE => NextCommandIssued::class,
+        PauseCommandIssued::TYPE => PauseCommandIssued::class,
+        PlayCommandIssued::TYPE => PlayCommandIssued::class,
+        PreviousCommandIssued::TYPE => PreviousCommandIssued::class,
         // System types
-        ExceptionEncounteredRequest::TYPE    => ExceptionEncounteredRequest::class,
+        ExceptionEncounteredRequest::TYPE => ExceptionEncounteredRequest::class,
         // Display types
-        ElementSelectedRequest::TYPE         => ElementSelectedRequest::class,
+        ElementSelectedRequest::TYPE => ElementSelectedRequest::class,
         // Game engine types
-        InputHandlerEvent::TYPE              => InputHandlerEvent::class,
+        InputHandlerEvent::TYPE => InputHandlerEvent::class,
         // can fulfill intent
-        CanFulfillIntentRequest::TYPE        => CanFulfillIntentRequest::class,
+        CanFulfillIntentRequest::TYPE => CanFulfillIntentRequest::class,
         // Connections Response Request
-        ConnectionsResponseRequest::TYPE     => ConnectionsResponseRequest::class,
+        ConnectionsResponseRequest::TYPE => ConnectionsResponseRequest::class,
         // Skill event types
-        SkillAccountLinkedRequest::TYPE      => SkillAccountLinkedRequest::class,
-        SkillEnabledRequest::TYPE            => SkillEnabledRequest::class,
-        SkillDisabledRequest::TYPE           => SkillDisabledRequest::class,
+        SkillAccountLinkedRequest::TYPE => SkillAccountLinkedRequest::class,
+        SkillEnabledRequest::TYPE => SkillEnabledRequest::class,
+        SkillDisabledRequest::TYPE => SkillDisabledRequest::class,
         SkillPermissionAcceptedRequest::TYPE => SkillPermissionAcceptedRequest::class,
-        SkillPermissionChangedRequest::TYPE  => SkillPermissionChangedRequest::class,
+        SkillPermissionChangedRequest::TYPE => SkillPermissionChangedRequest::class,
     ];
 
-    /**
-     * @var string|null
-     */
-    public $version;
+    public function __construct(
+        public ?string $version = null,
+        public ?Session $session = null,
+        public ?Context $context = null,
+        public ?AbstractRequest $request = null,
+        public string $amazonRequestBody = '',
+        public string $signatureCertChainUrl = '',
+        public string $signature = '',
+    ) {
+    }
 
     /**
-     * @var Session|null
-     */
-    public $session;
-
-    /**
-     * @var Context|null
-     */
-    public $context;
-
-    /**
-     * @var AbstractRequest|null
-     */
-    public $request;
-
-    /**
-     * @var string
-     */
-    public $amazonRequestBody;
-
-    /**
-     * @var string
-     */
-    public $signatureCertChainUrl;
-
-    /**
-     * @var string
-     */
-    public $signature;
-
-    /**
-     * @param string $amazonRequestBody
-     * @param string $signatureCertChainUrl
-     * @param string $signature
-     *
      * @throws MissingRequiredHeaderException
      * @throws MissingRequestDataException
-     *
-     * @return Request
      */
     public static function fromAmazonRequest(string $amazonRequestBody, string $signatureCertChainUrl, string $signature): self
     {
         $request = new self();
 
         $request->signatureCertChainUrl = $signatureCertChainUrl;
-        $request->signature             = $signature;
-        $request->amazonRequestBody     = $amazonRequestBody;
-        $amazonRequest                  = (array) json_decode($amazonRequestBody, true);
+        $request->signature = $signature;
+        $request->amazonRequestBody = $amazonRequestBody;
+        $amazonRequest = (array) json_decode($amazonRequestBody, true);
 
         $request->version = PropertyHelper::checkNullValueString($amazonRequest, 'version');
         $request->session = isset($amazonRequest['session']) ? Session::fromAmazonRequest($amazonRequest['session']) : null;
@@ -135,10 +104,7 @@ class Request
         return $request;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getApplicationId()
+    public function getApplicationId(): ?string
     {
         // workaround for developer console
         if ($this->session && $this->session->application) {
@@ -151,11 +117,9 @@ class Request
     }
 
     /**
-     * @param array $amazonRequest
-     *
      * @throws MissingRequestDataException
      */
-    private function setRequest(array $amazonRequest)
+    private function setRequest(array $amazonRequest): void
     {
         if (!isset($amazonRequest['request']['type']) || !isset(self::REQUEST_TYPES[$amazonRequest['request']['type']])) {
             throw new MissingRequestDataException();
@@ -166,7 +130,7 @@ class Request
     /**
      * @throws MissingRequiredHeaderException
      */
-    private function checkSignature()
+    private function checkSignature(): void
     {
         if ($this->request->validateSignature() && (!$this->signatureCertChainUrl || !$this->signature)) {
             throw new MissingRequiredHeaderException();

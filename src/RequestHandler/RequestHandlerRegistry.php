@@ -1,35 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\RequestHandler;
 
 use MaxBeckers\AmazonAlexa\Exception\MissingRequestHandlerException;
 use MaxBeckers\AmazonAlexa\Request\Request;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class RequestHandlerRegistry
 {
-    /**
-     * @var AbstractRequestHandler[]
-     */
-    private $requestHandlers;
+    /** @var AbstractRequestHandler[] */
+    private array $requestHandlers;
 
-    /**
-     * @param AbstractRequestHandler[] $requestHandlers
-     */
     public function __construct(array $requestHandlers = [])
     {
         $this->requestHandlers = $requestHandlers;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @throws MissingRequestHandlerException
-     *
-     * @return AbstractRequestHandler
-     */
     public function getSupportingHandler(Request $request): AbstractRequestHandler
     {
         foreach ($this->requestHandlers as $requestHandler) {
@@ -41,10 +28,7 @@ class RequestHandlerRegistry
         throw new MissingRequestHandlerException();
     }
 
-    /**
-     * @param AbstractRequestHandler $handler
-     */
-    public function addHandler(AbstractRequestHandler $handler)
+    public function addHandler(AbstractRequestHandler $handler): void
     {
         $this->requestHandlers[] = $handler;
     }

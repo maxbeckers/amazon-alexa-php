@@ -1,52 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\GameEngine;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class Pattern
 {
-    const ACTION_DOWN    = 'down';
-    const ACTION_UP      = 'up';
-    const ACTION_SILENCE = 'silence';
+    public const ACTION_DOWN = 'down';
+    public const ACTION_UP = 'up';
+    public const ACTION_SILENCE = 'silence';
 
-    /**
-     * @var array
-     */
-    public $gadgetIds = [];
+    public ?array $gadgetIds = null;
+    public ?array $colors = null;
+    public ?string $action = null;
+    public ?int $repeat = null;
 
-    /**
-     * @var array
-     */
-    public $colors = [];
-
-    /**
-     * @var string|null
-     */
-    public $action;
-
-    /**
-     * @var int|null
-     */
-    public $repeat;
-
-    /**
-     * @param string|null $action
-     * @param array|null  $gadgetIds
-     * @param array|null  $colors
-     * @param int|null    $repeat
-     *
-     * @return Pattern
-     */
-    public static function create(string $action = null, $gadgetIds = null, $colors = null, $repeat = null): self
+    public static function create(?string $action = null, ?array $gadgetIds = null, ?array $colors = null, ?int $repeat = null): self
     {
         $pattern = new self();
 
-        $pattern->action    = $action;
+        $pattern->action = $action;
         $pattern->gadgetIds = $gadgetIds;
-        $pattern->colors    = $colors;
-        $pattern->repeat    = $repeat;
+        $pattern->colors = $colors;
+        $pattern->repeat = $repeat;
 
         return $pattern;
     }

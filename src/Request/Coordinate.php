@@ -1,39 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request;
 
-/**
- * @author Brandon Olivares <programmer2188@gmail.com>
- */
 class Coordinate
 {
-    /**
-     * @var float
-     */
-    public $latitudeInDegrees;
+    public float $latitudeInDegrees;
+    public float $longitudeInDegrees;
+    public float $accuracyInMeters;
 
-    /**
-     * @var float
-     */
-    public $longitudeInDegrees;
-
-    /**
-     * @var float
-     */
-    public $accuracyInMeters;
-
-    /**
-     * @param array $amazonRequest
-     *
-     * @return Coordinate
-     */
     public static function fromAmazonRequest(array $amazonRequest): self
     {
         $coordinate = new self();
 
-        $coordinate->latitudeInDegrees  = floatval($amazonRequest['latitudeInDegrees']);
-        $coordinate->longitudeInDegrees = floatval($amazonRequest['longitudeInDegrees']);
-        $coordinate->accuracyInMeters   = floatval($amazonRequest['accuracyInMeters']);
+        $coordinate->latitudeInDegrees = (float) ($amazonRequest['latitudeInDegrees']);
+        $coordinate->longitudeInDegrees = (float) ($amazonRequest['longitudeInDegrees']);
+        $coordinate->accuracyInMeters = (float) ($amazonRequest['accuracyInMeters']);
 
         return $coordinate;
     }

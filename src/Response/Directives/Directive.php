@@ -1,14 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 abstract class Directive
 {
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 }

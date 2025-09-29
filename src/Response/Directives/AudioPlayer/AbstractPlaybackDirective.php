@@ -1,52 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 abstract class AbstractPlaybackDirective extends Directive
 {
-    /**
-     * @var string
-     */
-    public $requestId;
+    public string $requestId;
+    public string $timestamp;
+    public string $token;
+    public int $offsetInMilliseconds;
+    public string $locale;
 
-    /**
-     * @var string
-     */
-    public $timestamp;
-
-    /**
-     * @var string
-     */
-    public $token;
-
-    /**
-     * @var int
-     */
-    public $offsetInMilliseconds;
-
-    /**
-     * @var string
-     */
-    public $locale;
-
-    /**
-     * @param string $requestId
-     * @param string $timestamp
-     * @param string $token
-     * @param int    $offsetInMilliseconds
-     * @param string $locale
-     */
-    public function setProperties(string $requestId, string $timestamp, string $token, int $offsetInMilliseconds, string $locale)
+    public function setProperties(string $requestId, string $timestamp, string $token, int $offsetInMilliseconds, string $locale): void
     {
-        $this->requestId            = $requestId;
-        $this->timestamp            = $timestamp;
-        $this->token                = $token;
+        $this->requestId = $requestId;
+        $this->timestamp = $timestamp;
+        $this->token = $token;
         $this->offsetInMilliseconds = $offsetInMilliseconds;
-        $this->locale               = $locale;
+        $this->locale = $locale;
     }
 }

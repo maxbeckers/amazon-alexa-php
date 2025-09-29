@@ -1,40 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class ListItem
 {
-    /**
-     * @var string|null
-     */
-    public $token;
+    public ?string $token = null;
 
-    /**
-     * @var Image|null
-     */
-    public $image;
+    public ?Image $image = null;
 
-    /**
-     * @var TextContent|null
-     */
-    public $textContent;
+    public ?TextContent $textContent = null;
 
-    /**
-     * @param string|null      $token
-     * @param Image|null       $image
-     * @param TextContent|null $textContent
-     *
-     * @return ListItem
-     */
-    public static function create($token = null, $image = null, $textContent = null): self
+    public static function create(?string $token = null, ?Image $image = null, ?TextContent $textContent = null): self
     {
         $listItem = new self();
 
-        $listItem->token       = $token;
-        $listItem->image       = $image;
+        $listItem->token = $token;
+        $listItem->image = $image;
         $listItem->textContent = $textContent;
 
         return $listItem;

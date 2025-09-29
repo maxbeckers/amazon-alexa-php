@@ -1,24 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request;
 
 use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class UserPermissions
 {
-    /**
-     * @var string|null
-     */
-    public $consentToken;
+    public ?string $consentToken = null;
 
-    /**
-     * @param array $amazonRequest
-     *
-     * @return UserPermissions
-     */
     public static function fromAmazonRequest(array $amazonRequest): self
     {
         $userPermissions = new self();

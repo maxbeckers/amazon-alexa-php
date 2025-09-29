@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Validation;
 
 use GuzzleHttp\Client;
@@ -10,52 +12,37 @@ use MaxBeckers\AmazonAlexa\Request\Request;
 
 /**
  * This is a validator for amazon echo requests. It validates the timestamp of the request and the request signature.
- *
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
 class RequestValidator
 {
     /**
      * Basic value for timestamp validation. 150 seconds is suggested by amazon.
      */
-    const TIMESTAMP_VALID_TOLERANCE_SECONDS = 150;
+    public const TIMESTAMP_VALID_TOLERANCE_SECONDS = 150;
 
-    /**
-     * @var Client
-     */
-    public $client;
+    public Client $client;
+    protected int $timestampTolerance;
 
-    /**
-     * @var int
-     */
-    protected $timestampTolerance;
-
-    /**
-     * @param int         $timestampTolerance
-     * @param Client|null $client
-     */
-    public function __construct($timestampTolerance = self::TIMESTAMP_VALID_TOLERANCE_SECONDS, Client $client = null)
+    public function __construct(int $timestampTolerance = self::TIMESTAMP_VALID_TOLERANCE_SECONDS, ?Client $client = null)
     {
         $this->timestampTolerance = $timestampTolerance;
-        $this->client             = $client ?: new Client();
+        $this->client = $client ?: new Client();
     }
 
     /**
      * Validate request data.
      *
-     * @param Request $request
-     *
      * @throws OutdatedCertExceptionException
      * @throws RequestInvalidSignatureException
      * @throws RequestInvalidTimestampException
      */
-    public function validate(Request $request)
+    public function validate(Request $request): void
     {
         $this->validateTimestamp($request);
         try {
             $this->validateSignature($request);
         } catch (OutdatedCertExceptionException $e) {
-            // load cert again and validate because temp file was outdatet.
+            // load cert again and validate because temp file was outdated.
             $this->validateSignature($request);
         }
     }
@@ -64,11 +51,9 @@ class RequestValidator
      * Validate request timestamp. Request tolerance should be 150 seconds.
      * For more details @see https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-web-service#timestamp.
      *
-     * @param Request $request
-     *
      * @throws RequestInvalidTimestampException
      */
-    private function validateTimestamp(Request $request)
+    private function validateTimestamp(Request $request): void
     {
         if (null === $request->request || !$request->request->validateTimestamp()) {
             return;
@@ -86,12 +71,10 @@ class RequestValidator
      *
      * @see https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-web-service#checking-the-signature-of-the-request
      *
-     * @param Request $request
-     *
      * @throws OutdatedCertExceptionException
      * @throws RequestInvalidSignatureException
      */
-    private function validateSignature(Request $request)
+    private function validateSignature(Request $request): void
     {
         if (null === $request->request || !$request->request->validateSignature()) {
             return;
@@ -101,7 +84,7 @@ class RequestValidator
         $this->validateCertUrl($request);
 
         // generate local cert path
-        $localCertPath = sys_get_temp_dir().DIRECTORY_SEPARATOR.md5($request->signatureCertChainUrl).'.pem';
+        $localCertPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . md5($request->signatureCertChainUrl) . '.pem';
 
         // check if pem file is already downloaded to temp or download.
         $certData = $this->fetchCertData($request, $localCertPath);
@@ -117,11 +100,9 @@ class RequestValidator
     }
 
     /**
-     * @param Request $request
-     *
      * @throws RequestInvalidSignatureException
      */
-    private function validateCertUrl(Request $request)
+    private function validateCertUrl(Request $request): void
     {
         if (false === (bool) preg_match("/https:\/\/s3.amazonaws.com(\:443)?\/echo.api\/*/i", $request->signatureCertChainUrl)) {
             throw new RequestInvalidSignatureException('Invalid cert url.');
@@ -129,12 +110,7 @@ class RequestValidator
     }
 
     /**
-     * @param Request $request
-     * @param string  $localCertPath
-     *
      * @throws RequestInvalidSignatureException
-     *
-     * @return string
      */
     private function fetchCertData(Request $request, string $localCertPath): string
     {
@@ -155,12 +131,9 @@ class RequestValidator
     }
 
     /**
-     * @param Request $request
-     * @param string  $certData
-     *
      * @throws RequestInvalidSignatureException
      */
-    private function verifyCert(Request $request, string $certData)
+    private function verifyCert(Request $request, string $certData): void
     {
         if (1 !== @openssl_verify($request->amazonRequestBody, base64_decode($request->signature, true), $certData, 'sha1')) {
             throw new RequestInvalidSignatureException('Cert ssl verification failed.');
@@ -168,11 +141,7 @@ class RequestValidator
     }
 
     /**
-     * @param string $certData
-     *
      * @throws RequestInvalidSignatureException
-     *
-     * @return array
      */
     private function parseCertData(string $certData): array
     {
@@ -185,24 +154,19 @@ class RequestValidator
     }
 
     /**
-     * @param array  $cert
-     * @param string $localCertPath
-     *
      * @throws OutdatedCertExceptionException
      * @throws RequestInvalidSignatureException
      */
-    private function validateCertContent(array $cert, string $localCertPath)
+    private function validateCertContent(array $cert, string $localCertPath): void
     {
         $this->validateCertSubject($cert);
         $this->validateCertValidTime($cert, $localCertPath);
     }
 
     /**
-     * @param array $cert
-     *
      * @throws RequestInvalidSignatureException
      */
-    private function validateCertSubject(array $cert)
+    private function validateCertSubject(array $cert): void
     {
         if (false === isset($cert['extensions']['subjectAltName']) ||
             false === stristr($cert['extensions']['subjectAltName'], 'echo-api.amazon.com')
@@ -212,12 +176,9 @@ class RequestValidator
     }
 
     /**
-     * @param array  $cert
-     * @param string $localCertPath
-     *
      * @throws OutdatedCertExceptionException
      */
-    private function validateCertValidTime(array $cert, string $localCertPath)
+    private function validateCertValidTime(array $cert, string $localCertPath): void
     {
         if (false === isset($cert['validTo_time_t']) || time() > $cert['validTo_time_t'] || false === isset($cert['validFrom_time_t']) || time() < $cert['validFrom_time_t']) {
             if (file_exists($localCertPath)) {

@@ -1,28 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class CardImage
 {
-    /**
-     * @var string|null
-     */
-    public $smallImageUrl;
+    public ?string $smallImageUrl = null;
+    public ?string $largeImageUrl = null;
 
-    /**
-     * @var string|null
-     */
-    public $largeImageUrl;
-
-    /**
-     * @param string $smallImageUrl
-     * @param string $largeImageUrl
-     *
-     * @return CardImage
-     */
     public static function fromUrls(string $smallImageUrl, string $largeImageUrl): self
     {
         $cardImage = new self();

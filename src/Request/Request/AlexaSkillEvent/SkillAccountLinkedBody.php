@@ -1,24 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent;
 
 use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class SkillAccountLinkedBody
 {
-    /**
-     * @var string|null
-     */
-    public $accessToken;
+    public ?string $accessToken = null;
 
-    /**
-     * @param array $amazonRequest
-     *
-     * @return SkillAccountLinkedBody
-     */
     public static function fromAmazonRequest(array $amazonRequest): self
     {
         $body = new self();

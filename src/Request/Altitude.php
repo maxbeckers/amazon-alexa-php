@@ -1,33 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request;
 
-/**
- * @author Brandon Olivares <programmer2188@gmail.com>
- */
 class Altitude
 {
-    /**
-     * @var float
-     */
-    public $altitudeInMeters;
+    public float $altitudeInMeters;
+    public ?float $accuracyInMeters = null;
 
-    /**
-     * @var float|null
-     */
-    public $accuracyInMeters;
-
-    /**
-     * @param array $amazonRequest
-     *
-     * @return Altitude
-     */
     public static function fromAmazonRequest(array $amazonRequest): self
     {
         $altitude = new self();
 
-        $altitude->altitudeInMeters = floatval($amazonRequest['altitudeInMeters']);
-        $altitude->accuracyInMeters = isset($amazonRequest['accuracyInMeters']) ? floatval($amazonRequest['accuracyInMeters']) : null;
+        $altitude->altitudeInMeters = (float) ($amazonRequest['altitudeInMeters']);
+        $altitude->accuracyInMeters = isset($amazonRequest['accuracyInMeters']) ? (float) ($amazonRequest['accuracyInMeters']) : null;
 
         return $altitude;
     }

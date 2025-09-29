@@ -1,29 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\GameEngine;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class RecognizerDeviation extends Recognizer
 {
-    const TYPE = 'deviation';
+    public const TYPE = 'deviation';
 
-    /**
-     * @var string|null
-     */
-    public $recognizer;
+    public ?string $recognizer = null;
 
-    /**
-     * @param string $recognizer
-     *
-     * @return RecognizerDeviation
-     */
     public static function create(string $recognizer): self
     {
         $recognizerDeviation = new self();
 
-        $recognizerDeviation->type       = self::TYPE;
+        $recognizerDeviation->type = self::TYPE;
         $recognizerDeviation->recognizer = $recognizer;
 
         return $recognizerDeviation;

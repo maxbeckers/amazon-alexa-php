@@ -1,42 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class Image
 {
-    /**
-     * @var string|null
-     */
-    public $contentDescription;
+    public ?string $contentDescription = null;
 
-    /**
-     * @var ImageSource[]
-     */
-    public $sources = [];
+    /** @var ImageSource[] */
+    public array $sources = [];
 
-    /**
-     * @param string|null   $contentDescription
-     * @param ImageSource[] $imageSources
-     *
-     * @return Image
-     */
-    public static function create($contentDescription = null, $imageSources = []): self
+    public static function create(?string $contentDescription = null, array $imageSources = []): self
     {
         $image = new self();
 
         $image->contentDescription = $contentDescription;
-        $image->sources            = $imageSources;
+        $image->sources = $imageSources;
 
         return $image;
     }
 
-    /**
-     * @param ImageSource $imageSource
-     */
-    public function addImageSource(ImageSource $imageSource)
+    public function addImageSource(ImageSource $imageSource): void
     {
         $this->sources[] = $imageSource;
     }

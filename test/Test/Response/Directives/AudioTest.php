@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Test\Response\Directives;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer\AudioItem;
@@ -19,12 +21,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\Display\ImageSource;
 use MaxBeckers\AmazonAlexa\Response\Directives\System\Error;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class AudioTest extends TestCase
 {
-    public function testStream()
+    public function testStream(): void
     {
         $stream = Stream::create('testurl', 'token');
         $this->assertInstanceOf(Stream::class, $stream);
@@ -32,14 +31,14 @@ class AudioTest extends TestCase
         $this->assertSame('token', $stream->token);
 
         $json = new \ArrayObject([
-            'url'   => 'testurl',
+            'url' => 'testurl',
             'token' => 'token',
         ]);
 
         $this->assertEquals($json, $stream->jsonSerialize());
     }
 
-    public function testStreamAll()
+    public function testStreamAll(): void
     {
         $stream = Stream::create('testurl', 'token', 'prevToken', 10);
         $this->assertInstanceOf(Stream::class, $stream);
@@ -49,43 +48,43 @@ class AudioTest extends TestCase
         $this->assertSame(10, $stream->offsetInMilliseconds);
 
         $json = new \ArrayObject([
-            'url'                   => 'testurl',
-            'token'                 => 'token',
+            'url' => 'testurl',
+            'token' => 'token',
             'expectedPreviousToken' => 'prevToken',
-            'offsetInMilliseconds'  => 10,
+            'offsetInMilliseconds' => 10,
         ]);
 
         $this->assertEquals($json, $stream->jsonSerialize());
     }
 
-    public function testAudioItem()
+    public function testAudioItem(): void
     {
-        $stream    = Stream::create('testurl', 'token');
+        $stream = Stream::create('testurl', 'token');
         $audioItem = AudioItem::create($stream);
         $this->assertInstanceOf(AudioItem::class, $audioItem);
         $this->assertSame($stream, $audioItem->stream);
     }
 
-    public function testAudioItemWithMetadata()
+    public function testAudioItemWithMetadata(): void
     {
-        $art             = Image::create(null, ImageSource::create('https://url-of-the-album-art-image.png'));
-        $backgroundImage = Image::create(null, ImageSource::create('https://url-of-the-background-image.png'));
+        $art = Image::create(null, [ImageSource::create('https://url-of-the-album-art-image.png')]);
+        $backgroundImage = Image::create(null, [ImageSource::create('https://url-of-the-background-image.png')]);
 
-        $stream   = Stream::create('https://url-of-the-stream-to-play', 'opaque token representing this stream', 'opaque token representing the previous stream', 0);
+        $stream = Stream::create('https://url-of-the-stream-to-play', 'opaque token representing this stream', 'opaque token representing the previous stream', 0);
         $metadata = Metadata::create('title of the track to display', 'subtitle of the track to display', $art, $backgroundImage);
 
         $audioItem = AudioItem::create($stream, $metadata);
         $this->assertEquals([
-            'stream'   => $stream,
+            'stream' => $stream,
             'metadata' => $metadata,
         ], $audioItem->jsonSerialize());
-        $this->assertSame('{"stream":{"url":"https:\/\/url-of-the-stream-to-play","token":"opaque token representing this stream","expectedPreviousToken":"opaque token representing the previous stream","offsetInMilliseconds":0},"metadata":{"title":"title of the track to display","subtitle":"subtitle of the track to display","art":{"contentDescription":null,"sources":{"url":"https:\/\/url-of-the-album-art-image.png"}},"backgroundImage":{"contentDescription":null,"sources":{"url":"https:\/\/url-of-the-background-image.png"}}}}', json_encode($audioItem));
+        $this->assertSame('{"stream":{"url":"https:\/\/url-of-the-stream-to-play","token":"opaque token representing this stream","expectedPreviousToken":"opaque token representing the previous stream","offsetInMilliseconds":0},"metadata":{"title":"title of the track to display","subtitle":"subtitle of the track to display","art":{"contentDescription":null,"sources":[{"url":"https:\/\/url-of-the-album-art-image.png"}]},"backgroundImage":{"contentDescription":null,"sources":[{"url":"https:\/\/url-of-the-background-image.png"}]}}}', json_encode($audioItem));
     }
 
-    public function testPlayDirective()
+    public function testPlayDirective(): void
     {
-        $stream        = Stream::create('testurl', 'token');
-        $audioItem     = AudioItem::create($stream);
+        $stream = Stream::create('testurl', 'token');
+        $audioItem = AudioItem::create($stream);
         $playDirective = PlayDirective::create($audioItem);
         $this->assertInstanceOf(PlayDirective::class, $playDirective);
         $this->assertSame(PlayDirective::TYPE, $playDirective->type);
@@ -93,17 +92,17 @@ class AudioTest extends TestCase
         $this->assertSame(PlayDirective::PLAY_BEHAVIOR_REPLACE_ALL, $playDirective->playBehavior);
     }
 
-    public function testPlayDirectiveBehavior()
+    public function testPlayDirectiveBehavior(): void
     {
-        $stream        = Stream::create('testurl', 'token');
-        $audioItem     = AudioItem::create($stream);
+        $stream = Stream::create('testurl', 'token');
+        $audioItem = AudioItem::create($stream);
         $playDirective = PlayDirective::create($audioItem, PlayDirective::PLAY_BEHAVIOR_REPLACE_ENQUEUED);
         $this->assertInstanceOf(PlayDirective::class, $playDirective);
         $this->assertSame($audioItem, $playDirective->audioItem);
         $this->assertSame(PlayDirective::PLAY_BEHAVIOR_REPLACE_ENQUEUED, $playDirective->playBehavior);
     }
 
-    public function testClearDirective()
+    public function testClearDirective(): void
     {
         $clearDirective = ClearDirective::create(ClearDirective::CLEAR_BEHAVIOR_CLEAR_ALL);
         $this->assertInstanceOf(ClearDirective::class, $clearDirective);
@@ -111,35 +110,35 @@ class AudioTest extends TestCase
         $this->assertSame(ClearDirective::CLEAR_BEHAVIOR_CLEAR_ALL, $clearDirective->clearBehavior);
     }
 
-    public function testStopDirective()
+    public function testStopDirective(): void
     {
         $stopDirective = StopDirective::create();
         $this->assertInstanceOf(StopDirective::class, $stopDirective);
         $this->assertSame(StopDirective::TYPE, $stopDirective->type);
     }
 
-    public function testPlaybackStartedDirective()
+    public function testPlaybackStartedDirective(): void
     {
         $playbackStarted = PlaybackStarted::create('requestId', 'timestamp', 'token', 0, 'en-US');
         $this->assertInstanceOf(PlaybackStarted::class, $playbackStarted);
         $this->assertSame(PlaybackStarted::TYPE, $playbackStarted->type);
     }
 
-    public function testPlaybackFinishedDirective()
+    public function testPlaybackFinishedDirective(): void
     {
         $playbackFinished = PlaybackFinished::create('requestId', 'timestamp', 'token', 0, 'en-US');
         $this->assertInstanceOf(PlaybackFinished::class, $playbackFinished);
         $this->assertSame(PlaybackFinished::TYPE, $playbackFinished->type);
     }
 
-    public function testPlaybackStoppedDirective()
+    public function testPlaybackStoppedDirective(): void
     {
         $playbackStopped = PlaybackStopped::create('requestId', 'timestamp', 'token', 0, 'en-US');
         $this->assertInstanceOf(PlaybackStopped::class, $playbackStopped);
         $this->assertSame(PlaybackStopped::TYPE, $playbackStopped->type);
     }
 
-    public function testPlaybackNearlyFinishedDirective()
+    public function testPlaybackNearlyFinishedDirective(): void
     {
         $playbackNearlyFinished = PlaybackNearlyFinished::create('requestId', 'timestamp', 'token', 0, 'en-US');
         $this->assertInstanceOf(PlaybackNearlyFinished::class, $playbackNearlyFinished);
@@ -149,18 +148,18 @@ class AudioTest extends TestCase
     /**
      * @dataProvider getPlaybackFailed
      */
-    public function testPlaybackFailedDirective(string $errorReason, string $playerActivity)
+    public function testPlaybackFailedDirective(string $errorReason, string $playerActivity): void
     {
-        $error                = Error::create($errorReason, 'message');
+        $error = Error::create($errorReason, 'message');
         $currentPlaybackState = CurrentPlaybackState::create('token', 0, $playerActivity);
-        $playbackFailed       = PlaybackFailed::create('requestId', 'timestamp', 'token', 0, 'en-US', $error, $currentPlaybackState);
+        $playbackFailed = PlaybackFailed::create('requestId', 'timestamp', 'token', 0, 'en-US', $error, $currentPlaybackState);
         $this->assertInstanceOf(PlaybackFailed::class, $playbackFailed);
         $this->assertSame(PlaybackFailed::TYPE, $playbackFailed->type);
         $this->assertSame($errorReason, $playbackFailed->error->type);
         $this->assertSame($playerActivity, $playbackFailed->currentPlaybackState->playerActivity);
     }
 
-    public static function getPlaybackFailed()
+    public static function getPlaybackFailed(): array
     {
         return [
             [Error::MEDIA_ERROR_UNKNOWN, CurrentPlaybackState::PLAYER_ACTIVITY_PLAYING],

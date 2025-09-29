@@ -1,41 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request\Request\System;
 
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 abstract class SystemRequest extends AbstractRequest
 {
-    /**
-     * @var string|null
-     */
-    public $token;
+    public ?string $token = null;
+    public string $requestId;
+    public string $locale;
 
-    /**
-     * @var string
-     */
-    public $requestId;
-
-    /**
-     * @var string
-     */
-    public $locale;
-
-    /**
-     * @param array $amazonRequest
-     */
-    protected function setRequestData(array $amazonRequest)
+    protected function setRequestData(array $amazonRequest): void
     {
         $this->requestId = $amazonRequest['requestId'];
-        //Workaround for amazon developer console sending unix timestamp
-        try {
-            $this->timestamp = new \DateTime($amazonRequest['timestamp']);
-        } catch (\Exception $e) {
-            $this->timestamp = (new \DateTime())->setTimestamp(intval($amazonRequest['timestamp'] / 1000));
-        }
+        $this->setTime('timestamp', $amazonRequest['timestamp']);
         $this->locale = $amazonRequest['locale'];
     }
 }
