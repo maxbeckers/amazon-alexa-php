@@ -1,24 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent;
 
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class SkillPermissionAcceptedRequest extends AlexaSkillEventRequest
 {
-    const TYPE = 'AlexaSkillEvent.SkillPermissionAccepted';
+    public const TYPE = 'AlexaSkillEvent.SkillPermissionAccepted';
 
-    /**
-     * @var SkillPermissionBody|null
-     */
-    public $body;
+    public ?SkillPermissionBody $body = null;
 
-    /**
-     * @inheritdoc
-     */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {
         $request = new self();

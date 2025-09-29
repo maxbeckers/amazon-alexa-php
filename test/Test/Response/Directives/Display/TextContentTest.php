@@ -1,16 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Test\Response\Directives\Display;
 
 use ArrayObject;
+use MaxBeckers\AmazonAlexa\Response\Directives\Display\Text;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\TextContent;
 use PHPUnit\Framework\TestCase;
 
 class TextContentTest extends TestCase
 {
-    public function testSerializePrimaryOnly()
+    public function testSerializePrimaryOnly(): void
     {
-        $primaryText = 'primaryText';
+        $primaryText = Text::create('primaryText');
 
         $textContent = TextContent::create($primaryText);
 
@@ -19,18 +22,18 @@ class TextContentTest extends TestCase
         ]), $textContent->jsonSerialize());
     }
 
-    public function testSerializeAll()
+    public function testSerializeAll(): void
     {
-        $primaryText   = 'primaryText';
-        $secondaryText = 'secondaryText';
-        $tertiaryText  = 'tertiaryText';
+        $primaryText = Text::create('primaryText');
+        $secondaryText = Text::create('secondaryText');
+        $tertiaryText = Text::create('tertiaryText');
 
         $textContent = TextContent::create($primaryText, $secondaryText, $tertiaryText);
 
         $this->assertEquals(new ArrayObject([
-            'primaryText'   => $primaryText,
+            'primaryText' => $primaryText,
             'secondaryText' => $secondaryText,
-            'tertiaryText'  => $tertiaryText,
+            'tertiaryText' => $tertiaryText,
         ]), $textContent->jsonSerialize());
     }
 }

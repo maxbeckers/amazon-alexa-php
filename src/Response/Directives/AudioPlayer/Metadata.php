@@ -1,58 +1,42 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\Image;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class Metadata implements \JsonSerializable
 {
-    /**
-     * @var string|null
-     */
-    public $title;
-
-    /**
-     * @var string|null
-     */
-    public $subtitle;
-
-    /**
-     * @var Image|null
-     */
-    public $art;
-
-    /**
-     * @var Image|null
-     */
-    public $backgroundImage;
+    public ?string $title = null;
+    public ?string $subtitle = null;
+    public ?Image $art = null;
+    public ?Image $backgroundImage = null;
 
     /**
      * @param string|null $title
      * @param string|null $subtitle
-     * @param Image|null  $art
-     * @param Image|null  $backgroundImage
+     * @param Image|null $art
+     * @param Image|null $backgroundImage
      *
      * @return Metadata
      */
-    public static function create(string $title = null, string $subtitle = null, Image $art = null, Image $backgroundImage = null): self
+    public static function create(?string $title = null, ?string $subtitle = null, ?Image $art = null, ?Image $backgroundImage = null): self
     {
         $metadata = new self();
 
-        $metadata->title           = $title;
-        $metadata->subtitle        = $subtitle;
-        $metadata->art             = $art;
+        $metadata->title = $title;
+        $metadata->subtitle = $subtitle;
+        $metadata->art = $art;
         $metadata->backgroundImage = $backgroundImage;
 
         return $metadata;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $data = [];
 

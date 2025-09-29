@@ -1,57 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class OutputSpeech
 {
-    const TYPE_PLAINTEXT = 'PlainText';
-    const TYPE_SSML      = 'SSML';
+    public const TYPE_PLAINTEXT = 'PlainText';
+    public const TYPE_SSML = 'SSML';
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
+    public ?string $text = null;
+    public ?string $ssml = null;
 
-    /**
-     * @var string
-     */
-    public $text;
-
-    /**
-     * @var string
-     */
-    public $ssml;
-
-    /**
-     * @param string $type
-     */
     public function __construct(string $type = self::TYPE_PLAINTEXT)
     {
         $this->type = $type;
     }
 
-    /**
-     * @param string $test
-     *
-     * @return OutputSpeech
-     */
-    public static function createByText(string $test): self
+    public static function createByText(string $text): self
     {
         $outputSpeech = new self();
 
-        $outputSpeech->text = $test;
+        $outputSpeech->text = $text;
 
         return $outputSpeech;
     }
 
-    /**
-     * @param string $ssml
-     *
-     * @return OutputSpeech
-     */
     public static function createBySsml(string $ssml): self
     {
         $outputSpeech = new self(self::TYPE_SSML);

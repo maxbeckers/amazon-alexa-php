@@ -1,27 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request\Request\PlaybackController;
 
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class PauseCommandIssued extends AbstractPlaybackController
 {
-    const TYPE = 'PlaybackController.PauseCommandIssued';
+    public const TYPE = 'PlaybackController.PauseCommandIssued';
 
-    /**
-     * @inheritdoc
-     */
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {
-        $nextCommandIssued = new self();
+        $pauseCommandIssued = new self();
 
-        $nextCommandIssued->type = self::TYPE;
+        $pauseCommandIssued->type = self::TYPE;
+        $pauseCommandIssued->setRequestData($amazonRequest);
 
-        $nextCommandIssued->setRequestData($amazonRequest);
-
-        return $nextCommandIssued;
+        return $pauseCommandIssued;
     }
 }

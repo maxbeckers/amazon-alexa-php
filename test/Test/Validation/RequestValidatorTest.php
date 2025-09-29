@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Test\Validation;
 
 use GuzzleHttp\Client;
@@ -12,46 +14,43 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class RequestValidatorTest extends TestCase
 {
-    public function testInvalidRequestTime()
+    public function testInvalidRequestTime(): void
     {
         $requestValidator = new RequestValidator();
 
-        $intentRequest            = new IntentRequest();
-        $intentRequest->type      = 'test';
+        $intentRequest = new IntentRequest();
+        $intentRequest->type = 'test';
         $intentRequest->timestamp = new \DateTime('-1 hour');
-        $request                  = new Request();
-        $request->request         = $intentRequest;
+        $request = new Request();
+        $request->request = $intentRequest;
 
         $this->expectException(RequestInvalidTimestampException::class);
         $requestValidator->validate($request);
     }
 
-    public function testInvalidSignatureCertChainUrl()
+    public function testInvalidSignatureCertChainUrl(): void
     {
         $requestValidator = new RequestValidator();
 
-        $intentRequest                  = new IntentRequest();
-        $intentRequest->type            = 'test';
-        $intentRequest->timestamp       = new \DateTime();
-        $request                        = new Request();
-        $request->request               = $intentRequest;
+        $intentRequest = new IntentRequest();
+        $intentRequest->type = 'test';
+        $intentRequest->timestamp = new \DateTime();
+        $request = new Request();
+        $request->request = $intentRequest;
         $request->signatureCertChainUrl = 'wrong path';
-        $request->signature             = 'none';
+        $request->signature = 'none';
 
         $this->expectException(RequestInvalidSignatureException::class);
         $requestValidator->validate($request);
     }
 
-    public function testWrongSignatureCertChainUrl()
+    public function testWrongSignatureCertChainUrl(): void
     {
-        $client           = $this->createMock(Client::class);
-        $apiResponse      = $this->createMock(ResponseInterface::class);
-        $apiResponseBody  = $this->createMock(StreamInterface::class);
+        $client = $this->createMock(Client::class);
+        $apiResponse = $this->createMock(ResponseInterface::class);
+        $apiResponseBody = $this->createMock(StreamInterface::class);
         $requestValidator = new RequestValidator(RequestValidator::TIMESTAMP_VALID_TOLERANCE_SECONDS, $client);
 
         $client->method('request')
@@ -63,22 +62,23 @@ class RequestValidatorTest extends TestCase
         $apiResponseBody->method('getContents')
                         ->willReturn('cert content');
 
-        $intentRequest                  = new IntentRequest();
-        $intentRequest->type            = 'test';
-        $intentRequest->timestamp       = new \DateTime();
-        $request                        = new Request();
-        $request->request               = $intentRequest;
+        $intentRequest = new IntentRequest();
+        $intentRequest->type = 'test';
+        $intentRequest->timestamp = new \DateTime();
+        $request = new Request();
+        $request->request = $intentRequest;
         $request->signatureCertChainUrl = 'https://s3.amazonaws.com/echo.api/test.pem';
-        $request->signature             = 'none';
+        $request->signature = 'none';
+        $request->amazonRequestBody = '';
 
         $this->expectException(RequestInvalidSignatureException::class);
         $requestValidator->validate($request);
     }
 
-    public function testWrongSignatureCertChainUrlCallError()
+    public function testWrongSignatureCertChainUrlCallError(): void
     {
-        $client           = $this->createMock(Client::class);
-        $apiResponse      = $this->createMock(ResponseInterface::class);
+        $client = $this->createMock(Client::class);
+        $apiResponse = $this->createMock(ResponseInterface::class);
         $requestValidator = new RequestValidator(RequestValidator::TIMESTAMP_VALID_TOLERANCE_SECONDS, $client);
 
         $client->method('request')
@@ -86,13 +86,14 @@ class RequestValidatorTest extends TestCase
         $apiResponse->method('getStatusCode')
                     ->willReturn(400);
 
-        $intentRequest                  = new IntentRequest();
-        $intentRequest->type            = 'test';
-        $intentRequest->timestamp       = new \DateTime();
-        $request                        = new Request();
-        $request->request               = $intentRequest;
+        $intentRequest = new IntentRequest();
+        $intentRequest->type = 'test';
+        $intentRequest->timestamp = new \DateTime();
+        $request = new Request();
+        $request->request = $intentRequest;
         $request->signatureCertChainUrl = 'https://s3.amazonaws.com/echo.api/test.pem';
-        $request->signature             = 'none';
+        $request->signature = 'none';
+        $request->amazonRequestBody = '';
 
         $this->expectException(RequestInvalidSignatureException::class);
         $requestValidator->validate($request);

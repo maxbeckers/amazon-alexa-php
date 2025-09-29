@@ -1,39 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Dialog;
 
 use MaxBeckers\AmazonAlexa\Intent\Intent;
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class ElicitSlotDirective extends Directive
 {
-    const TYPE = 'Dialog.ElicitSlot';
+    public const TYPE = 'Dialog.ElicitSlot';
 
-    /**
-     * @var string|null
-     */
-    public $slotToElicit;
+    public ?string $slotToElicit = null;
+    public ?Intent $updatedIntent = null;
 
-    /**
-     * @var Intent|null
-     */
-    public $updatedIntent;
-
-    /**
-     * @param string      $slotToElicit
-     * @param Intent|null $intent
-     *
-     * @return ElicitSlotDirective
-     */
-    public static function create(string $slotToElicit, Intent $intent = null): self
+    public static function create(string $slotToElicit, ?Intent $intent = null): self
     {
         $elicitSlotDirective = new self();
 
-        $elicitSlotDirective->type          = self::TYPE;
-        $elicitSlotDirective->slotToElicit  = $slotToElicit;
+        $elicitSlotDirective->type = self::TYPE;
+        $elicitSlotDirective->slotToElicit = $slotToElicit;
         $elicitSlotDirective->updatedIntent = $intent;
 
         return $elicitSlotDirective;

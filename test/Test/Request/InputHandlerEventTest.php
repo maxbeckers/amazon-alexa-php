@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Test\Request;
 
 use MaxBeckers\AmazonAlexa\Request\Request;
@@ -8,9 +10,6 @@ use MaxBeckers\AmazonAlexa\Request\Request\GameEngine\Event\InputEvent;
 use MaxBeckers\AmazonAlexa\Request\Request\GameEngine\InputHandlerEvent;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author Fabian Graßl <fabian.grassl@db-n.com>
- */
 class InputHandlerEventTest extends TestCase
 {
     /**
@@ -21,10 +20,10 @@ class InputHandlerEventTest extends TestCase
      * @covers \MaxBeckers\AmazonAlexa\Request\Request\GameEngine\Event\Event::fromAmazonRequest
      * @covers \MaxBeckers\AmazonAlexa\Request\Request\GameEngine\Event\InputEvent::fromAmazonRequest
      */
-    public function testIntentRequest()
+    public function testIntentRequest(): void
     {
-        $requestBody = file_get_contents(__DIR__.'/RequestData/inputHandlerEvent.json');
-        $request     = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
+        $requestBody = file_get_contents(__DIR__ . '/RequestData/inputHandlerEvent.json');
+        $request = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         /**
          * @var InputHandlerEvent
          */

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Test\Response\Directives;
 
 use ArrayObject;
@@ -13,12 +15,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\Display\Text;
 use MaxBeckers\AmazonAlexa\Response\Directives\Display\TextContent;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author Fabian Graßl <fabian.grassl@db-n.com>
- */
 class DisplayTest extends TestCase
 {
-    public function testText()
+    public function testText(): void
     {
         $text = Text::create('Test');
         $this->assertInstanceOf(Text::class, $text);
@@ -30,7 +29,7 @@ class DisplayTest extends TestCase
         $this->assertSame(Text::TYPE_RICH_TEXT, $text->type);
     }
 
-    public function testTextContent()
+    public function testTextContent(): void
     {
         $textContent = TextContent::create(Text::create('Text1'));
         $this->assertInstanceOf(TextContent::class, $textContent);
@@ -49,9 +48,9 @@ class DisplayTest extends TestCase
         $this->assertSame('Text3', $textContent->tertiaryText->text);
     }
 
-    public function testImageSource()
+    public function testImageSource(): void
     {
-        $imgUrl      = 'http://example.com/some/image.jpg';
+        $imgUrl = 'http://example.com/some/image.jpg';
         $imageSource = ImageSource::create($imgUrl);
         $this->assertInstanceOf(ImageSource::class, $imageSource);
         $this->assertSame($imgUrl, $imageSource->url);
@@ -61,7 +60,7 @@ class DisplayTest extends TestCase
         $this->assertEquals(new ArrayObject(['url' => $imgUrl]), $imageSource->jsonSerialize());
     }
 
-    public function testImage()
+    public function testImage(): void
     {
         $img = Image::create();
         $this->assertInstanceOf(Image::class, $img);
@@ -72,20 +71,20 @@ class DisplayTest extends TestCase
         $this->assertSame('Test', $img->contentDescription);
         $this->assertSame([], $img->sources);
 
-        $imgUrl    = 'http://example.com/some/image.jpg';
-        $imgSource = ImageSource::create($imgUrl, 1024, 100, 200);
+        $imgUrl = 'http://example.com/some/image.jpg';
+        $imgSource = ImageSource::create($imgUrl, '1024', 100, 200);
 
         $img = Image::create('Test', [$imgSource]);
         $this->assertSame([$imgSource], $img->sources);
 
-        $imgUrl2    = 'http://example.com/some/image2.jpg';
+        $imgUrl2 = 'http://example.com/some/image2.jpg';
         $imgSource2 = ImageSource::create($imgUrl2);
 
         $img->addImageSource($imgSource2);
         $this->assertSame([$imgSource, $imgSource2], $img->sources);
     }
 
-    public function testTemplate()
+    public function testTemplate(): void
     {
         $tmp = Template::create('BodyTemplate1', 'BODY');
         $this->assertInstanceOf(Template::class, $tmp);
@@ -100,9 +99,9 @@ class DisplayTest extends TestCase
 
         $img1 = Image::create('IMG1');
         $img2 = Image::create('IMG2');
-        $li   = ListItem::create('T1');
-        $tc   = TextContent::create();
-        $tmp  = Template::create('BodyTemplate2', 'BODY2', Template::BACK_BUTTON_MODE_HIDDEN, $img2, 'TITLE', $tc, $img1, [$li]);
+        $li = ListItem::create('T1');
+        $tc = TextContent::create();
+        $tmp = Template::create('BodyTemplate2', 'BODY2', Template::BACK_BUTTON_MODE_HIDDEN, $img2, 'TITLE', $tc, $img1, [$li]);
         $this->assertSame($tmp->token, 'BODY2');
         $this->assertSame($tmp->type, 'BodyTemplate2');
         $this->assertSame(Template::BACK_BUTTON_MODE_HIDDEN, $tmp->backButton);
@@ -117,16 +116,16 @@ class DisplayTest extends TestCase
         $this->assertSame([$li, $li2], $tmp->listItems);
     }
 
-    public function testRenderTemplate()
+    public function testRenderTemplate(): void
     {
-        $tmp                     = Template::create('BodyTemplate1', 'BODY');
+        $tmp = Template::create('BodyTemplate1', 'BODY');
         $renderTemplateDirective = RenderTemplateDirective::create($tmp);
         $this->assertInstanceOf(RenderTemplateDirective::class, $renderTemplateDirective);
         $this->assertSame($renderTemplateDirective->template->token, 'BODY');
         $this->assertSame($renderTemplateDirective->template->type, 'BodyTemplate1');
     }
 
-    public function testListItem()
+    public function testListItem(): void
     {
         $listItem = ListItem::create();
         $this->assertInstanceOf(ListItem::class, $listItem);
@@ -134,17 +133,17 @@ class DisplayTest extends TestCase
         $this->assertNull($listItem->image);
         $this->assertNull($listItem->token);
 
-        $img      = Image::create();
-        $tc       = TextContent::create();
+        $img = Image::create();
+        $tc = TextContent::create();
         $listItem = ListItem::create('TOKEN', $img, $tc);
         $this->assertSame($img, $listItem->image);
         $this->assertSame('TOKEN', $listItem->token);
         $this->assertSame($tc, $listItem->textContent);
     }
 
-    public function testHint()
+    public function testHint(): void
     {
-        $txt  = Text::create('Test');
+        $txt = Text::create('Test');
         $hint = HintDirective::create($txt);
         $this->assertInstanceOf(HintDirective::class, $hint);
         $this->assertSame('Hint', $hint->type);

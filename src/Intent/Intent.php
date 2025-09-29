@@ -1,42 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Intent;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class Intent implements \JsonSerializable
 {
-    const STATUS_NONE      = 'NONE';
-    const STATUS_CONFIRMED = 'CONFIRMED';
-    const STATUS_DENIED    = 'DENIED';
+    public const STATUS_NONE = 'NONE';
+    public const STATUS_CONFIRMED = 'CONFIRMED';
+    public const STATUS_DENIED = 'DENIED';
 
-    /**
-     * @var string|null
-     */
-    public $name;
+    public ?string $name = null;
+    public ?string $confirmationStatus = null;
 
-    /**
-     * @var string|null
-     */
-    public $confirmationStatus;
+    /** @var Slot[] */
+    public array $slots = [];
 
-    /**
-     * @var Slot[]
-     */
-    public $slots = [];
-
-    /**
-     * @param array $amazonRequest
-     *
-     * @return Intent
-     */
     public static function fromAmazonRequest(array $amazonRequest): self
     {
         $intent = new self();
 
-        $intent->name               = isset($amazonRequest['name']) ? $amazonRequest['name'] : null;
-        $intent->confirmationStatus = isset($amazonRequest['confirmationStatus']) ? $amazonRequest['confirmationStatus'] : null;
+        $intent->name = $amazonRequest['name'] ?? null;
+        $intent->confirmationStatus = $amazonRequest['confirmationStatus'] ?? null;
 
         if (isset($amazonRequest['slots'])) {
             foreach ($amazonRequest['slots'] as $name => $slot) {
@@ -47,10 +32,7 @@ class Intent implements \JsonSerializable
         return $intent;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $data = [];
 
@@ -70,12 +52,7 @@ class Intent implements \JsonSerializable
         return $data;
     }
 
-    /**
-     * @param $name
-     *
-     * @return null|Slot
-     */
-    public function getSlotByName($name)
+    public function getSlotByName(string $name): ?Slot
     {
         foreach ($this->slots as $slot) {
             if ($slot->name === $name) {

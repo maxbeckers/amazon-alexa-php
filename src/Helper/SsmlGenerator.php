@@ -1,48 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Helper;
 
 use MaxBeckers\AmazonAlexa\Exception\InvalidSsmlException;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class SsmlGenerator implements SsmlTypes
 {
     /**
      * Enable this flag, when you need escaped special chars in your content (for example escaped "&").
-     *
-     * @var bool
      */
-    public $escapeSpecialChars = false;
+    public bool $escapeSpecialChars = false;
 
-    /**
-     * @var string[]
-     */
-    private $parts = [];
+    /** @var string[] */
+    private array $parts = [];
 
     /**
      * Clear the current ssml parts.
      */
-    public function clear()
+    public function clear(): void
     {
         $this->parts = [];
     }
 
-    /**
-     * @return string
-     */
-    public function getSsml()
+    public function getSsml(): string
     {
         return sprintf('<speak>%s</speak>', implode(' ', $this->parts));
     }
 
     /**
      * Say a default text.
-     *
-     * @param string $text
      */
-    public function say(string $text)
+    public function say(string $text): void
     {
         $this->parts[] = $this->textEscapeSpecialChars($text);
     }
@@ -51,11 +41,9 @@ class SsmlGenerator implements SsmlTypes
      * Play audio in output.
      * For more specifications of the mp3 file @see https://developer.amazon.com/de/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#audio.
      *
-     * @param string $mp3Url
-     *
      * @throws InvalidSsmlException
      */
-    public function playMp3(string $mp3Url)
+    public function playMp3(string $mp3Url): void
     {
         if (1 !== preg_match('/^(https:\/\/.*\.mp3.*)$/i', $mp3Url) && 0 !== strpos($mp3Url, 'soundbank://')) {
             throw new InvalidSsmlException(sprintf('"%s" in not a valid mp3 url!', $mp3Url));
@@ -67,11 +55,9 @@ class SsmlGenerator implements SsmlTypes
      * Make a pause (or remove with none/x-weak).
      * Possible values @see https://developer.amazon.com/de/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#break.
      *
-     * @param string $strength
-     *
      * @throws InvalidSsmlException
      */
-    public function pauseStrength(string $strength)
+    public function pauseStrength(string $strength): void
     {
         if (!in_array($strength, self::BREAK_STRENGTHS, true)) {
             throw new InvalidSsmlException(sprintf('Break strength must be one of "%s"!', implode(',', self::BREAK_STRENGTHS)));
@@ -83,11 +69,9 @@ class SsmlGenerator implements SsmlTypes
      * Make a pause with duration time as string in seconds(s) or milliseconds(ms).
      * For example '10s' or '10000ms' to break 10 seconds.
      *
-     * @param string $time
-     *
      * @throws InvalidSsmlException
      */
-    public function pauseTime(string $time)
+    public function pauseTime(string $time): void
     {
         if (1 !== preg_match('/^(\d+(s|ms))$/i', $time)) {
             throw new InvalidSsmlException('Time must be seconds or milliseconds!');
@@ -98,12 +82,9 @@ class SsmlGenerator implements SsmlTypes
     /**
      * Say a text with effect.
      *
-     * @param string $text
-     * @param string $effect
-     *
      * @throws InvalidSsmlException
      */
-    public function sayWithAmazonEffect(string $text, string $effect = self::AMAZON_EFFECT_WHISPERED)
+    public function sayWithAmazonEffect(string $text, string $effect = self::AMAZON_EFFECT_WHISPERED): void
     {
         if (!in_array($effect, self::AMAZON_EFFECTS, true)) {
             throw new InvalidSsmlException(sprintf('Amazon:effect name must be one of "%s"!', implode(',', self::AMAZON_EFFECTS)));
@@ -113,10 +94,8 @@ class SsmlGenerator implements SsmlTypes
 
     /**
      * Whisper a text.
-     *
-     * @param string $text
      */
-    public function whisper(string $text)
+    public function whisper(string $text): void
     {
         $this->sayWithAmazonEffect($text, self::AMAZON_EFFECT_WHISPERED);
     }
@@ -124,12 +103,9 @@ class SsmlGenerator implements SsmlTypes
     /**
      * Say with emphasis.
      *
-     * @param string $text
-     * @param string $level
-     *
      * @throws InvalidSsmlException
      */
-    public function emphasis(string $text, string $level)
+    public function emphasis(string $text, string $level): void
     {
         if (!in_array($level, self::EMPHASIS_LEVELS, true)) {
             throw new InvalidSsmlException(sprintf('Emphasis level must be one of "%s"!', implode(',', self::EMPHASIS_LEVELS)));
@@ -140,12 +116,9 @@ class SsmlGenerator implements SsmlTypes
     /**
      * Say a text pronounced in the given language.
      *
-     * @param string $language
-     * @param string $text
-     *
      * @throws InvalidSsmlException
      */
-    public function pronounceInLanguage(string $language, string $text)
+    public function pronounceInLanguage(string $language, string $text): void
     {
         if (!in_array($language, self::LANGUAGE_LIST, true)) {
             throw new InvalidSsmlException(sprintf('Language must be one of "%s"!', implode(',', self::LANGUAGE_LIST)));
@@ -155,10 +128,8 @@ class SsmlGenerator implements SsmlTypes
 
     /**
      * Say a paragraph.
-     *
-     * @param string $paragraph
      */
-    public function paragraph(string $paragraph)
+    public function paragraph(string $paragraph): void
     {
         $this->parts[] = sprintf('<p>%s</p>', $this->textEscapeSpecialChars($paragraph));
     }
@@ -166,13 +137,9 @@ class SsmlGenerator implements SsmlTypes
     /**
      * Say a text with a phoneme.
      *
-     * @param string $alphabet
-     * @param string $ph
-     * @param string $text
-     *
      * @throws InvalidSsmlException
      */
-    public function phoneme(string $alphabet, string $ph, string $text)
+    public function phoneme(string $alphabet, string $ph, string $text): void
     {
         if (!in_array($alphabet, self::PHONEME_ALPHABETS, true)) {
             throw new InvalidSsmlException(sprintf('Phoneme alphabet must be one of "%s"!', implode(',', self::PHONEME_ALPHABETS)));
@@ -186,13 +153,9 @@ class SsmlGenerator implements SsmlTypes
      * There are three different modes of prosody: volume, pitch, and rate.
      * For more details @see https://developer.amazon.com/de/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html#prosody
      *
-     * @param string $mode
-     * @param string $value
-     * @param string $text
-     *
      * @throws InvalidSsmlException
      */
-    public function prosody(string $mode, string $value, string $text)
+    public function prosody(string $mode, string $value, string $text): void
     {
         if (!isset(self::PROSODIES[$mode])) {
             throw new InvalidSsmlException(sprintf('Prosody mode must be one of "%s"!', implode(',', array_keys(self::PROSODIES))));
@@ -203,10 +166,8 @@ class SsmlGenerator implements SsmlTypes
 
     /**
      * Say a sentence.
-     *
-     * @param string $text
      */
-    public function sentence(string $text)
+    public function sentence(string $text): void
     {
         $this->parts[] = sprintf('<s>%s</s>', $this->textEscapeSpecialChars($text));
     }
@@ -214,13 +175,9 @@ class SsmlGenerator implements SsmlTypes
     /**
      * Say a text with interpretation.
      *
-     * @param string $interpretAs
-     * @param string $text
-     * @param string $format
-     *
      * @throws InvalidSsmlException
      */
-    public function sayAs(string $interpretAs, string $text, string $format = '')
+    public function sayAs(string $interpretAs, string $text, string $format = ''): void
     {
         if (!in_array($interpretAs, self::SAY_AS_INTERPRET_AS, true)) {
             throw new InvalidSsmlException(sprintf('Interpret as attribute must be one of "%s"!', implode(',', self::SAY_AS_INTERPRET_AS)));
@@ -235,11 +192,8 @@ class SsmlGenerator implements SsmlTypes
     /**
      * Say an alias.
      * For example replace the abbreviated chemical elements with the full words.
-     *
-     * @param string $alias
-     * @param string $text
      */
-    public function alias(string $alias, string $text)
+    public function alias(string $alias, string $text): void
     {
         $this->parts[] = sprintf('<sub alias="%s">%s</sub>', $alias, $this->textEscapeSpecialChars($text));
     }
@@ -247,12 +201,9 @@ class SsmlGenerator implements SsmlTypes
     /**
      * Say a text with the voice of the given person.
      *
-     * @param string $voice
-     * @param string $text
-     *
      * @throws InvalidSsmlException
      */
-    public function sayWithVoice(string $voice, string $text)
+    public function sayWithVoice(string $voice, string $text): void
     {
         if (!in_array($voice, self::VOICES, true)) {
             throw new InvalidSsmlException(sprintf('Voice must be one of "%s"!', implode(',', self::VOICES)));
@@ -263,12 +214,9 @@ class SsmlGenerator implements SsmlTypes
     /**
      * Say a word with defined word's parts to speach.
      *
-     * @param string $role
-     * @param string $text
-     *
      * @throws InvalidSsmlException
      */
-    public function word(string $role, string $text)
+    public function word(string $role, string $text): void
     {
         if (!in_array($role, self::INTERPRET_WORDS, true)) {
             throw new InvalidSsmlException(sprintf('Interpret as attribute must be one of "%s"!', implode(',', self::INTERPRET_WORDS)));
@@ -278,10 +226,6 @@ class SsmlGenerator implements SsmlTypes
 
     /**
      * Escape special chars for ssml output (for example "&").
-     *
-     * @param string $text
-     *
-     * @return string
      */
     private function textEscapeSpecialChars(string $text): string
     {

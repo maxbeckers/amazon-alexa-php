@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Helper;
 
 use GuzzleHttp\Client;
@@ -11,30 +13,16 @@ use MaxBeckers\AmazonAlexa\Request\Request;
 /**
  * This helper class can call the amazon api to get address information.
  * For more details @see https=>//developer.amazon.com/de/docs/custom-skills/device-address-api.html.
- *
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
 class DeviceAddressInformationHelper
 {
-    /**
-     * @var Client
-     */
-    private $client;
-
-    /**
-     * @param Client|null $client
-     */
-    public function __construct(Client $client = null)
-    {
-        $this->client = $client ?: new Client();
+    public function __construct(
+        private readonly Client $client = new Client()
+    ) {
     }
 
     /**
-     * @param Request $request
-     *
      * @throws MissingRequestDataException
-     *
-     * @return DeviceAddressInformation
      */
     public function getCountryAndPostalCode(Request $request): DeviceAddressInformation
     {
@@ -43,7 +31,7 @@ class DeviceAddressInformationHelper
         }
 
         $deviceId = $request->context->system->device->deviceId;
-        $token    = $request->context->system->apiAccessToken;
+        $token = $request->context->system->apiAccessToken;
         $endpoint = $request->context->system->apiEndpoint;
 
         $url = sprintf('%s/v1/devices/%s/settings/address/countryAndPostalCode', $endpoint, $deviceId);
@@ -52,11 +40,7 @@ class DeviceAddressInformationHelper
     }
 
     /**
-     * @param Request $request
-     *
      * @throws MissingRequestDataException
-     *
-     * @return DeviceAddressInformation
      */
     public function getAddress(Request $request): DeviceAddressInformation
     {
@@ -65,7 +49,7 @@ class DeviceAddressInformationHelper
         }
 
         $deviceId = $request->context->system->device->deviceId;
-        $token    = $request->context->system->apiAccessToken;
+        $token = $request->context->system->apiAccessToken;
         $endpoint = $request->context->system->apiEndpoint;
 
         $url = sprintf('%s/v1/devices/%s/settings/address', $endpoint, $deviceId);
@@ -74,19 +58,14 @@ class DeviceAddressInformationHelper
     }
 
     /**
-     * @param string $url
-     * @param string $token
-     *
      * @throws DeviceApiCallException
-     *
-     * @return DeviceAddressInformation
      */
     private function apiCall(string $url, string $token): DeviceAddressInformation
     {
         $response = $this->client->request('GET', $url, [
             'headers' => [
-                'Authorization' => 'Bearer '.$token,
-                'Accept'        => 'application/json',
+                'Authorization' => 'Bearer ' . $token,
+                'Accept' => 'application/json',
             ],
         ]);
 

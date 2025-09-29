@@ -1,51 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Dialog\Entity;
 
 class TypeValue implements \JsonSerializable
 {
-    /**
-     * @var string
-     */
-    public $id;
+    public string $id;
+    public string $value;
+    public array $synonyms;
 
-    /**
-     * @var string
-     */
-    public $value;
-
-    /**
-     * @var array
-     */
-    public $synonyms;
-
-    /**
-     * @param string $id
-     * @param string $value
-     * @param array  $synonyms
-     *
-     * @return TypeValue
-     */
     public static function create(string $id, string $value, array $synonyms = []): self
     {
         $typeValue = new self();
 
-        $typeValue->id       = $id;
-        $typeValue->value    = $value;
+        $typeValue->id = $id;
+        $typeValue->value = $value;
         $typeValue->synonyms = $synonyms;
 
         return $typeValue;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
-            'id'   => $this->id,
+            'id' => $this->id,
             'name' => [
-                'value'    => $this->value,
+                'value' => $this->value,
                 'synonyms' => $this->synonyms,
             ],
         ];

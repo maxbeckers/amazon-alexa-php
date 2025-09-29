@@ -1,29 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request\Request\GameEngine\Event;
 
-/**
- * @author Fabian Graßl <fabian.grassl@db-n.com>
- */
 class Event
 {
-    /**
-     * @var string
-     */
-    public $name;
+    public string $name;
 
-    /**
-     * @var array
-     */
-    public $inputEvents = [];
+    /** @var InputEvent[] */
+    public array $inputEvents = [];
 
-    /**
-     * @param array $amazonRequest
-     *
-     * @throws \Exception
-     *
-     * @return Event
-     */
     public static function fromAmazonRequest(array $amazonRequest): self
     {
         $event = new self();

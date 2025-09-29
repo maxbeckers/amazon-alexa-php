@@ -1,66 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 
 use MaxBeckers\AmazonAlexa\Helper\SerializeValueMapper;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class ImageSource implements \JsonSerializable
 {
     use SerializeValueMapper;
 
-    const SIZE_X_SMALL = 'X_SMALL';
-    const SIZE_SMALL   = 'SMALL';
-    const SIZE_MEDIUM  = 'MEDIUM';
-    const SIZE_LARGE   = 'LARGE';
-    const SIZE_X_LARGE = 'X_LARGE';
+    public const SIZE_X_SMALL = 'X_SMALL';
+    public const SIZE_SMALL = 'SMALL';
+    public const SIZE_MEDIUM = 'MEDIUM';
+    public const SIZE_LARGE = 'LARGE';
+    public const SIZE_X_LARGE = 'X_LARGE';
 
-    /**
-     * @var string|null
-     */
-    public $url;
+    public ?string $url = null;
+    public ?string $size = null;
+    public ?int $widthPixels = null;
+    public ?int $heightPixels = null;
 
-    /**
-     * @var string|null
-     */
-    public $size;
-
-    /**
-     * @var int|null
-     */
-    public $widthPixels;
-
-    /**
-     * @var int|null
-     */
-    public $heightPixels;
-
-    /**
-     * @param string      $url
-     * @param string|null $size
-     * @param int|null    $widthPixels
-     * @param int|null    $heightPixels
-     *
-     * @return ImageSource
-     */
-    public static function create($url, $size = null, $widthPixels = null, $heightPixels = null): self
+    public static function create(string $url, ?string $size = null, ?int $widthPixels = null, ?int $heightPixels = null): self
     {
         $imageSource = new self();
 
-        $imageSource->url          = $url;
-        $imageSource->size         = $size;
-        $imageSource->widthPixels  = $widthPixels;
+        $imageSource->url = $url;
+        $imageSource->size = $size;
+        $imageSource->widthPixels = $widthPixels;
         $imageSource->heightPixels = $heightPixels;
 
         return $imageSource;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): \ArrayObject
     {
         $data = new \ArrayObject();
 

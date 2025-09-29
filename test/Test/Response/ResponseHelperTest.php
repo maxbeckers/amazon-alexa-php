@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Test\Response;
 
 use MaxBeckers\AmazonAlexa\Helper\ResponseHelper;
@@ -8,15 +10,12 @@ use MaxBeckers\AmazonAlexa\Response\Directives\Display\RenderTemplateDirective;
 use MaxBeckers\AmazonAlexa\Response\OutputSpeech;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class ResponseHelperTest extends TestCase
 {
-    const RESPOND  = 'Respond';
-    const REPROMPT = 'Reprompt';
+    private const RESPOND = 'Respond';
+    private const REPROMPT = 'Reprompt';
 
-    public function testRespondText()
+    public function testRespondText(): void
     {
         $responseHelper = new ResponseHelper();
 
@@ -27,7 +26,7 @@ class ResponseHelperTest extends TestCase
         $this->assertFalse($response->response->shouldEndSession);
     }
 
-    public function testRespondTextEndSession()
+    public function testRespondTextEndSession(): void
     {
         $responseHelper = new ResponseHelper();
 
@@ -38,7 +37,7 @@ class ResponseHelperTest extends TestCase
         $this->assertTrue($response->response->shouldEndSession);
     }
 
-    public function testRespondSsml()
+    public function testRespondSsml(): void
     {
         $responseHelper = new ResponseHelper();
 
@@ -49,7 +48,7 @@ class ResponseHelperTest extends TestCase
         $this->assertFalse($response->response->shouldEndSession);
     }
 
-    public function testRespondSsmlEndSession()
+    public function testRespondSsmlEndSession(): void
     {
         $responseHelper = new ResponseHelper();
 
@@ -60,7 +59,7 @@ class ResponseHelperTest extends TestCase
         $this->assertTrue($response->response->shouldEndSession);
     }
 
-    public function testRepromptText()
+    public function testRepromptText(): void
     {
         $responseHelper = new ResponseHelper();
 
@@ -70,7 +69,7 @@ class ResponseHelperTest extends TestCase
         $this->assertSame(self::REPROMPT, $response->response->reprompt->outputSpeech->text);
     }
 
-    public function testRepromptSsml()
+    public function testRepromptSsml(): void
     {
         $responseHelper = new ResponseHelper();
 
@@ -80,19 +79,19 @@ class ResponseHelperTest extends TestCase
         $this->assertSame(self::REPROMPT, $response->response->reprompt->outputSpeech->ssml);
     }
 
-    public function testCard()
+    public function testCard(): void
     {
         $responseHelper = new ResponseHelper();
-        $testCard       = new Card();
+        $testCard = new Card();
 
         $response = $responseHelper->card($testCard);
 
         $this->assertSame($testCard, $response->response->card);
     }
 
-    public function testRenderTemplateDirective()
+    public function testRenderTemplateDirective(): void
     {
-        $responseHelper          = new ResponseHelper();
+        $responseHelper = new ResponseHelper();
         $renderTemplateDirective = new RenderTemplateDirective();
 
         $response = $responseHelper->directive($renderTemplateDirective);
@@ -100,9 +99,9 @@ class ResponseHelperTest extends TestCase
         $this->assertSame($renderTemplateDirective, $response->response->directives[0]);
     }
 
-    public function testRenderTemplateDirectives()
+    public function testRenderTemplateDirectives(): void
     {
-        $responseHelper           = new ResponseHelper();
+        $responseHelper = new ResponseHelper();
         $renderTemplateDirective1 = new RenderTemplateDirective();
         $renderTemplateDirective2 = new RenderTemplateDirective();
 
@@ -113,10 +112,10 @@ class ResponseHelperTest extends TestCase
         $this->assertSame($renderTemplateDirective2, $responseHelper->response->response->directives[1]);
     }
 
-    public function testResetResponse()
+    public function testResetResponse(): void
     {
         $responseHelper = new ResponseHelper();
-        $response1      = $responseHelper->getResponse();
+        $response1 = $responseHelper->getResponse();
 
         $responseHelper->resetResponse();
         $response2 = $responseHelper->getResponse();
@@ -124,7 +123,7 @@ class ResponseHelperTest extends TestCase
         $this->assertNotSame($response1, $response2);
     }
 
-    public function testAddSessionAttribute()
+    public function testAddSessionAttribute(): void
     {
         $responseHelper = new ResponseHelper();
 

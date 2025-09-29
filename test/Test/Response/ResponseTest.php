@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Test\Response;
 
 use MaxBeckers\AmazonAlexa\Response\Response;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class ResponseTest extends TestCase
 {
-    public function testEmptyResponse()
+    public function testEmptyResponse(): void
     {
         $response = new Response();
-        $this->assertSame('{"version":"1.0","sessionAttributes":[],"response":{}}', json_encode($response));
+        $this->assertSame('{"sessionAttributes":[],"version":"1.0","response":{}}', json_encode($response));
     }
 }

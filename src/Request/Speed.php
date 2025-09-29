@@ -1,33 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request;
 
-/**
- * @author Brandon Olivares <programmer2188@gmail.com>
- */
 class Speed
 {
-    /**
-     * @var float
-     */
-    public $speedInMetersPerSecond;
+    public float $speedInMetersPerSecond;
+    public ?float $accuracyInMetersPerSecond = null;
 
-    /**
-     * @var float|null
-     */
-    public $accuracyInMetersPerSecond;
-
-    /**
-     * @param array $amazonRequest
-     *
-     * @return Speed
-     */
     public static function fromAmazonRequest(array $amazonRequest): self
     {
         $speed = new self();
 
-        $speed->speedInMetersPerSecond    = floatval($amazonRequest['speedInMetersPerSecond']);
-        $speed->accuracyInMetersPerSecond = isset($amazonRequest['accuracyInMetersPerSecond']) ? floatval($amazonRequest['accuracyInMetersPerSecond']) : null;
+        $speed->speedInMetersPerSecond = (float) ($amazonRequest['speedInMetersPerSecond']);
+        $speed->accuracyInMetersPerSecond = isset($amazonRequest['accuracyInMetersPerSecond']) ? (float) ($amazonRequest['accuracyInMetersPerSecond']) : null;
 
         return $speed;
     }

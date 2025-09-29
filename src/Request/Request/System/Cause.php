@@ -1,24 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request\Request\System;
 
 use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class Cause
 {
-    /**
-     * @var string|null
-     */
-    public $requestId;
+    public ?string $requestId = null;
 
-    /**
-     * @param array $amazonRequest
-     *
-     * @return Cause
-     */
     public static function fromAmazonRequest(array $amazonRequest): self
     {
         $cause = new self();

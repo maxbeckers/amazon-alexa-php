@@ -1,56 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response;
 
 use MaxBeckers\AmazonAlexa\Helper\SerializeValueMapper;
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class ResponseBody implements ResponseBodyInterface, \JsonSerializable
 {
     use SerializeValueMapper;
 
-    /**
-     * @var OutputSpeech|null
-     */
-    public $outputSpeech;
+    public OutputSpeech|string|null $outputSpeech = null;
+    public ?Card $card = null;
+    public ?Reprompt $reprompt = null;
+    public ?bool $shouldEndSession = null;
 
-    /**
-     * @var Card|null
-     */
-    public $card;
-
-    /**
-     * @var Reprompt|null
-     */
-    public $reprompt;
-
-    /**
-     * @var bool|null
-     */
-    public $shouldEndSession;
-
-    /**
-     * @var Directive[]
-     */
-    public $directives = [];
+    /** @var Directive[] */
+    public array $directives = [];
 
     /**
      * Add a directive to response body.
      *
      * @param Directive $directive
      */
-    public function addDirective(Directive $directive)
+    public function addDirective(Directive $directive): void
     {
         $this->directives[] = $directive;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): \ArrayObject
     {
         $data = new \ArrayObject();
 

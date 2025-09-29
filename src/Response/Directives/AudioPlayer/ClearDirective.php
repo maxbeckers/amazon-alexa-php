@@ -1,34 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class ClearDirective extends Directive
 {
-    const TYPE = 'AudioPlayer.ClearQueue';
+    public const TYPE = 'AudioPlayer.ClearQueue';
 
-    const CLEAR_BEHAVIOR_CLEAR_ENQUEUED = 'CLEAR_ENQUEUED';
-    const CLEAR_BEHAVIOR_CLEAR_ALL      = 'CLEAR_ALL';
+    public const CLEAR_BEHAVIOR_CLEAR_ENQUEUED = 'CLEAR_ENQUEUED';
+    public const CLEAR_BEHAVIOR_CLEAR_ALL = 'CLEAR_ALL';
 
-    /**
-     * @var string|null
-     */
-    public $clearBehavior;
+    public ?string $clearBehavior = null;
 
-    /**
-     * @param string $behavior
-     *
-     * @return ClearDirective
-     */
     public static function create(string $behavior): self
     {
         $stopDirective = new self();
 
-        $stopDirective->type          = self::TYPE;
+        $stopDirective->type = self::TYPE;
         $stopDirective->clearBehavior = $behavior;
 
         return $stopDirective;

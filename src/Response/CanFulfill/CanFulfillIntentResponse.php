@@ -1,46 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\CanFulfill;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class CanFulfillIntentResponse
 {
-    const CAN_FULFILL_YES   = 'YES';
-    const CAN_FULFILL_MAYBE = 'MAYBE';
-    const CAN_FULFILL_NO    = 'NO';
-    /**
-     * @var string|null
-     */
-    public $canFulfill;
+    public const CAN_FULFILL_YES = 'YES';
+    public const CAN_FULFILL_MAYBE = 'MAYBE';
+    public const CAN_FULFILL_NO = 'NO';
 
-    /**
-     * @var CanFulfillSlot[]
-     */
-    public $slots = [];
+    public ?string $canFulfill = null;
 
-    /**
-     * @param string $canFulfill
-     * @param array  $slots
-     *
-     * @return CanFulfillIntentResponse
-     */
+    /** @var CanFulfillSlot[] */
+    public array $slots = [];
+
     public static function create(string $canFulfill, array $slots = []): self
     {
         $canFulfillIntentResponse = new self();
 
         $canFulfillIntentResponse->canFulfill = $canFulfill;
-        $canFulfillIntentResponse->slots      = $slots;
+        $canFulfillIntentResponse->slots = $slots;
 
         return $canFulfillIntentResponse;
     }
 
-    /**
-     * @param string         $slotName
-     * @param CanFulfillSlot $canFulfillSlot
-     */
-    public function addSlot(string $slotName, CanFulfillSlot $canFulfillSlot)
+    public function addSlot(string $slotName, CanFulfillSlot $canFulfillSlot): void
     {
         $this->slots[$slotName] = $canFulfillSlot;
     }

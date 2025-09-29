@@ -1,45 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\GadgetController;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class Parameters
 {
-    const TRIGGER_EVENT_BUTTON_DOWN = 'buttonDown';
-    const TRIGGER_EVENT_BUTTON_UP   = 'buttonUp';
-    const TRIGGER_EVENT_NONE        = 'none';
+    public const TRIGGER_EVENT_BUTTON_DOWN = 'buttonDown';
+    public const TRIGGER_EVENT_BUTTON_UP = 'buttonUp';
+    public const TRIGGER_EVENT_NONE = 'none';
 
-    /**
-     * @var string|null
-     */
-    public $triggerEvent;
+    public ?string $triggerEvent = null;
+    public ?int $triggerEventTimeMs = null;
 
-    /**
-     * @var int|null
-     */
-    public $triggerEventTimeMs;
+    /** @var Animation[] */
+    public array $animations = [];
 
-    /**
-     * @var Animation[]
-     */
-    public $animations;
-
-    /**
-     * @param string      $triggerEvent
-     * @param int         $triggerEventTimeMs
-     * @param Animation[] $animations
-     *
-     * @return Parameters
-     */
     public static function create(array $animations, string $triggerEvent = self::TRIGGER_EVENT_NONE, int $triggerEventTimeMs = 0): self
     {
         $parameters = new self();
 
-        $parameters->triggerEvent       = $triggerEvent;
+        $parameters->triggerEvent = $triggerEvent;
         $parameters->triggerEventTimeMs = $triggerEventTimeMs;
-        $parameters->animations         = $animations;
+        $parameters->animations = $animations;
 
         return $parameters;
     }

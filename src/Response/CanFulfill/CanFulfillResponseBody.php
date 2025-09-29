@@ -1,24 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\CanFulfill;
 
 use MaxBeckers\AmazonAlexa\Response\ResponseBodyInterface;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class CanFulfillResponseBody implements ResponseBodyInterface
 {
-    /**
-     * @var CanFulfillIntentResponse|null
-     */
-    public $canFulfillIntent;
+    public ?CanFulfillIntentResponse $canFulfillIntent = null;
 
-    /**
-     * @param CanFulfillIntentResponse $canFulfillIntent
-     *
-     * @return CanFulfillResponseBody
-     */
     public static function create(CanFulfillIntentResponse $canFulfillIntent): self
     {
         $canFulfillResponseBody = new self();

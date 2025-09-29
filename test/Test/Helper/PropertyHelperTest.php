@@ -1,20 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Test\Helper;
 
 use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class PropertyHelperTest extends TestCase
 {
-    public function testCheckNullValueStringSuccess()
+    public function testCheckNullValueStringSuccess(): void
     {
-        $key   = 'test';
+        $key = 'test';
         $value = 'me';
-        $data  = [
+        $data = [
             $key => $value,
         ];
 
@@ -24,22 +23,22 @@ class PropertyHelperTest extends TestCase
         );
     }
 
-    public function testCheckNullValueStringUnset()
+    public function testCheckNullValueStringUnset(): void
     {
-        $key   = 'test';
+        $key = 'test';
         $value = 'me';
-        $data  = [
+        $data = [
             $key => $value,
         ];
 
         $this->assertNull(PropertyHelper::checkNullValueString($data, 'unset'));
     }
 
-    public function testCheckNullValueIntSuccess()
+    public function testCheckNullValueIntSuccess(): void
     {
-        $key   = 'test';
+        $key = 'test';
         $value = 132;
-        $data  = [
+        $data = [
             $key => $value,
         ];
 
@@ -49,11 +48,11 @@ class PropertyHelperTest extends TestCase
         );
     }
 
-    public function testCheckNullValueIntUnset()
+    public function testCheckNullValueIntUnset(): void
     {
-        $key   = 'test';
+        $key = 'test';
         $value = 123;
-        $data  = [
+        $data = [
             $key => $value,
         ];
 

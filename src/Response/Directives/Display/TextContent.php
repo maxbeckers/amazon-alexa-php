@@ -1,53 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 
 use MaxBeckers\AmazonAlexa\Helper\SerializeValueMapper;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class TextContent implements \JsonSerializable
 {
     use SerializeValueMapper;
 
-    /**
-     * @var Text|null
-     */
-    public $primaryText;
+    public ?Text $primaryText = null;
+    public ?Text $secondaryText = null;
+    public ?Text $tertiaryText = null;
 
-    /**
-     * @var Text|null
-     */
-    public $secondaryText;
-
-    /**
-     * @var Text|null
-     */
-    public $tertiaryText;
-
-    /**
-     * @param Text|null $primaryText
-     * @param Text|null $secondaryText
-     * @param Text|null $tertiaryText
-     *
-     * @return TextContent
-     */
-    public static function create($primaryText = null, $secondaryText = null, $tertiaryText = null): self
+    public static function create(?Text $primaryText = null, ?Text $secondaryText = null, ?Text $tertiaryText = null): self
     {
         $textContent = new self();
 
-        $textContent->primaryText   = $primaryText;
+        $textContent->primaryText = $primaryText;
         $textContent->secondaryText = $secondaryText;
-        $textContent->tertiaryText  = $tertiaryText;
+        $textContent->tertiaryText = $tertiaryText;
 
         return $textContent;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): \ArrayObject
     {
         $data = new \ArrayObject();
 

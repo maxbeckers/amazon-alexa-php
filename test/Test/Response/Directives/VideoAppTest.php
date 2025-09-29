@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Test\Response\Directives;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\VideoApp\Metadata;
@@ -7,12 +9,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\VideoApp\VideoItem;
 use MaxBeckers\AmazonAlexa\Response\Directives\VideoApp\VideoLaunchDirective;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author Fabian Graßl <fabian.grassl@db-n.com>
- */
 class VideoAppTest extends TestCase
 {
-    public function testMetadata()
+    public function testMetadata(): void
     {
         $meta = Metadata::create();
         $this->assertInstanceOf(Metadata::class, $meta);
@@ -28,19 +27,19 @@ class VideoAppTest extends TestCase
         $this->assertSame('Sub', $meta->subtitle);
     }
 
-    public function testVideoItem()
+    public function testVideoItem(): void
     {
         $vi = VideoItem::create('http://example.com/video.mp4');
         $this->assertInstanceOf(VideoItem::class, $vi);
         $this->assertSame('http://example.com/video.mp4', $vi->source);
         $this->assertNull($vi->metadata);
 
-        $m  = Metadata::create();
+        $m = Metadata::create();
         $vi = VideoItem::create('http://example.com/video.mp4', $m);
         $this->assertSame($m, $vi->metadata);
     }
 
-    public function testVideoLaunchDirective()
+    public function testVideoLaunchDirective(): void
     {
         $vc = VideoLaunchDirective::create();
         $this->assertSame('VideoApp.Launch', $vc->type);

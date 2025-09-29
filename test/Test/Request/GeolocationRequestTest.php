@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Test\Request;
 
 use MaxBeckers\AmazonAlexa\Request\Request;
@@ -7,15 +9,12 @@ use MaxBeckers\AmazonAlexa\Request\Request\Standard\IntentRequest;
 use MaxBeckers\AmazonAlexa\Response\Card;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author Brandon Olivares <programmer2188@gmail.com>
- */
 class GeolocationRequestTest extends TestCase
 {
-    public function testGeolocationNeedsPermission()
+    public function testGeolocationNeedsPermission(): void
     {
-        $requestBody = file_get_contents(__DIR__.'/RequestData/geolocationPermission.json');
-        $request     = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
+        $requestBody = file_get_contents(__DIR__ . '/RequestData/geolocationPermission.json');
+        $request = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(IntentRequest::class, $request->request);
         $this->assertArrayHasKey('Geolocation', $request->context->system->device->supportedInterfaces);
         $this->assertNull($request->context->geolocation);
@@ -25,10 +24,10 @@ class GeolocationRequestTest extends TestCase
         $this->assertInstanceOf(Card::class, $card);
     }
 
-    public function testGetGeolocationData()
+    public function testGetGeolocationData(): void
     {
-        $requestBody = file_get_contents(__DIR__.'/RequestData/geolocation.json');
-        $request     = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
+        $requestBody = file_get_contents(__DIR__ . '/RequestData/geolocation.json');
+        $request = Request::fromAmazonRequest($requestBody, 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem', 'signature');
         $this->assertInstanceOf(IntentRequest::class, $request->request);
         $this->assertArrayHasKey('Geolocation', $request->context->system->device->supportedInterfaces);
 

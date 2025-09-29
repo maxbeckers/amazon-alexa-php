@@ -1,27 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Intent;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class IntentStatus
 {
-    /**
-     * @var string|null
-     */
-    public $code;
+    public ?string $code = null;
 
-    /**
-     * @param array $amazonRequest
-     *
-     * @return IntentStatus
-     */
     public static function fromAmazonRequest(array $amazonRequest): self
     {
         $intentStatus = new self();
 
-        $intentStatus->code = isset($amazonRequest['code']) ? $amazonRequest['code'] : null;
+        $intentStatus->code = $amazonRequest['code'] ?? null;
 
         return $intentStatus;
     }

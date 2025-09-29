@@ -1,19 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class PlaybackStarted extends AbstractPlaybackDirective
 {
-    const TYPE = 'AudioPlayer.PlaybackStarted';
+    public const TYPE = 'AudioPlayer.PlaybackStarted';
 
     /**
      * @param string $requestId
      * @param string $timestamp
      * @param string $token
-     * @param int    $offsetInMilliseconds
+     * @param int $offsetInMilliseconds
      * @param string $locale
      *
      * @return PlaybackStarted

@@ -1,42 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class PlayDirective extends Directive
 {
-    const TYPE = 'AudioPlayer.Play';
+    public const TYPE = 'AudioPlayer.Play';
 
-    const PLAY_BEHAVIOR_REPLACE_ALL      = 'REPLACE_ALL';
-    const PLAY_BEHAVIOR_ENQUEUE          = 'ENQUEUE';
-    const PLAY_BEHAVIOR_REPLACE_ENQUEUED = 'REPLACE_ENQUEUED';
+    public const PLAY_BEHAVIOR_REPLACE_ALL = 'REPLACE_ALL';
+    public const PLAY_BEHAVIOR_ENQUEUE = 'ENQUEUE';
+    public const PLAY_BEHAVIOR_REPLACE_ENQUEUED = 'REPLACE_ENQUEUED';
 
-    /**
-     * @var string|null
-     */
-    public $playBehavior;
+    public ?string $playBehavior = null;
+    public ?AudioItem $audioItem = null;
 
-    /**
-     * @var AudioItem|null
-     */
-    public $audioItem;
-
-    /**
-     * @param AudioItem $audioItem
-     * @param string    $playBehavior
-     *
-     * @return PlayDirective
-     */
     public static function create(AudioItem $audioItem, string $playBehavior = self::PLAY_BEHAVIOR_REPLACE_ALL): self
     {
         $playDirective = new self();
 
-        $playDirective->type         = self::TYPE;
-        $playDirective->audioItem    = $audioItem;
+        $playDirective->type = self::TYPE;
+        $playDirective->audioItem = $audioItem;
         $playDirective->playBehavior = $playBehavior;
 
         return $playDirective;

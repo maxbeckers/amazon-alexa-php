@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Helper;
 
 use MaxBeckers\AmazonAlexa\Response\Card;
@@ -11,24 +13,12 @@ use MaxBeckers\AmazonAlexa\Response\ResponseBody;
 
 /**
  * This helper class can create simple responses for the most needed intents.
- *
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
 class ResponseHelper
 {
-    /**
-     * @var Response
-     */
-    public $response;
+    public Response $response;
+    public ResponseBody $responseBody;
 
-    /**
-     * @var ResponseBody
-     */
-    public $responseBody;
-
-    /**
-     * ResponseHelper constructor creates a new response object.
-     */
     public function __construct()
     {
         $this->resetResponse();
@@ -36,17 +26,12 @@ class ResponseHelper
 
     /**
      * Add a plaintext respond to response.
-     *
-     * @param string $text
-     * @param bool   $endSession
-     *
-     * @return Response
      */
-    public function respond(string $text, $endSession = false): Response
+    public function respond(string $text, bool $endSession = false): Response
     {
         $outputSpeech = OutputSpeech::createByText($text);
 
-        $this->responseBody->outputSpeech     = $outputSpeech;
+        $this->responseBody->outputSpeech = $outputSpeech;
         $this->responseBody->shouldEndSession = $endSession;
 
         return $this->response;
@@ -54,17 +39,12 @@ class ResponseHelper
 
     /**
      * Add a ssml respond to response.
-     *
-     * @param string $ssml
-     * @param bool   $endSession
-     *
-     * @return Response
      */
-    public function respondSsml(string $ssml, $endSession = false): Response
+    public function respondSsml(string $ssml, bool $endSession = false): Response
     {
         $outputSpeech = OutputSpeech::createBySsml($ssml);
 
-        $this->responseBody->outputSpeech     = $outputSpeech;
+        $this->responseBody->outputSpeech = $outputSpeech;
         $this->responseBody->shouldEndSession = $endSession;
 
         return $this->response;
@@ -72,15 +52,11 @@ class ResponseHelper
 
     /**
      * Add a plaintext reprompt to response.
-     *
-     * @param string $text
-     *
-     * @return Response
      */
-    public function reprompt(string $text)
+    public function reprompt(string $text): Response
     {
         $outputSpeech = OutputSpeech::createByText($text);
-        $reprompt     = new Reprompt($outputSpeech);
+        $reprompt = new Reprompt($outputSpeech);
 
         $this->responseBody->reprompt = $reprompt;
 
@@ -89,15 +65,11 @@ class ResponseHelper
 
     /**
      * Add a ssml reprompt to response.
-     *
-     * @param string $ssml
-     *
-     * @return Response
      */
-    public function repromptSsml(string $ssml)
+    public function repromptSsml(string $ssml): Response
     {
         $outputSpeech = OutputSpeech::createBySsml($ssml);
-        $reprompt     = new Reprompt($outputSpeech);
+        $reprompt = new Reprompt($outputSpeech);
 
         $this->responseBody->reprompt = $reprompt;
 
@@ -106,12 +78,8 @@ class ResponseHelper
 
     /**
      * Add a card to response.
-     *
-     * @param Card $card
-     *
-     * @return Response
      */
-    public function card(Card $card)
+    public function card(Card $card): Response
     {
         $this->responseBody->card = $card;
 
@@ -120,12 +88,8 @@ class ResponseHelper
 
     /**
      * Add a directive to response.
-     *
-     * @param Directive $directive
-     *
-     * @return Response
      */
-    public function directive(Directive $directive)
+    public function directive(Directive $directive): Response
     {
         $this->responseBody->addDirective($directive);
 
@@ -134,11 +98,8 @@ class ResponseHelper
 
     /**
      * Add a new attribute to response session attributes.
-     *
-     * @param string $key
-     * @param string $value
      */
-    public function addSessionAttribute(string $key, string $value)
+    public function addSessionAttribute(string $key, string $value): void
     {
         $this->response->sessionAttributes[$key] = $value;
     }
@@ -146,17 +107,12 @@ class ResponseHelper
     /**
      * Reset the response in ResponseHelper.
      */
-    public function resetResponse()
+    public function resetResponse(): void
     {
         $this->responseBody = new ResponseBody();
-        $this->response     = new Response([], '1.0', $this->responseBody);
+        $this->response = new Response([], '1.0', $this->responseBody);
     }
 
-    /**
-     * Get current response of response helper.
-     *
-     * @return Response
-     */
     public function getResponse(): Response
     {
         return $this->response;

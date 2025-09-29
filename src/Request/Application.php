@@ -1,26 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Request;
 
 use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 
 /**
  * Represents the current Skill.
- *
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
 class Application
 {
-    /**
-     * @var string|null
-     */
-    public $applicationId;
+    public ?string $applicationId = null;
 
-    /**
-     * @param array $amazonRequest
-     *
-     * @return Application
-     */
     public static function fromAmazonRequest(array $amazonRequest): self
     {
         $application = new self();

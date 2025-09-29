@@ -1,33 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Helper;
 
 /**
  * This helper class simplifies the property handling.
- *
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
  */
 class PropertyHelper
 {
-    /**
-     * @param array  $data
-     * @param string $key
-     *
-     * @return string|null
-     */
-    public static function checkNullValueString(array $data, string $key)
+    public static function checkNullValueString(array $data, string $key): ?string
     {
-        return isset($data[$key]) ? $data[$key] : null;
+        return $data[$key] ?? null;
     }
 
-    /**
-     * @param array  $data
-     * @param string $key
-     *
-     * @return int|null
-     */
-    public static function checkNullValueInt(array $data, string $key)
+    public static function checkNullValueInt(array $data, string $key): ?int
     {
-        return isset($data[$key]) ? $data[$key] : null;
+        return $data[$key] ?? null;
     }
 }

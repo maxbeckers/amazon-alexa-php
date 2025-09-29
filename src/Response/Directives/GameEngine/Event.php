@@ -1,65 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MaxBeckers\AmazonAlexa\Response\Directives\GameEngine;
 
-/**
- * @author Maximilian Beckers <beckers.maximilian@gmail.com>
- */
 class Event
 {
-    const REPORTS_HISTORY = 'history';
-    const REPORTS_MATCHES = 'matches';
-    const REPORTS_NOTHING = 'nothing';
+    public const REPORTS_HISTORY = 'history';
+    public const REPORTS_MATCHES = 'matches';
+    public const REPORTS_NOTHING = 'nothing';
 
-    /**
-     * @var array
-     */
-    public $meets = [];
+    public array $meets = [];
+    public ?array $fails = null;
+    public ?string $reports = null;
+    public ?bool $shouldEndInputHandler = null;
+    public ?int $maximumInvocations = null;
+    public ?int $triggerTimeMilliseconds = null;
 
-    /**
-     * @var array|null
-     */
-    public $fails;
-
-    /**
-     * @var string|null
-     */
-    public $reports;
-
-    /**
-     * @var bool|null
-     */
-    public $shouldEndInputHandler;
-
-    /**
-     * @var int|null
-     */
-    public $maximumInvocations;
-
-    /**
-     * @var int|null
-     */
-    public $triggerTimeMilliseconds;
-
-    /**
-     * @param array       $meets
-     * @param bool        $shouldEndInputHandler
-     * @param array|null  $fails
-     * @param string|null $reports
-     * @param int|null    $maximumInvocations
-     * @param int|null    $triggerTimeMilliseconds
-     *
-     * @return Event
-     */
-    public static function create(array $meets, bool $shouldEndInputHandler, array $fails = null, string $reports = null, int $maximumInvocations = null, int $triggerTimeMilliseconds = null): self
+    public static function create(array $meets, bool $shouldEndInputHandler, ?array $fails = null, ?string $reports = null, ?int $maximumInvocations = null, ?int $triggerTimeMilliseconds = null): self
     {
         $event = new self();
 
-        $event->meets                   = $meets;
-        $event->shouldEndInputHandler   = $shouldEndInputHandler;
-        $event->fails                   = $fails;
-        $event->reports                 = $reports;
-        $event->maximumInvocations      = $maximumInvocations;
+        $event->meets = $meets;
+        $event->shouldEndInputHandler = $shouldEndInputHandler;
+        $event->fails = $fails;
+        $event->reports = $reports;
+        $event->maximumInvocations = $maximumInvocations;
         $event->triggerTimeMilliseconds = $triggerTimeMilliseconds;
 
         return $event;
