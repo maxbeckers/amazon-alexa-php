@@ -9,9 +9,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand\AbstractStand
 class VisibilityChangeHandler implements \JsonSerializable
 {
     /**
-     * @param AbstractStandardCommand[] $commands List of commands to run (evaluated in order).
+     * @param AbstractStandardCommand[] $commands list of commands to run (evaluated in order)
      * @param string|null $when APL boolean expression controlling whether this handler is considered. If null, treated as 'true'.
-     * @param string|null $description Optional description of this handler.
+     * @param string|null $description optional description of this handler
      */
     public function __construct(
         public array $commands = [],
