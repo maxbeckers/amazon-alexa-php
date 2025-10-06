@@ -13,6 +13,7 @@ use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\APLComponentType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\FlexAlignItems;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\Snap;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand\AbstractStandardCommand;
+use MaxBeckers\AmazonAlexa\Response\Directives\APL\Component\Action; // added
 use PHPUnit\Framework\TestCase;
 
 class FlexSequenceComponentTest extends TestCase
@@ -141,5 +142,62 @@ class FlexSequenceComponentTest extends TestCase
         $component = new FlexSequenceComponent();
 
         $this->assertInstanceOf(\JsonSerializable::class, $component);
+    }
+
+    /**
+     * Ensure every public property exposed by the actionable & multi child traits
+     * (when present on FlexSequenceComponent) is serialized when populated.
+     */
+    public function testJsonSerializeIncludesTraitProperties(): void
+    {
+        $component = new FlexSequenceComponent();
+
+        // Candidate properties from ActionableComponentTrait & MultiChildComponentTrait (and some common APL base actionable hooks).
+        $candidates = [
+            // Actionable / gesture / event related:
+            'actions', 'action', 'gestures',
+            'onMount', 'onPress', 'onLongPress',
+            'onSwipe', 'onScroll', 'onCursorEnter', 'onCursorExit', 'onCursorMove',
+            'onDown', 'onUp', 'onCancel',
+            'handleTick', 'handleVisibilityChange',
+            // Multi-child:
+            'item', 'items',
+        ];
+
+        $expected = [];
+
+        foreach ($candidates as $prop) {
+            if (!property_exists($component, $prop)) {
+                continue;
+            }
+
+            if ($prop === 'item') {
+                $expected[$prop] = ['child' => 1];
+            } elseif ($prop === 'items') {
+                $expected[$prop] = [['child' => 1], ['child' => 2]];
+            } elseif ($prop === 'gestures') {
+                $expected[$prop] = [['type' => 'TestGesture']];
+            } elseif ($prop === 'action') {                      // changed: single Action
+                $expected[$prop] = $this->createMock(Action::class);
+            } elseif ($prop === 'actions') {                     // changed: array of Actions
+                $expected[$prop] = [$this->createMock(Action::class)];
+            } elseif (str_starts_with($prop, 'on') || str_starts_with($prop, 'handle')) {
+                $expected[$prop] = [$this->createMock(AbstractStandardCommand::class)];
+            } else {
+                $expected[$prop] = ['value'];
+            }
+
+            $component->$prop = $expected[$prop];
+        }
+
+        $json = $component->jsonSerialize();
+
+        // Basic type assertion
+        $this->assertSame(APLComponentType::FLEX_SEQUENCE->value, $json['type']);
+
+        foreach ($expected as $prop => $value) {
+            $this->assertArrayHasKey($prop, $json, "Property '$prop' was not serialized.");
+            $this->assertSame($value, $json[$prop], "Mismatch for serialized property '$prop'.");
+        }
     }
 }

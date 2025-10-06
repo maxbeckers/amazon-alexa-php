@@ -37,7 +37,7 @@ class Group extends AVGItem implements \JsonSerializable
             $data['clipPath'] = $this->clipPath;
         }
 
-        if ($this->data !== null && !empty($this->data)) {
+        if (!empty($this->data)) {
             $data['data'] = $this->data;
         }
 
@@ -45,7 +45,7 @@ class Group extends AVGItem implements \JsonSerializable
             $data['item'] = $this->item;
         }
 
-        if ($this->items !== null && !empty($this->items)) {
+        if (!empty($this->items)) {
             $data['items'] = $this->items;
         }
 

@@ -41,27 +41,27 @@ abstract class TouchableComponent extends ActionableComponent implements \JsonSe
             $data['gesture'] = $this->gesture;
         }
 
-        if ($this->gestures !== null && !empty($this->gestures)) {
+        if (!empty($this->gestures)) {
             $data['gestures'] = $this->gestures;
         }
 
-        if ($this->onCancel !== null && !empty($this->onCancel)) {
+        if (!empty($this->onCancel)) {
             $data['onCancel'] = $this->onCancel;
         }
 
-        if ($this->onDown !== null && !empty($this->onDown)) {
+        if (!empty($this->onDown)) {
             $data['onDown'] = $this->onDown;
         }
 
-        if ($this->onMove !== null && !empty($this->onMove)) {
+        if (!empty($this->onMove)) {
             $data['onMove'] = $this->onMove;
         }
 
-        if ($this->onPress !== null && !empty($this->onPress)) {
+        if (!empty($this->onPress)) {
             $data['onPress'] = $this->onPress;
         }
 
-        if ($this->onUp !== null && !empty($this->onUp)) {
+        if (!empty($this->onUp)) {
             $data['onUp'] = $this->onUp;
         }
 

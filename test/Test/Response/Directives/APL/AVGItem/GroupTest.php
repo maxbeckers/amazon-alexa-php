@@ -7,6 +7,7 @@ namespace MaxBeckers\AmazonAlexa\Test\Response\Directives\APL\AVGItem;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\AVGItem\AVGItem;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\AVGItem\Group;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\AVGItemType;
+use MaxBeckers\AmazonAlexa\Response\Directives\APL\AVGFilter\AVGFilter;
 use PHPUnit\Framework\TestCase;
 
 class GroupTest extends TestCase
@@ -142,5 +143,143 @@ class GroupTest extends TestCase
         $group = new Group();
 
         $this->assertInstanceOf(\JsonSerializable::class, $group);
+    }
+
+    /**
+     * Ensure every public property inherited from AVGItem (and present on Group) is serialized
+     * when assigned a non-default non-empty value, using type-aware assignments to avoid
+     * invalid TypeErrors (e.g. assigning string to ?array).
+     */
+    public function testJsonSerializeIncludesAllAVGItemBaseProperties(): void
+    {
+        $group = new Group();
+
+        $reflection  = new \ReflectionObject($group);
+        $properties  = $reflection->getProperties(\ReflectionProperty::IS_PUBLIC);
+        $skip        = ['type']; // type always handled by base
+
+        $assigned = [];
+
+        foreach ($properties as $prop) {
+            $name = $prop->getName();
+            if (in_array($name, $skip, true)) {
+                continue;
+            }
+
+            // Special handling for typed AVGItem property (object mock).
+            if ($name === 'item') {
+                $value = $this->createMock(AVGItem::class);
+                $group->$name = $value;
+                $assigned[$name] = $value;
+                continue;
+            }
+
+            // Special handling for AVGFilter-typed property.
+            if ($name === 'filter') {
+                $value = $this->createMock(AVGFilter::class);
+                $group->$name = $value;
+                $assigned[$name] = $value;
+                continue;
+            }
+
+            $current = $group->$name ?? null;
+            $value   = $this->generateValueForProperty($prop, $current, $name);
+
+            // If generator decides to skip (returns a sentinel null and property already null) we move on.
+            if ($value !== null) {
+                $group->$name    = $value;
+                $assigned[$name] = $value;
+            }
+        }
+
+        $json = $group->jsonSerialize();
+        $this->assertSame(AVGItemType::GROUP->value, $json['type']);
+
+        foreach ($assigned as $prop => $value) {
+            // Skip default-like values that component intentionally filters out
+            if ($value === null) {
+                continue;
+            }
+            if (is_array($value) && $value === []) {
+                continue;
+            }
+            if ((is_int($value) && $value === 0) || (is_string($value) && $value === '') || (is_float($value) && $value === 0.0)) {
+                continue;
+            }
+
+            $this->assertArrayHasKey($prop, $json, "Expected property '$prop' to be serialized after assignment.");
+            if (array_key_exists($prop, $json)) {
+                $this->assertSame($value, $json[$prop], "Serialized value mismatch for property '$prop'");
+            }
+        }
+    }
+
+    /**
+     * Generate a type-compatible non-default value for the given property.
+     *
+     * @return mixed
+     */
+    private function generateValueForProperty(\ReflectionProperty $prop, mixed $current, string $name): mixed
+    {
+        $type = $prop->getType();
+        if ($type instanceof \ReflectionUnionType) {
+            // Fallback: leave as-is for union types to avoid complex branching.
+            return $current ?? 'u-' . $name;
+        }
+
+        if ($type instanceof \ReflectionNamedType) {
+            $typeName = $type->getName();
+            $allowsNull = $type->allowsNull();
+
+            // Handle scalar / array / object typed properties explicitly
+            switch ($typeName) {
+                case 'array':
+                    // If already non-empty keep; else supply non-empty array
+                    return (is_array($current) && $current !== []) ? $current : [$name => 'val'];
+                case 'int':
+                    return ($current !== null && $current !== 0) ? $current : 101;
+                case 'float':
+                    return ($current !== null && $current !== 0.0) ? $current : 0.77;
+                case 'bool':
+                    return ($current !== null) ? !$current : true;
+                case 'string':
+                    return ($current !== null && $current !== '') ? $current : 'str-' . $name;
+                default:
+                    // Object (other than AVGItem handled earlier) or untyped fallback
+                    if ($current !== null) {
+                        return $current;
+                    }
+                    // For nullable array-like properties (?array) etc
+                    if ($typeName === 'array') {
+                        return [$name => 'val'];
+                    }
+                    // If it's a class we can't easily mock generically—return dummy string if allowed
+                    if ($allowsNull) {
+                        return 'obj-' . $name;
+                    }
+
+                    return 'obj-' . $name;
+            }
+        }
+
+        // No type info (legacy) -> attempt heuristic similar to earlier code
+        if ($current !== null) {
+            return $current;
+        }
+
+        if (preg_match('/(items?|children|data|array|values)/i', $name)) {
+            return [$name => 'val'];
+        }
+        if (preg_match('/(opacity)/i', $name)) {
+            return 0.42;
+        }
+        if (preg_match('/(width|height|radius|length|count|size|index)/i', $name)) {
+            return 202;
+        }
+        if (preg_match('/(path|transform|clip|color|stroke|fill|text)/i', $name)) {
+            return $name . '-value';
+        }
+
+        return 'x-' . $name;
     }
 }

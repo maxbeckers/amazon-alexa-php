@@ -29,7 +29,7 @@ class TouchWrapperComponent extends TouchableComponent implements \JsonSerializa
             $data['item'] = $this->item;
         }
 
-        if ($this->items !== null && !empty($this->items)) {
+        if (!empty($this->items)) {
             $data['items'] = $this->items;
         }
 

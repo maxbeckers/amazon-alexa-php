@@ -227,7 +227,14 @@ class RequestValidatorTest extends TestCase
         $response = $this->createMock(ResponseInterface::class);
         $stream = $this->createMock(StreamInterface::class);
 
-        $client->expects($this->once())->method('request')->with('GET', $this->anything())->willReturn($response);
+        // Use a unique URL to avoid cached certificates
+        $uniqueUrl = 'https://s3.amazonaws.com/echo.api/echo-api-cert-' . uniqid() . '.pem';
+        $localPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . md5($uniqueUrl) . '.pem';
+
+        // Ensure no cached certificate exists
+        @unlink($localPath);
+
+        $client->expects($this->once())->method('request')->with('GET', $uniqueUrl)->willReturn($response);
         $response->method('getStatusCode')->willReturn(200);
         $response->method('getBody')->willReturn($stream);
         $stream->method('getContents')->willReturn("-----BEGIN CERTIFICATE-----\nFAKE\n-----END CERTIFICATE-----");
@@ -242,7 +249,7 @@ class RequestValidatorTest extends TestCase
             }
             public function validateSignature(): bool
             {
-                return true;
+                return true; // Enable signature validation to trigger HTTP request
             }
         };
 
@@ -250,7 +257,7 @@ class RequestValidatorTest extends TestCase
         $r->request = $intent;
         $r->amazonRequestBody = 'BODY';
         $r->signature = base64_encode('sig');
-        $r->signatureCertChainUrl = 'https://s3.amazonaws.com/echo.api/echo-api-cert.pem';
+        $r->signatureCertChainUrl = $uniqueUrl;
 
         $this->expectException(RequestInvalidSignatureException::class);
         $validator->validate($r);

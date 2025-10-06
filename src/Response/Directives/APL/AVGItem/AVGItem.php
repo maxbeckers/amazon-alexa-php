@@ -35,7 +35,7 @@ abstract class AVGItem implements \JsonSerializable
             'type' => $this->type->value,
         ];
 
-        if ($this->bind !== null && !empty($this->bind)) {
+        if (!empty($this->bind)) {
             $data['bind'] = $this->bind;
         }
 
@@ -47,7 +47,7 @@ abstract class AVGItem implements \JsonSerializable
             $data['filter'] = $this->filter;
         }
 
-        if ($this->filters !== null && !empty($this->filters)) {
+        if (!empty($this->filters)) {
             $data['filters'] = $this->filters;
         }
 
