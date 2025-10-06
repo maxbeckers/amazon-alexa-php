@@ -75,102 +75,84 @@ class EditTextComponent extends ActionableComponent implements \JsonSerializable
     {
         $data = parent::jsonSerialize();
 
-        if ($this->borderColor !== null) {
-            $data['borderColor'] = $this->borderColor;
-        }
+        $this->applyScalarWithNull($data, 'borderColor', $this->borderColor);
+        $this->applyScalarWithNull($data, 'borderStrokeWidth', $this->borderStrokeWidth);
+        $this->applyNonDefault($data, 'borderWidth', $this->borderWidth, '0');
+        $this->applyScalarWithNull($data, 'color', $this->color);
+        $this->applyNonDefault($data, 'fontFamily', $this->fontFamily, 'sans-serif');
+        $this->applyNonDefault($data, 'fontSize', $this->fontSize, '40dp');
 
-        if ($this->borderStrokeWidth !== null) {
-            $data['borderStrokeWidth'] = $this->borderStrokeWidth;
-        }
-
-        if ($this->borderWidth !== '0') {
-            $data['borderWidth'] = $this->borderWidth;
-        }
-
-        if ($this->color !== null) {
-            $data['color'] = $this->color;
-        }
-
-        if ($this->fontFamily !== 'sans-serif') {
-            $data['fontFamily'] = $this->fontFamily;
-        }
-
-        if ($this->fontSize !== '40dp') {
-            $data['fontSize'] = $this->fontSize;
-        }
-
-        if ($this->fontStyle !== null) {
-            $data['fontStyle'] = $this->fontStyle->value;
-        }
-
-        if ($this->fontWeight !== null) {
-            $data['fontWeight'] = $this->fontWeight->value;
-        }
-
-        if ($this->highlightColor !== null) {
-            $data['highlightColor'] = $this->highlightColor;
-        }
-
-        if ($this->hint !== '') {
-            $data['hint'] = $this->hint;
-        }
-
-        if ($this->hintColor !== null) {
-            $data['hintColor'] = $this->hintColor;
-        }
-
-        if ($this->hintStyle !== null) {
-            $data['hintStyle'] = $this->hintStyle->value;
-        }
-
-        if ($this->hintWeight !== null) {
-            $data['hintWeight'] = $this->hintWeight->value;
-        }
-
-        if ($this->keyboardType !== null) {
-            $data['keyboardType'] = $this->keyboardType->value;
-        }
-
-        if ($this->lang !== '') {
-            $data['lang'] = $this->lang;
-        }
-
-        if ($this->maxLength !== 0) {
-            $data['maxLength'] = $this->maxLength;
-        }
-
-        if ($this->onTextChange !== null && !empty($this->onTextChange)) {
-            $data['onTextChange'] = $this->onTextChange;
-        }
-
-        if ($this->onSubmit !== null && !empty($this->onSubmit)) {
-            $data['onSubmit'] = $this->onSubmit;
-        }
-
-        if ($this->secureInput !== null) {
-            $data['secureInput'] = $this->secureInput->value;
-        }
-
-        if ($this->selectOnFocus) {
-            $data['selectOnFocus'] = $this->selectOnFocus;
-        }
-
-        if ($this->size !== 8) {
-            $data['size'] = $this->size;
-        }
-
-        if ($this->submitKeyType !== null) {
-            $data['submitKeyType'] = $this->submitKeyType->value;
-        }
-
-        if ($this->text !== '') {
-            $data['text'] = $this->text;
-        }
-
-        if ($this->validCharacters !== '') {
-            $data['validCharacters'] = $this->validCharacters;
-        }
+        $this->applyEnum($data, 'fontStyle', $this->fontStyle);
+        $this->applyEnum($data, 'fontWeight', $this->fontWeight);
+        $this->applyScalarWithNull($data, 'highlightColor', $this->highlightColor);
+        $this->applyNonDefault($data, 'hint', $this->hint, '');
+        $this->applyScalarWithNull($data, 'hintColor', $this->hintColor);
+        $this->applyEnum($data, 'hintStyle', $this->hintStyle);
+        $this->applyEnum($data, 'hintWeight', $this->hintWeight);
+        $this->applyEnum($data, 'keyboardType', $this->keyboardType);
+        $this->applyNonDefault($data, 'lang', $this->lang, '');
+        $this->applyNonDefault($data, 'maxLength', $this->maxLength, 0);
+        $this->applyCommandsArray($data, 'onTextChange', $this->onTextChange);
+        $this->applyCommandsArray($data, 'onSubmit', $this->onSubmit);
+        $this->applyEnum($data, 'secureInput', $this->secureInput);
+        $this->applyBooleanTrue($data, 'selectOnFocus', $this->selectOnFocus);
+        $this->applyNonDefault($data, 'size', $this->size, 8);
+        $this->applyEnum($data, 'submitKeyType', $this->submitKeyType);
+        $this->applyNonDefault($data, 'text', $this->text, '');
+        $this->applyNonDefault($data, 'validCharacters', $this->validCharacters, '');
 
         return $data;
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function applyScalarWithNull(array &$data, string $key, mixed $value): void
+    {
+        if ($value !== null) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param int|float|string $default
+     */
+    private function applyNonDefault(array &$data, string $key, mixed $value, mixed $default): void
+    {
+        if ($value !== $default) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function applyEnum(array &$data, string $key, ?\UnitEnum $enum): void
+    {
+        if ($enum !== null) {
+            $data[$key] = $enum->value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param AbstractStandardCommand[]|null $commands
+     */
+    private function applyCommandsArray(array &$data, string $key, ?array $commands): void
+    {
+        if ($commands !== null && $commands !== []) {
+            $data[$key] = $commands;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function applyBooleanTrue(array &$data, string $key, bool $flag): void
+    {
+        if ($flag) {
+            $data[$key] = true;
+        }
     }
 }

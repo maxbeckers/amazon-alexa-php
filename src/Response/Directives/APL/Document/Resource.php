@@ -48,55 +48,55 @@ class Resource implements \JsonSerializable
     {
         $data = [];
 
-        if ($this->boolean !== null) {
-            $data['boolean'] = $this->boolean;
-        }
-        if ($this->booleans !== null && $this->booleans !== []) {
-            $data['booleans'] = $this->booleans;
-        }
-        if ($this->color !== null) {
-            $data['color'] = $this->color;
-        }
-        if ($this->colors !== null && $this->colors !== []) {
-            $data['colors'] = $this->colors;
-        }
-        if ($this->description !== null && $this->description !== '') {
-            $data['description'] = $this->description;
-        }
-        if ($this->dimension !== null) {
-            $data['dimension'] = $this->dimension;
-        }
-        if ($this->dimensions !== null && $this->dimensions !== []) {
-            $data['dimensions'] = $this->dimensions;
-        }
-        if ($this->easing !== null) {
-            $data['easing'] = $this->easing;
-        }
-        if ($this->easings !== null && $this->easings !== []) {
-            $data['easings'] = $this->easings;
-        }
-        if ($this->gradient !== null) {
-            $data['gradient'] = $this->gradient;
-        }
-        if ($this->gradients !== null && $this->gradients !== []) {
-            $data['gradients'] = $this->gradients;
-        }
-        if ($this->number !== null) {
-            $data['number'] = $this->number;
-        }
-        if ($this->numbers !== null && $this->numbers !== []) {
-            $data['numbers'] = $this->numbers;
-        }
-        if ($this->string !== null) {
-            $data['string'] = $this->string;
-        }
-        if ($this->strings !== null && $this->strings !== []) {
-            $data['strings'] = $this->strings;
-        }
-        if ($this->when !== null) {
-            $data['when'] = $this->when;
-        }
+        // Simple nullable scalars (include when not null)
+        $this->includeIfNotNull($data, 'boolean', $this->boolean);
+        $this->includeIfNotEmptyArray($data, 'booleans', $this->booleans);
+        $this->includeIfNotNull($data, 'color', $this->color);
+        $this->includeIfNotEmptyArray($data, 'colors', $this->colors);
+        $this->includeIfNotEmptyString($data, 'description', $this->description);
+        $this->includeIfNotNull($data, 'dimension', $this->dimension);
+        $this->includeIfNotEmptyArray($data, 'dimensions', $this->dimensions);
+        $this->includeIfNotNull($data, 'easing', $this->easing);
+        $this->includeIfNotEmptyArray($data, 'easings', $this->easings);
+        $this->includeIfNotNull($data, 'gradient', $this->gradient);
+        $this->includeIfNotEmptyArray($data, 'gradients', $this->gradients);
+        $this->includeIfNotNull($data, 'number', $this->number);
+        $this->includeIfNotEmptyArray($data, 'numbers', $this->numbers);
+        $this->includeIfNotNull($data, 'string', $this->string);
+        $this->includeIfNotEmptyArray($data, 'strings', $this->strings);
+        $this->includeIfNotNull($data, 'when', $this->when);
 
         return $data;
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function includeIfNotNull(array &$data, string $key, mixed $value): void
+    {
+        if ($value !== null) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param array<mixed>|null $value
+     */
+    private function includeIfNotEmptyArray(array &$data, string $key, ?array $value): void
+    {
+        if ($value !== null && $value !== []) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function includeIfNotEmptyString(array &$data, string $key, ?string $value): void
+    {
+        if ($value !== null && $value !== '') {
+            $data[$key] = $value;
+        }
     }
 }

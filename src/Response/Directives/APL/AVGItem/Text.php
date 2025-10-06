@@ -56,70 +56,43 @@ class Text extends AVGItem implements \JsonSerializable
     {
         $data = parent::jsonSerialize();
 
-        if ($this->fill !== null) {
-            $data['fill'] = $this->fill;
-        }
-
-        if ($this->fillOpacity !== null) {
-            $data['fillOpacity'] = $this->fillOpacity;
-        }
-
-        if ($this->fillTransform !== null) {
-            $data['fillTransform'] = $this->fillTransform;
-        }
-
-        if ($this->fontFamily !== null) {
-            $data['fontFamily'] = $this->fontFamily;
-        }
-
-        if ($this->fontSize !== null) {
-            $data['fontSize'] = $this->fontSize;
-        }
-
-        if ($this->fontStyle !== null) {
-            $data['fontStyle'] = $this->fontStyle->value;
-        }
-
-        if ($this->fontWeight !== null) {
-            $data['fontWeight'] = $this->fontWeight->value;
-        }
-
-        if ($this->letterSpacing !== null) {
-            $data['letterSpacing'] = $this->letterSpacing;
-        }
-
-        if ($this->stroke !== null) {
-            $data['stroke'] = $this->stroke;
-        }
-
-        if ($this->strokeOpacity !== null) {
-            $data['strokeOpacity'] = $this->strokeOpacity;
-        }
-
-        if ($this->strokeTransform !== null) {
-            $data['strokeTransform'] = $this->strokeTransform;
-        }
-
-        if ($this->strokeWidth !== null) {
-            $data['strokeWidth'] = $this->strokeWidth;
-        }
-
-        if ($this->text !== null) {
-            $data['text'] = $this->text;
-        }
-
-        if ($this->textAnchor !== null) {
-            $data['textAnchor'] = $this->textAnchor->value;
-        }
-
-        if ($this->x !== null) {
-            $data['x'] = $this->x;
-        }
-
-        if ($this->y !== null) {
-            $data['y'] = $this->y;
-        }
+        $this->addScalar($data, 'fill', $this->fill);
+        $this->addScalar($data, 'fillOpacity', $this->fillOpacity);
+        $this->addScalar($data, 'fillTransform', $this->fillTransform);
+        $this->addScalar($data, 'fontFamily', $this->fontFamily);
+        $this->addScalar($data, 'fontSize', $this->fontSize);
+        $this->addEnum($data, 'fontStyle', $this->fontStyle);
+        $this->addEnum($data, 'fontWeight', $this->fontWeight);
+        $this->addScalar($data, 'letterSpacing', $this->letterSpacing);
+        $this->addScalar($data, 'stroke', $this->stroke);
+        $this->addScalar($data, 'strokeOpacity', $this->strokeOpacity);
+        $this->addScalar($data, 'strokeTransform', $this->strokeTransform);
+        $this->addScalar($data, 'strokeWidth', $this->strokeWidth);
+        $this->addScalar($data, 'text', $this->text);
+        $this->addEnum($data, 'textAnchor', $this->textAnchor);
+        $this->addScalar($data, 'x', $this->x);
+        $this->addScalar($data, 'y', $this->y);
 
         return $data;
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addScalar(array &$data, string $key, mixed $value): void
+    {
+        if ($value !== null) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addEnum(array &$data, string $key, ?\UnitEnum $enum): void
+    {
+        if ($enum !== null) {
+            $data[$key] = $enum->value;
+        }
     }
 }

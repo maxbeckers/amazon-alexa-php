@@ -46,50 +46,60 @@ class ImageComponent extends APLBaseComponent implements \JsonSerializable
     {
         $data = parent::jsonSerialize();
 
-        if ($this->align !== null) {
-            $data['align'] = $this->align->value;
-        }
-
-        if ($this->borderRadius !== '0') {
-            $data['borderRadius'] = $this->borderRadius;
-        }
-
-        if ($this->filter !== null && !empty($this->filter)) {
-            $data['filter'] = $this->filter;
-        }
-
-        if ($this->filters !== null && !empty($this->filters)) {
-            $data['filters'] = $this->filters;
-        }
-
-        if ($this->onFail !== null && !empty($this->onFail)) {
-            $data['onFail'] = $this->onFail;
-        }
-
-        if ($this->onLoad !== null && !empty($this->onLoad)) {
-            $data['onLoad'] = $this->onLoad;
-        }
-
-        if ($this->overlayColor !== 'none') {
-            $data['overlayColor'] = $this->overlayColor;
-        }
-
-        if ($this->overlayGradient !== null && !empty($this->overlayGradient)) {
-            $data['overlayGradient'] = $this->overlayGradient;
-        }
-
-        if ($this->scale !== null) {
-            $data['scale'] = $this->scale->value;
-        }
-
-        if ($this->source !== null) {
-            $data['source'] = $this->source;
-        }
-
-        if ($this->sources !== null && !empty($this->sources)) {
-            $data['sources'] = $this->sources;
-        }
+        $this->addEnum($data, 'align', $this->align);
+        $this->addNonDefault($data, 'borderRadius', $this->borderRadius, '0');
+        $this->addArrayIfNotEmpty($data, 'filter', $this->filter);
+        $this->addArrayIfNotEmpty($data, 'filters', $this->filters);
+        $this->addArrayIfNotEmpty($data, 'onFail', $this->onFail);
+        $this->addArrayIfNotEmpty($data, 'onLoad', $this->onLoad);
+        $this->addNonDefault($data, 'overlayColor', $this->overlayColor, 'none');
+        $this->addArrayIfNotEmpty($data, 'overlayGradient', $this->overlayGradient);
+        $this->addEnum($data, 'scale', $this->scale);
+        $this->addScalar($data, 'source', $this->source);
+        $this->addArrayIfNotEmpty($data, 'sources', $this->sources);
 
         return $data;
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addScalar(array &$data, string $key, mixed $value): void
+    {
+        if ($value !== null) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param array<mixed>|null $value
+     */
+    private function addArrayIfNotEmpty(array &$data, string $key, ?array $value): void
+    {
+        if ($value !== null && $value !== []) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addEnum(array &$data, string $key, ?\UnitEnum $enum): void
+    {
+        if ($enum !== null) {
+            $data[$key] = $enum->value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param string $default
+     */
+    private function addNonDefault(array &$data, string $key, string $value, string $default): void
+    {
+        if ($value !== $default) {
+            $data[$key] = $value;
+        }
     }
 }

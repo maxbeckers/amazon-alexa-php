@@ -120,101 +120,129 @@ abstract class APLBaseComponent implements \JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $data = [
-            'type' => $this->type->value,
-        ];
+        $data = ['type' => $this->type->value];
 
-        // Add all non-null properties
-        $properties = [
+        $this->addSimpleProperties($data);
+        $this->addEnumProperties($data);
+        $this->addBooleanFlags($data);
+        $this->addDimensionsAndStyling($data);
+        $this->addOpacity($data);
+
+        return $data;
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addSimpleProperties(array &$data): void
+    {
+        $simple = [
             'accessibilityLabel', 'action', 'actions', 'bind', 'description', 'entities', 'entity',
             'handleTick', 'handleVisibilityChange', 'id', 'onMount', 'onCursorEnter', 'onCursorExit',
             'onCursorMove', 'onSpeechMark', 'onLayout', 'padding', 'preserve', 'style', 'trackChanges',
             'transform', 'speech',
         ];
 
-        foreach ($properties as $property) {
-            if ($this->$property !== null && (is_array($this->$property) ? !empty($this->$property) : true)) {
-                $data[$property] = $this->$property;
+        foreach ($simple as $prop) {
+            $value = $this->$prop;
+            if ($this->isExportable($value)) {
+                $data[$prop] = $value;
             }
         }
+    }
 
-        // Add enum properties
-        if ($this->display !== null) {
-            $data['display'] = $this->display->value;
-        }
-
-        if ($this->layoutDirection !== null) {
-            $data['layoutDirection'] = $this->layoutDirection->value;
-        }
-
-        if ($this->pointerEvents !== null) {
-            $data['pointerEvents'] = $this->pointerEvents->value;
-        }
-
-        if ($this->role !== null) {
-            $data['role'] = $this->role->value;
-        }
-
-        // Add boolean properties (only if different from default)
-        if ($this->checked) {
-            $data['checked'] = $this->checked;
-        }
-
-        if ($this->disabled) {
-            $data['disabled'] = $this->disabled;
-        }
-
-        if ($this->inheritParentState) {
-            $data['inheritParentState'] = $this->inheritParentState;
-        }
-
-        if (!$this->when) {
-            $data['when'] = $this->when;
-        }
-
-        // Add dimension and styling properties (only if different from default)
-        $dimensionProperties = [
-            'height' => 'auto',
-            'width' => 'auto',
-            'minHeight' => '0',
-            'minWidth' => '0',
-            'paddingBottom' => '0',
-            'paddingLeft' => '0',
-            'paddingRight' => '0',
-            'paddingTop' => '0',
-            'shadowColor' => 'transparent',
-            'shadowHorizontalOffset' => '0',
-            'shadowRadius' => '0',
-            'shadowVerticalOffset' => '0',
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addEnumProperties(array &$data): void
+    {
+        $enums = [
+            'display'         => $this->display,
+            'layoutDirection' => $this->layoutDirection,
+            'pointerEvents'   => $this->pointerEvents,
+            'role'            => $this->role,
         ];
 
-        foreach ($dimensionProperties as $property => $default) {
-            if ($this->$property !== null && $this->$property !== $default) {
-                $data[$property] = $this->$property;
+        foreach ($enums as $key => $enum) {
+            if ($enum !== null) {
+                $data[$key] = $enum->value;
+            }
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addBooleanFlags(array &$data): void
+    {
+        if ($this->checked) {
+            $data['checked'] = true;
+        }
+        if ($this->disabled) {
+            $data['disabled'] = true;
+        }
+        if ($this->inheritParentState) {
+            $data['inheritParentState'] = true;
+        }
+        if (!$this->when) {
+            $data['when'] = false;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addDimensionsAndStyling(array &$data): void
+    {
+        $withDefaults = [
+            'height'                => 'auto',
+            'width'                 => 'auto',
+            'minHeight'             => '0',
+            'minWidth'              => '0',
+            'paddingBottom'         => '0',
+            'paddingLeft'           => '0',
+            'paddingRight'          => '0',
+            'paddingTop'            => '0',
+            'shadowColor'           => 'transparent',
+            'shadowHorizontalOffset' => '0',
+            'shadowRadius'          => '0',
+            'shadowVerticalOffset'  => '0',
+        ];
+
+        foreach ($withDefaults as $prop => $default) {
+            $value = $this->$prop;
+            if ($value !== null && $value !== $default) {
+                $data[$prop] = $value;
             }
         }
 
-        if ($this->maxHeight !== null) {
-            $data['maxHeight'] = $this->maxHeight;
+        // Properties without defaults (include if not null)
+        foreach (['maxHeight', 'maxWidth', 'paddingEnd', 'paddingStart'] as $prop) {
+            if ($this->$prop !== null) {
+                $data[$prop] = $this->$prop;
+            }
         }
+    }
 
-        if ($this->maxWidth !== null) {
-            $data['maxWidth'] = $this->maxWidth;
-        }
-
-        if ($this->paddingEnd !== null) {
-            $data['paddingEnd'] = $this->paddingEnd;
-        }
-
-        if ($this->paddingStart !== null) {
-            $data['paddingStart'] = $this->paddingStart;
-        }
-
-        // Add opacity if different from default
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addOpacity(array &$data): void
+    {
         if ($this->opacity !== 1.0) {
             $data['opacity'] = $this->opacity;
         }
+    }
 
-        return $data;
+    private function isExportable(mixed $value): bool
+    {
+        if ($value === null) {
+            return false;
+        }
+        if (is_array($value)) {
+            return !empty($value);
+        }
+
+        return true;
     }
 }

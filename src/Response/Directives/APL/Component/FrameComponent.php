@@ -46,54 +46,51 @@ class FrameComponent extends APLBaseComponent implements \JsonSerializable
     {
         $data = parent::jsonSerialize();
 
-        if ($this->background !== null) {
-            $data['background'] = $this->background;
-        }
-
-        if ($this->backgroundColor !== null) {
-            $data['backgroundColor'] = $this->backgroundColor;
-        }
-
-        if ($this->borderBottomLeftRadius !== null) {
-            $data['borderBottomLeftRadius'] = $this->borderBottomLeftRadius;
-        }
-
-        if ($this->borderBottomRightRadius !== null) {
-            $data['borderBottomRightRadius'] = $this->borderBottomRightRadius;
-        }
-
-        if ($this->borderColor !== null) {
-            $data['borderColor'] = $this->borderColor;
-        }
-
-        if ($this->borderRadius !== '0') {
-            $data['borderRadius'] = $this->borderRadius;
-        }
-
-        if ($this->borderStrokeWidth !== null) {
-            $data['borderStrokeWidth'] = $this->borderStrokeWidth;
-        }
-
-        if ($this->borderTopLeftRadius !== null) {
-            $data['borderTopLeftRadius'] = $this->borderTopLeftRadius;
-        }
-
-        if ($this->borderTopRightRadius !== null) {
-            $data['borderTopRightRadius'] = $this->borderTopRightRadius;
-        }
-
-        if ($this->borderWidth !== '0') {
-            $data['borderWidth'] = $this->borderWidth;
-        }
-
-        if ($this->item !== null) {
-            $data['item'] = $this->item;
-        }
-
-        if ($this->items !== null && !empty($this->items)) {
-            $data['items'] = $this->items;
-        }
+        $this->addScalar($data, 'background', $this->background);
+        $this->addScalar($data, 'backgroundColor', $this->backgroundColor);
+        $this->addScalar($data, 'borderBottomLeftRadius', $this->borderBottomLeftRadius);
+        $this->addScalar($data, 'borderBottomRightRadius', $this->borderBottomRightRadius);
+        $this->addScalar($data, 'borderColor', $this->borderColor);
+        $this->addNonDefault($data, 'borderRadius', $this->borderRadius, '0');
+        $this->addScalar($data, 'borderStrokeWidth', $this->borderStrokeWidth);
+        $this->addScalar($data, 'borderTopLeftRadius', $this->borderTopLeftRadius);
+        $this->addScalar($data, 'borderTopRightRadius', $this->borderTopRightRadius);
+        $this->addNonDefault($data, 'borderWidth', $this->borderWidth, '0');
+        $this->addScalar($data, 'item', $this->item);
+        $this->addArrayIfNotEmpty($data, 'items', $this->items);
 
         return $data;
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addScalar(array &$data, string $key, mixed $value): void
+    {
+        if ($value !== null) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param string $default
+     */
+    private function addNonDefault(array &$data, string $key, string $value, string $default): void
+    {
+        if ($value !== $default) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param array<mixed>|null $value
+     */
+    private function addArrayIfNotEmpty(array &$data, string $key, ?array $value): void
+    {
+        if ($value !== null && $value !== []) {
+            $data[$key] = $value;
+        }
     }
 }

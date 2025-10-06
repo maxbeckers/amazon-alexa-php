@@ -56,70 +56,75 @@ class VideoComponent extends APLBaseComponent implements \JsonSerializable
     {
         $data = parent::jsonSerialize();
 
-        if ($this->audioTrack !== null) {
-            $data['audioTrack'] = $this->audioTrack->value;
-        }
+        $this->addEnum($data, 'audioTrack', $this->audioTrack);
+        $this->addBooleanTrue($data, 'autoplay', $this->autoplay);
+        $this->addBooleanTrue($data, 'muted', $this->muted);
 
-        if ($this->autoplay) {
-            $data['autoplay'] = $this->autoplay;
-        }
+        $this->addCommandArray($data, 'onEnd', $this->onEnd);
+        $this->addCommandArray($data, 'onPause', $this->onPause);
+        $this->addCommandArray($data, 'onPlay', $this->onPlay);
+        $this->addCommandArray($data, 'onTimeUpdate', $this->onTimeUpdate);
+        $this->addCommandArray($data, 'onTrackUpdate', $this->onTrackUpdate);
+        $this->addCommandArray($data, 'onTrackReady', $this->onTrackReady);
+        $this->addCommandArray($data, 'onTrackFail', $this->onTrackFail);
 
-        if ($this->muted) {
-            $data['muted'] = $this->muted;
-        }
+        $this->addNonEmptyArray($data, 'preserve', $this->preserve);
+        $this->addEnum($data, 'scale', $this->scale);
 
-        if ($this->onEnd !== null && !empty($this->onEnd)) {
-            $data['onEnd'] = $this->onEnd;
-        }
-
-        if ($this->onPause !== null && !empty($this->onPause)) {
-            $data['onPause'] = $this->onPause;
-        }
-
-        if ($this->onPlay !== null && !empty($this->onPlay)) {
-            $data['onPlay'] = $this->onPlay;
-        }
-
-        if ($this->onTimeUpdate !== null && !empty($this->onTimeUpdate)) {
-            $data['onTimeUpdate'] = $this->onTimeUpdate;
-        }
-
-        if ($this->onTrackUpdate !== null && !empty($this->onTrackUpdate)) {
-            $data['onTrackUpdate'] = $this->onTrackUpdate;
-        }
-
-        if ($this->onTrackReady !== null && !empty($this->onTrackReady)) {
-            $data['onTrackReady'] = $this->onTrackReady;
-        }
-
-        if ($this->onTrackFail !== null && !empty($this->onTrackFail)) {
-            $data['onTrackFail'] = $this->onTrackFail;
-        }
-
-        if ($this->preserve !== null && !empty($this->preserve)) {
-            $data['preserve'] = $this->preserve;
-        }
-
-        if ($this->scale !== null) {
-            $data['scale'] = $this->scale->value;
-        }
-
+        // screenLock only included when false (default true)
         if (!$this->screenLock) {
-            $data['screenLock'] = $this->screenLock;
+            $data['screenLock'] = false;
         }
 
         if ($this->source !== null) {
             $data['source'] = $this->source;
         }
 
-        if ($this->sources !== null && !empty($this->sources)) {
-            $data['sources'] = $this->sources;
-        }
-
-        if ($this->trackChanges !== null && !empty($this->trackChanges)) {
-            $data['trackChanges'] = $this->trackChanges;
-        }
+        $this->addNonEmptyArray($data, 'sources', $this->sources);
+        $this->addNonEmptyArray($data, 'trackChanges', $this->trackChanges);
 
         return $data;
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addEnum(array &$data, string $key, ?\UnitEnum $enum): void
+    {
+        if ($enum !== null) {
+            $data[$key] = $enum->value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param AbstractStandardCommand[]|null $commands
+     */
+    private function addCommandArray(array &$data, string $key, ?array $commands): void
+    {
+        if ($commands !== null && $commands !== []) {
+            $data[$key] = $commands;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param array<mixed>|null $arr
+     */
+    private function addNonEmptyArray(array &$data, string $key, ?array $arr): void
+    {
+        if ($arr !== null && $arr !== []) {
+            $data[$key] = $arr;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addBooleanTrue(array &$data, string $key, bool $value): void
+    {
+        if ($value) {
+            $data[$key] = true;
+        }
     }
 }

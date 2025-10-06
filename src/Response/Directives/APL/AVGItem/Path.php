@@ -51,62 +51,52 @@ class Path extends AVGItem implements \JsonSerializable
     {
         $data = parent::jsonSerialize();
 
-        if ($this->fill !== null) {
-            $data['fill'] = $this->fill;
-        }
-
-        if ($this->fillOpacity !== null) {
-            $data['fillOpacity'] = $this->fillOpacity;
-        }
-
-        if ($this->fillTransform !== null) {
-            $data['fillTransform'] = $this->fillTransform;
-        }
-
-        if ($this->pathData !== null) {
-            $data['pathData'] = $this->pathData;
-        }
-
-        if ($this->pathLength !== null) {
-            $data['pathLength'] = $this->pathLength;
-        }
-
-        if ($this->stroke !== null) {
-            $data['stroke'] = $this->stroke;
-        }
-
-        if ($this->strokeDashArray !== null && !empty($this->strokeDashArray)) {
-            $data['strokeDashArray'] = $this->strokeDashArray;
-        }
-
-        if ($this->strokeDashOffset !== null) {
-            $data['strokeDashOffset'] = $this->strokeDashOffset;
-        }
-
-        if ($this->strokeLineCap !== null) {
-            $data['strokeLineCap'] = $this->strokeLineCap->value;
-        }
-
-        if ($this->strokeLineJoin !== null) {
-            $data['strokeLineJoin'] = $this->strokeLineJoin->value;
-        }
-
-        if ($this->strokeMiterLimit !== null) {
-            $data['strokeMiterLimit'] = $this->strokeMiterLimit;
-        }
-
-        if ($this->strokeOpacity !== null) {
-            $data['strokeOpacity'] = $this->strokeOpacity;
-        }
-
-        if ($this->strokeTransform !== null) {
-            $data['strokeTransform'] = $this->strokeTransform;
-        }
-
-        if ($this->strokeWidth !== null) {
-            $data['strokeWidth'] = $this->strokeWidth;
-        }
+        $this->addScalar($data, 'fill', $this->fill);
+        $this->addScalar($data, 'fillOpacity', $this->fillOpacity);
+        $this->addScalar($data, 'fillTransform', $this->fillTransform);
+        $this->addScalar($data, 'pathData', $this->pathData);
+        $this->addScalar($data, 'pathLength', $this->pathLength);
+        $this->addScalar($data, 'stroke', $this->stroke);
+        $this->addArrayIfNotEmpty($data, 'strokeDashArray', $this->strokeDashArray);
+        $this->addScalar($data, 'strokeDashOffset', $this->strokeDashOffset);
+        $this->addEnum($data, 'strokeLineCap', $this->strokeLineCap);
+        $this->addEnum($data, 'strokeLineJoin', $this->strokeLineJoin);
+        $this->addScalar($data, 'strokeMiterLimit', $this->strokeMiterLimit);
+        $this->addScalar($data, 'strokeOpacity', $this->strokeOpacity);
+        $this->addScalar($data, 'strokeTransform', $this->strokeTransform);
+        $this->addScalar($data, 'strokeWidth', $this->strokeWidth);
 
         return $data;
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addScalar(array &$data, string $key, mixed $value): void
+    {
+        if ($value !== null) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param array<mixed>|null $value
+     */
+    private function addArrayIfNotEmpty(array &$data, string $key, ?array $value): void
+    {
+        if ($value !== null && $value !== []) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function addEnum(array &$data, string $key, ?\UnitEnum $enum): void
+    {
+        if ($enum !== null) {
+            $data[$key] = $enum->value;
+        }
     }
 }

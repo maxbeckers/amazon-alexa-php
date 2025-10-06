@@ -52,58 +52,69 @@ class TextComponent extends APLBaseComponent implements \JsonSerializable
     {
         $data = parent::jsonSerialize();
 
-        if ($this->color !== null) {
-            $data['color'] = $this->color;
-        }
+        // Scalars with null check
+        $this->includeIfNotNull($data, 'color', $this->color);
 
-        if ($this->fontFamily !== 'sans-serif') {
-            $data['fontFamily'] = $this->fontFamily;
-        }
+        // Scalars with defaults
+        $this->includeIfNotDefault($data, 'fontFamily', $this->fontFamily, 'sans-serif');
+        $this->includeIfNotDefault($data, 'fontSize', $this->fontSize, '40dp');
+        $this->includeIfNotDefault($data, 'lang', $this->lang, '');
+        $this->includeIfNotDefault($data, 'letterSpacing', $this->letterSpacing, '0');
+        $this->includeIfNotDefault($data, 'lineHeight', $this->lineHeight, '125%');
+        $this->includeIfNotDefault($data, 'maxLines', $this->maxLines, 0);
+        $this->includeIfNotDefault($data, 'text', $this->text, '');
 
-        if ($this->fontSize !== '40dp') {
-            $data['fontSize'] = $this->fontSize;
-        }
+        // Enums
+        $this->includeEnum($data, 'fontStyle', $this->fontStyle);
+        $this->includeEnum($data, 'fontWeight', $this->fontWeight);
+        $this->includeEnum($data, 'textAlign', $this->textAlign);
+        $this->includeEnum($data, 'textAlignVertical', $this->textAlignVertical);
 
-        if ($this->fontStyle !== null) {
-            $data['fontStyle'] = $this->fontStyle->value;
-        }
-
-        if ($this->fontWeight !== null) {
-            $data['fontWeight'] = $this->fontWeight->value;
-        }
-
-        if ($this->lang !== '') {
-            $data['lang'] = $this->lang;
-        }
-
-        if ($this->letterSpacing !== '0') {
-            $data['letterSpacing'] = $this->letterSpacing;
-        }
-
-        if ($this->lineHeight !== '125%') {
-            $data['lineHeight'] = $this->lineHeight;
-        }
-
-        if ($this->maxLines !== 0) {
-            $data['maxLines'] = $this->maxLines;
-        }
-
-        if ($this->onTextLayout !== null && !empty($this->onTextLayout)) {
-            $data['onTextLayout'] = $this->onTextLayout;
-        }
-
-        if ($this->text !== '') {
-            $data['text'] = $this->text;
-        }
-
-        if ($this->textAlign !== null) {
-            $data['textAlign'] = $this->textAlign->value;
-        }
-
-        if ($this->textAlignVertical !== null) {
-            $data['textAlignVertical'] = $this->textAlignVertical->value;
-        }
+        // Arrays (commands)
+        $this->includeArrayIfNotEmpty($data, 'onTextLayout', $this->onTextLayout);
 
         return $data;
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function includeIfNotNull(array &$data, string $key, mixed $value): void
+    {
+        if ($value !== null) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param int|float|string $default
+     */
+    private function includeIfNotDefault(array &$data, string $key, mixed $value, mixed $default): void
+    {
+        if ($value !== $default) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function includeEnum(array &$data, string $key, ?\UnitEnum $enum): void
+    {
+        if ($enum !== null) {
+            $data[$key] = $enum->value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param array<mixed>|null $value
+     */
+    private function includeArrayIfNotEmpty(array &$data, string $key, ?array $value): void
+    {
+        if ($value !== null && $value !== []) {
+            $data[$key] = $value;
+        }
     }
 }

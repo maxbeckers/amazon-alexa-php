@@ -51,42 +51,57 @@ class GridSequenceComponent extends APLBaseComponent implements \JsonSerializabl
             $this->serializeMultiChildProperties()
         );
 
-        if ($this->childHeight !== null) {
-            $data['childHeight'] = $this->childHeight;
-        }
-
-        if (!empty($this->childHeights)) {
-            $data['childHeights'] = $this->childHeights;
-        }
-
-        if ($this->childWidth !== null) {
-            $data['childWidth'] = $this->childWidth;
-        }
-
-        if (!empty($this->childWidths)) {
-            $data['childWidths'] = $this->childWidths;
-        }
-
-        if ($this->numbered) {
-            $data['numbered'] = $this->numbered;
-        }
-
-        if (!empty($this->onScroll)) {
-            $data['onScroll'] = $this->onScroll;
-        }
-
-        if (!empty($this->preserve)) {
-            $data['preserve'] = $this->preserve;
-        }
-
-        if ($this->scrollDirection !== null) {
-            $data['scrollDirection'] = $this->scrollDirection->value;
-        }
-
-        if ($this->snap !== null) {
-            $data['snap'] = $this->snap->value;
-        }
+        $this->includeIfNotNull($data, 'childHeight', $this->childHeight);
+        $this->includeArrayIfNotEmpty($data, 'childHeights', $this->childHeights);
+        $this->includeIfNotNull($data, 'childWidth', $this->childWidth);
+        $this->includeArrayIfNotEmpty($data, 'childWidths', $this->childWidths);
+        $this->includeBooleanTrue($data, 'numbered', $this->numbered);
+        $this->includeArrayIfNotEmpty($data, 'onScroll', $this->onScroll);
+        $this->includeArrayIfNotEmpty($data, 'preserve', $this->preserve);
+        $this->includeEnum($data, 'scrollDirection', $this->scrollDirection);
+        $this->includeEnum($data, 'snap', $this->snap);
 
         return $data;
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function includeIfNotNull(array &$data, string $key, mixed $value): void
+    {
+        if ($value !== null) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     * @param array<mixed>|null $value
+     */
+    private function includeArrayIfNotEmpty(array &$data, string $key, ?array $value): void
+    {
+        if ($value !== null && $value !== []) {
+            $data[$key] = $value;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function includeBooleanTrue(array &$data, string $key, bool $value): void
+    {
+        if ($value) {
+            $data[$key] = true;
+        }
+    }
+
+    /**
+     * @param array<string,mixed> $data
+     */
+    private function includeEnum(array &$data, string $key, ?\UnitEnum $enum): void
+    {
+        if ($enum !== null) {
+            $data[$key] = $enum->value;
+        }
     }
 }
