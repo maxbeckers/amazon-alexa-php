@@ -18,4 +18,9 @@ class PropertyHelper
     {
         return $data[$key] ?? null;
     }
+
+    public static function checkNullValueStringOrInt(array $data, string $key): string|int|null
+    {
+        return $data[$key] ?? null;
+    }
 }

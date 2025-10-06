@@ -8,10 +8,13 @@ use MaxBeckers\AmazonAlexa\Response\Directives\Display\Image;
 
 class Metadata implements \JsonSerializable
 {
-    public ?string $title = null;
-    public ?string $subtitle = null;
-    public ?Image $art = null;
-    public ?Image $backgroundImage = null;
+    public function __construct(
+        public ?string $title = null,
+        public ?string $subtitle = null,
+        public ?Image $art = null,
+        public ?Image $backgroundImage = null
+    ) {
+    }
 
     /**
      * @param string|null $title
@@ -23,14 +26,7 @@ class Metadata implements \JsonSerializable
      */
     public static function create(?string $title = null, ?string $subtitle = null, ?Image $art = null, ?Image $backgroundImage = null): self
     {
-        $metadata = new self();
-
-        $metadata->title = $title;
-        $metadata->subtitle = $subtitle;
-        $metadata->art = $art;
-        $metadata->backgroundImage = $backgroundImage;
-
-        return $metadata;
+        return new self($title, $subtitle, $art, $backgroundImage);
     }
 
     /**

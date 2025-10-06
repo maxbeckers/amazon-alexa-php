@@ -14,18 +14,24 @@ class PlaybackState
     public const STATE_BUFFER_UNDERRUN = 'BUFFER_UNDERRUN';
     public const STATE_IDLE = 'IDLE';
 
-    public ?string $token = null;
-    public ?int $offsetInMilliseconds = null;
-    public ?string $playerActivity = null;
+    /**
+     * @param string|null $token Playback token
+     * @param int|null $offsetInMilliseconds Playback offset in milliseconds
+     * @param string|null $playerActivity Current player activity
+     */
+    public function __construct(
+        public ?string $token = null,
+        public ?int $offsetInMilliseconds = null,
+        public ?string $playerActivity = null,
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $playbackState = new self();
-
-        $playbackState->token = PropertyHelper::checkNullValueString($amazonRequest, 'token');
-        $playbackState->offsetInMilliseconds = PropertyHelper::checkNullValueInt($amazonRequest, 'offsetInMilliseconds');
-        $playbackState->playerActivity = PropertyHelper::checkNullValueString($amazonRequest, 'playerActivity');
-
-        return $playbackState;
+        return new self(
+            token: PropertyHelper::checkNullValueString($amazonRequest, 'token'),
+            offsetInMilliseconds: PropertyHelper::checkNullValueInt($amazonRequest, 'offsetInMilliseconds'),
+            playerActivity: PropertyHelper::checkNullValueString($amazonRequest, 'playerActivity'),
+        );
     }
 }

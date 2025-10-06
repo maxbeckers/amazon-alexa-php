@@ -14,17 +14,15 @@ class PlayDirective extends Directive
     public const PLAY_BEHAVIOR_ENQUEUE = 'ENQUEUE';
     public const PLAY_BEHAVIOR_REPLACE_ENQUEUED = 'REPLACE_ENQUEUED';
 
-    public ?string $playBehavior = null;
-    public ?AudioItem $audioItem = null;
+    public function __construct(
+        public ?string $playBehavior = null,
+        public ?AudioItem $audioItem = null
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(AudioItem $audioItem, string $playBehavior = self::PLAY_BEHAVIOR_REPLACE_ALL): self
     {
-        $playDirective = new self();
-
-        $playDirective->type = self::TYPE;
-        $playDirective->audioItem = $audioItem;
-        $playDirective->playBehavior = $playBehavior;
-
-        return $playDirective;
+        return new self($playBehavior, $audioItem);
     }
 }

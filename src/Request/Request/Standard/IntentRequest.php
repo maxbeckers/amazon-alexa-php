@@ -16,18 +16,39 @@ class IntentRequest extends StandardRequest
 
     public const TYPE = 'IntentRequest';
 
-    public ?string $dialogState = null;
-    public ?Intent $intent = null;
+    /**
+     * @param \DateTime|null $timestamp Request timestamp
+     * @param string|null $token Request token
+     * @param string|null $requestId Request identifier
+     * @param string|null $locale Request locale
+     * @param string|null $dialogState Current dialog state
+     * @param Intent|null $intent Intent information
+     */
+    public function __construct(
+        ?\DateTime $timestamp = null,
+        ?string $token = null,
+        ?string $requestId = null,
+        ?string $locale = null,
+        public ?string $dialogState = null,
+        public ?Intent $intent = null,
+    ) {
+        parent::__construct(
+            type: static::TYPE,
+            timestamp: $timestamp,
+            token: $token,
+            requestId: $requestId,
+            locale: $locale
+        );
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {
-        $request = new static();
-
-        $request->type = static::TYPE;
-        $request->dialogState = PropertyHelper::checkNullValueString($amazonRequest, 'dialogState');
-        $request->intent = Intent::fromAmazonRequest($amazonRequest['intent']);
-        $request->setRequestData($amazonRequest);
-
-        return $request;
+        return new static(
+            timestamp: self::getTime(PropertyHelper::checkNullValueStringOrInt($amazonRequest, 'timestamp')),
+            requestId: PropertyHelper::checkNullValueString($amazonRequest, 'requestId'),
+            locale: PropertyHelper::checkNullValueString($amazonRequest, 'locale'),
+            dialogState: PropertyHelper::checkNullValueString($amazonRequest, 'dialogState'),
+            intent: Intent::fromAmazonRequest($amazonRequest['intent']),
+        );
     }
 }

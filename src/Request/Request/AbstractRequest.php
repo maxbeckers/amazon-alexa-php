@@ -6,8 +6,15 @@ namespace MaxBeckers\AmazonAlexa\Request\Request;
 
 abstract class AbstractRequest
 {
-    public string $type;
-    public \DateTime $timestamp;
+    /**
+     * @param string $type Request type
+     * @param ?\DateTime $timestamp Request timestamp
+     */
+    public function __construct(
+        public string $type,
+        public ?\DateTime $timestamp = null,
+    ) {
+    }
 
     abstract public static function fromAmazonRequest(array $amazonRequest): self;
 
@@ -21,15 +28,17 @@ abstract class AbstractRequest
         return true;
     }
 
-    protected function setTime(string $attribute, string|int|null $value): void
+    protected static function getTime(string|int|null $value): ?\DateTime
     {
         if ($value !== null) {
             // Workaround for amazon developer console sending unix timestamp
             try {
-                $this->{$attribute} = new \DateTime((string) $value);
+                return new \DateTime((string) $value);
             } catch (\Exception $e) {
-                $this->{$attribute} = (new \DateTime())->setTimestamp((int) ((string) ($value / 1000)));
+                return (new \DateTime())->setTimestamp((int) ((string) ($value / 1000)));
             }
         }
+
+        return null;
     }
 }

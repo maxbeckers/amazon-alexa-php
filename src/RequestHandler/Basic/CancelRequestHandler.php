@@ -17,6 +17,7 @@ class CancelRequestHandler extends AbstractRequestHandler
         private readonly string $output,
         array $supportedApplicationIds
     ) {
+        parent::__construct();
         $this->supportedApplicationIds = $supportedApplicationIds;
     }
 

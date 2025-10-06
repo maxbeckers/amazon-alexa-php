@@ -25,16 +25,14 @@ class Card implements \JsonSerializable
         self::PERMISSION_GEOLOCATION,
     ];
 
-    public string $type;
-    public ?string $title = null;
-    public ?string $content = null;
-    public ?string $text = null;
-    public ?CardImage $image = null;
-    public array $permissions = [];
-
-    public function __construct(string $type = self::TYPE_STANDARD)
-    {
-        $this->type = $type;
+    public function __construct(
+        public string $type = self::TYPE_STANDARD,
+        public ?string $title = null,
+        public ?string $content = null,
+        public ?string $text = null,
+        public ?CardImage $image = null,
+        public array $permissions = []
+    ) {
     }
 
     public static function createSimple(string $title, string $content): self

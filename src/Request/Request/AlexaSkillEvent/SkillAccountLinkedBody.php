@@ -8,14 +8,18 @@ use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 
 class SkillAccountLinkedBody
 {
-    public ?string $accessToken = null;
+    /**
+     * @param string|null $accessToken Access token for the linked account
+     */
+    public function __construct(
+        public ?string $accessToken = null,
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $body = new self();
-
-        $body->accessToken = PropertyHelper::checkNullValueString($amazonRequest, 'accessToken');
-
-        return $body;
+        return new self(
+            accessToken: PropertyHelper::checkNullValueString($amazonRequest, 'accessToken'),
+        );
     }
 }

@@ -11,17 +11,15 @@ class ElicitSlotDirective extends Directive
 {
     public const TYPE = 'Dialog.ElicitSlot';
 
-    public ?string $slotToElicit = null;
-    public ?Intent $updatedIntent = null;
+    public function __construct(
+        public ?string $slotToElicit = null,
+        public ?Intent $updatedIntent = null
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(string $slotToElicit, ?Intent $intent = null): self
     {
-        $elicitSlotDirective = new self();
-
-        $elicitSlotDirective->type = self::TYPE;
-        $elicitSlotDirective->slotToElicit = $slotToElicit;
-        $elicitSlotDirective->updatedIntent = $intent;
-
-        return $elicitSlotDirective;
+        return new self($slotToElicit, $intent);
     }
 }

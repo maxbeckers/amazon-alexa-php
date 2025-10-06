@@ -11,15 +11,14 @@ class ConfirmIntentDirective extends Directive
 {
     public const TYPE = 'Dialog.ConfirmIntent';
 
-    public ?Intent $updatedIntent = null;
+    public function __construct(
+        public ?Intent $updatedIntent = null
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(?Intent $intent = null): self
     {
-        $confirmIntentDirective = new self();
-
-        $confirmIntentDirective->type = self::TYPE;
-        $confirmIntentDirective->updatedIntent = $intent;
-
-        return $confirmIntentDirective;
+        return new self($intent);
     }
 }

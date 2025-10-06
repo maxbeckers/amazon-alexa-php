@@ -10,20 +10,16 @@ class Parameters
     public const TRIGGER_EVENT_BUTTON_UP = 'buttonUp';
     public const TRIGGER_EVENT_NONE = 'none';
 
-    public ?string $triggerEvent = null;
-    public ?int $triggerEventTimeMs = null;
-
-    /** @var Animation[] */
-    public array $animations = [];
+    /** @param Animation[] $animations */
+    public function __construct(
+        public ?string $triggerEvent = null,
+        public ?int $triggerEventTimeMs = null,
+        public array $animations = []
+    ) {
+    }
 
     public static function create(array $animations, string $triggerEvent = self::TRIGGER_EVENT_NONE, int $triggerEventTimeMs = 0): self
     {
-        $parameters = new self();
-
-        $parameters->triggerEvent = $triggerEvent;
-        $parameters->triggerEventTimeMs = $triggerEventTimeMs;
-        $parameters->animations = $animations;
-
-        return $parameters;
+        return new self($triggerEvent, $triggerEventTimeMs, $animations);
     }
 }

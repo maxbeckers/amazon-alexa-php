@@ -16,6 +16,7 @@ class SimpleIntentRequestHandler extends AbstractRequestHandler
     public function __construct(
         private readonly ResponseHelper $responseHelper
     ) {
+        parent::__construct();
         $this->supportedApplicationIds = ['my_amazon_skill_id'];
     }
 

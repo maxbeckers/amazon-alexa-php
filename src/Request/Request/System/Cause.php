@@ -8,14 +8,18 @@ use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 
 class Cause
 {
-    public ?string $requestId = null;
+    /**
+     * @param string|null $requestId Request identifier that caused the event
+     */
+    public function __construct(
+        public ?string $requestId = null,
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $cause = new self();
-
-        $cause->requestId = PropertyHelper::checkNullValueString($amazonRequest, 'requestId');
-
-        return $cause;
+        return new self(
+            requestId: PropertyHelper::checkNullValueString($amazonRequest, 'requestId'),
+        );
     }
 }

@@ -20,13 +20,14 @@ class RequestValidator
      */
     public const TIMESTAMP_VALID_TOLERANCE_SECONDS = 150;
 
-    public Client $client;
-    protected int $timestampTolerance;
-
-    public function __construct(int $timestampTolerance = self::TIMESTAMP_VALID_TOLERANCE_SECONDS, ?Client $client = null)
-    {
-        $this->timestampTolerance = $timestampTolerance;
-        $this->client = $client ?: new Client();
+    /**
+     * @param int $timestampTolerance Timestamp tolerance in seconds
+     * @param Client $client HTTP client for fetching certificates
+     */
+    public function __construct(
+        protected int $timestampTolerance = self::TIMESTAMP_VALID_TOLERANCE_SECONDS,
+        public Client $client = new Client(),
+    ) {
     }
 
     /**
@@ -59,7 +60,7 @@ class RequestValidator
             return;
         }
 
-        $differenceInSeconds = time() - $request->request->timestamp->getTimestamp();
+        $differenceInSeconds = time() - $request->request->timestamp?->getTimestamp();
 
         if ($differenceInSeconds > $this->timestampTolerance) {
             throw new RequestInvalidTimestampException('Invalid timestamp.');

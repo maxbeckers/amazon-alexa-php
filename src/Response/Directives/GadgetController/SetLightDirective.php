@@ -10,19 +10,16 @@ class SetLightDirective extends Directive
 {
     public const TYPE = 'GadgetController.SetLight';
 
-    public ?int $version = null;
-    public array $targetGadgets = [];
-    public ?Parameters $parameters = null;
+    public function __construct(
+        public ?int $version = null,
+        public array $targetGadgets = [],
+        public ?Parameters $parameters = null
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(array $targetGadgets = [], ?Parameters $parameters = null, int $version = 1): self
     {
-        $setLight = new self();
-
-        $setLight->type = self::TYPE;
-        $setLight->targetGadgets = $targetGadgets;
-        $setLight->parameters = $parameters;
-        $setLight->version = $version;
-
-        return $setLight;
+        return new self($version, $targetGadgets, $parameters);
     }
 }

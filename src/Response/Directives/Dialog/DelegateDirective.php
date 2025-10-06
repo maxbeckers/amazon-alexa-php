@@ -11,15 +11,14 @@ class DelegateDirective extends Directive
 {
     public const TYPE = 'Dialog.Delegate';
 
-    public ?Intent $updatedIntent = null;
+    public function __construct(
+        public ?Intent $updatedIntent = null
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(?Intent $intent = null): self
     {
-        $delegateDirective = new self();
-
-        $delegateDirective->type = self::TYPE;
-        $delegateDirective->updatedIntent = $intent;
-
-        return $delegateDirective;
+        return new self($intent);
     }
 }

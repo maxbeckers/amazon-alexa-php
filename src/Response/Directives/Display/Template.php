@@ -13,16 +13,18 @@ class Template implements \JsonSerializable
     public const BACK_BUTTON_MODE_HIDDEN = 'HIDDEN';
     public const BACK_BUTTON_MODE_VISIBLE = 'VISIBLE';
 
-    public ?string $type;
-    public ?string $token;
-    public ?string $backButton;
-    public ?Image $backgroundImage;
-    public ?string $title;
-    public ?TextContent $textContent;
-    public ?Image $image;
-
     /** @var ListItem[] */
-    public array $listItems = [];
+    public function __construct(
+        public ?string $type = null,
+        public ?string $token = null,
+        public ?string $backButton = null,
+        public ?Image $backgroundImage = null,
+        public ?string $title = null,
+        public ?TextContent $textContent = null,
+        public ?Image $image = null,
+        public array $listItems = []
+    ) {
+    }
 
     public function addListItem(ListItem $item): void
     {
@@ -31,18 +33,7 @@ class Template implements \JsonSerializable
 
     public static function create($type, $token, $backButton = self::BACK_BUTTON_MODE_VISIBLE, $backgroundImage = null, $title = null, $textContent = null, $image = null, $listItems = []): self
     {
-        $template = new self();
-
-        $template->type = $type;
-        $template->token = $token;
-        $template->backButton = $backButton;
-        $template->backgroundImage = $backgroundImage;
-        $template->title = $title;
-        $template->textContent = $textContent;
-        $template->image = $image;
-        $template->listItems = $listItems;
-
-        return $template;
+        return new self($type, $token, $backButton, $backgroundImage, $title, $textContent, $image, $listItems);
     }
 
     public function jsonSerialize(): \ArrayObject

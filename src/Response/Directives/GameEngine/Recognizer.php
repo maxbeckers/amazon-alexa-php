@@ -6,5 +6,8 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\GameEngine;
 
 abstract class Recognizer
 {
-    public string $type;
+    public function __construct(
+        public string $type = ''
+    ) {
+    }
 }

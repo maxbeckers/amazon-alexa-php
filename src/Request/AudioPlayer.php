@@ -15,18 +15,24 @@ class AudioPlayer
     public const PLAYER_ACTIVITY_FINISHED = 'FINISHED';
     public const PLAYER_ACTIVITY_STOPPED = 'STOPPED';
 
-    public ?string $token = null;
-    public ?int $offsetInMilliseconds = null;
-    public ?string $playerActivity = null;
+    /**
+     * @param string|null $token Audio player token
+     * @param int|null $offsetInMilliseconds Current playback offset in milliseconds
+     * @param string|null $playerActivity Current player activity state
+     */
+    public function __construct(
+        public ?string $token = null,
+        public ?int $offsetInMilliseconds = null,
+        public ?string $playerActivity = null,
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $audioPlayer = new self();
-
-        $audioPlayer->token = PropertyHelper::checkNullValueString($amazonRequest, 'token');
-        $audioPlayer->offsetInMilliseconds = PropertyHelper::checkNullValueInt($amazonRequest, 'offsetInMilliseconds');
-        $audioPlayer->playerActivity = PropertyHelper::checkNullValueString($amazonRequest, 'playerActivity');
-
-        return $audioPlayer;
+        return new self(
+            token: PropertyHelper::checkNullValueString($amazonRequest, 'token'),
+            offsetInMilliseconds: PropertyHelper::checkNullValueInt($amazonRequest, 'offsetInMilliseconds'),
+            playerActivity: PropertyHelper::checkNullValueString($amazonRequest, 'playerActivity'),
+        );
     }
 }

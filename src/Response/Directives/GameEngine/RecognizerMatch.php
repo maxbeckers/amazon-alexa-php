@@ -11,13 +11,16 @@ class RecognizerMatch extends Recognizer
     public const ANCHOR_END = 'end';
     public const ANCHOR_ANYWHERE = 'anywhere';
 
-    public ?string $anchor = null;
-    public ?bool $fuzzy = null;
-    public ?array $gadgetIds = null;
-    public ?array $actions = null;
-
-    /** @var Pattern[] */
-    public array $pattern = [];
+    /** @param Pattern[] $pattern */
+    public function __construct(
+        public ?string $anchor = null,
+        public ?bool $fuzzy = null,
+        public ?array $gadgetIds = null,
+        public ?array $actions = null,
+        public array $pattern = []
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     /**
      * @param Pattern[] $pattern
@@ -30,15 +33,6 @@ class RecognizerMatch extends Recognizer
      */
     public static function create(array $pattern, string $anchor = self::ANCHOR_START, bool $fuzzy = false, ?array $gadgetIds = null, ?array $actions = null): self
     {
-        $recognizer = new self();
-
-        $recognizer->type = self::TYPE;
-        $recognizer->anchor = $anchor;
-        $recognizer->fuzzy = $fuzzy;
-        $recognizer->gadgetIds = $gadgetIds;
-        $recognizer->actions = $actions;
-        $recognizer->pattern = $pattern;
-
-        return $recognizer;
+        return new self($anchor, $fuzzy, $gadgetIds, $actions, $pattern);
     }
 }

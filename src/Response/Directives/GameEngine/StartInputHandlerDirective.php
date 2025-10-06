@@ -10,25 +10,21 @@ class StartInputHandlerDirective extends Directive
 {
     public const TYPE = 'GameEngine.StartInputHandler';
 
-    public ?int $timeout = null;
-    public array $proxies = [];
-
-    /** @var Recognizer[] */
-    public array $recognizers = [];
-
-    /** @var Event[] */
-    public array $events = [];
+    /**
+     * @param Recognizer[] $recognizers
+     * @param Event[] $events
+     */
+    public function __construct(
+        public ?int $timeout = null,
+        public array $proxies = [],
+        public array $recognizers = [],
+        public array $events = []
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(int $timeout, array $recognizers, array $events, array $proxies = []): self
     {
-        $setLight = new self();
-
-        $setLight->type = self::TYPE;
-        $setLight->timeout = $timeout;
-        $setLight->recognizers = $recognizers;
-        $setLight->events = $events;
-        $setLight->proxies = $proxies;
-
-        return $setLight;
+        return new self($timeout, $proxies, $recognizers, $events);
     }
 }

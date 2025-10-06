@@ -8,6 +8,17 @@ class PlaybackStarted extends AbstractPlaybackDirective
 {
     public const TYPE = 'AudioPlayer.PlaybackStarted';
 
+    public function __construct(
+        string $requestId = '',
+        string $timestamp = '',
+        string $token = '',
+        int $offsetInMilliseconds = 0,
+        string $locale = ''
+    ) {
+        parent::__construct($requestId, $timestamp, $token, $offsetInMilliseconds, $locale);
+        $this->type = self::TYPE;
+    }
+
     /**
      * @param string $requestId
      * @param string $timestamp
@@ -19,11 +30,6 @@ class PlaybackStarted extends AbstractPlaybackDirective
      */
     public static function create(string $requestId, string $timestamp, string $token, int $offsetInMilliseconds, string $locale): self
     {
-        $playbackStarted = new self();
-
-        $playbackStarted->type = self::TYPE;
-        $playbackStarted->setProperties($requestId, $timestamp, $token, $offsetInMilliseconds, $locale);
-
-        return $playbackStarted;
+        return new self($requestId, $timestamp, $token, $offsetInMilliseconds, $locale);
     }
 }

@@ -8,14 +8,20 @@ use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 
 abstract class SystemRequest extends AbstractRequest
 {
-    public ?string $token = null;
-    public string $requestId;
-    public string $locale;
-
-    protected function setRequestData(array $amazonRequest): void
-    {
-        $this->requestId = $amazonRequest['requestId'];
-        $this->setTime('timestamp', $amazonRequest['timestamp']);
-        $this->locale = $amazonRequest['locale'];
+    /**
+     * @param string $type Request type
+     * @param \DateTime|null $timestamp Request timestamp
+     * @param string|null $token Request token
+     * @param string|null $requestId Request identifier
+     * @param string|null $locale Request locale
+     */
+    public function __construct(
+        string $type,
+        ?\DateTime $timestamp,
+        public ?string $token = null,
+        public ?string $requestId = null,
+        public ?string $locale = null,
+    ) {
+        parent::__construct($type, $timestamp);
     }
 }

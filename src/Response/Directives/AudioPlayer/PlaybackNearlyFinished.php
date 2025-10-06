@@ -8,6 +8,17 @@ class PlaybackNearlyFinished extends AbstractPlaybackDirective
 {
     public const TYPE = 'AudioPlayer.PlaybackNearlyFinished';
 
+    public function __construct(
+        string $requestId = '',
+        string $timestamp = '',
+        string $token = '',
+        int $offsetInMilliseconds = 0,
+        string $locale = ''
+    ) {
+        parent::__construct($requestId, $timestamp, $token, $offsetInMilliseconds, $locale);
+        $this->type = self::TYPE;
+    }
+
     /**
      * @param string $requestId
      * @param string $timestamp
@@ -19,11 +30,6 @@ class PlaybackNearlyFinished extends AbstractPlaybackDirective
      */
     public static function create(string $requestId, string $timestamp, string $token, int $offsetInMilliseconds, string $locale): self
     {
-        $playbackNearlyFinished = new self();
-
-        $playbackNearlyFinished->type = self::TYPE;
-        $playbackNearlyFinished->setProperties($requestId, $timestamp, $token, $offsetInMilliseconds, $locale);
-
-        return $playbackNearlyFinished;
+        return new self($requestId, $timestamp, $token, $offsetInMilliseconds, $locale);
     }
 }

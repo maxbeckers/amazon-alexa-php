@@ -11,14 +11,18 @@ use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
  */
 class Application
 {
-    public ?string $applicationId = null;
+    /**
+     * @param string|null $applicationId The application identifier
+     */
+    public function __construct(
+        public ?string $applicationId = null,
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $application = new self();
-
-        $application->applicationId = PropertyHelper::checkNullValueString($amazonRequest, 'applicationId');
-
-        return $application;
+        return new self(
+            applicationId: PropertyHelper::checkNullValueString($amazonRequest, 'applicationId'),
+        );
     }
 }

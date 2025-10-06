@@ -8,16 +8,21 @@ use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 
 class Status
 {
-    public ?string $code = null;
-    public ?string $message = null;
+    /**
+     * @param string|null $code Status code
+     * @param string|null $message Status message
+     */
+    public function __construct(
+        public ?string $code = null,
+        public ?string $message = null,
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $status = new self();
-
-        $status->code = PropertyHelper::checkNullValueString($amazonRequest, 'code');
-        $status->message = PropertyHelper::checkNullValueString($amazonRequest, 'message');
-
-        return $status;
+        return new self(
+            code: PropertyHelper::checkNullValueString($amazonRequest, 'code'),
+            message: PropertyHelper::checkNullValueString($amazonRequest, 'message'),
+        );
     }
 }

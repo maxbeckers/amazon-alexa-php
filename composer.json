@@ -19,7 +19,8 @@
     "skill",
     "alexa-custom-skill",
     "library",
-    "ssml"
+    "ssml",
+    "apl"
   ],
   "license": "MIT",
   "support": {

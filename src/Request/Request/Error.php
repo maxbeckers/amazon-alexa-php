@@ -15,16 +15,21 @@ class Error
     public const TYPE_MEDIA_ERROR_INTERNAL_SERVER_ERROR = 'MEDIA_ERROR_INTERNAL_SERVER_ERROR';
     public const TYPE_MEDIA_ERROR_INTERNAL_DEVICE_ERROR = 'MEDIA_ERROR_INTERNAL_DEVICE_ERROR';
 
-    public string $type;
-    public string $message;
+    /**
+     * @param string $type Error type
+     * @param string $message Error message
+     */
+    public function __construct(
+        public string $type,
+        public string $message,
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $error = new self();
-
-        $error->type = $amazonRequest['type'];
-        $error->message = $amazonRequest['message'];
-
-        return $error;
+        return new self(
+            type: $amazonRequest['type'],
+            message: $amazonRequest['message'],
+        );
     }
 }

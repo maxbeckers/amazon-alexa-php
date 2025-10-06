@@ -17,6 +17,7 @@ class HelpRequestHandler extends AbstractRequestHandler
         private readonly string $output,
         array $supportedApplicationIds
     ) {
+        parent::__construct();
         $this->supportedApplicationIds = $supportedApplicationIds;
     }
 

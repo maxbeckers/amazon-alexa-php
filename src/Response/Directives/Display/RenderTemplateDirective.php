@@ -10,15 +10,14 @@ class RenderTemplateDirective extends Directive
 {
     public const TYPE = 'Display.RenderTemplate';
 
-    public ?Template $template = null;
+    public function __construct(
+        public ?Template $template = null
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(Template $template): self
     {
-        $renderTemplateDirective = new self();
-
-        $renderTemplateDirective->type = self::TYPE;
-        $renderTemplateDirective->template = $template;
-
-        return $renderTemplateDirective;
+        return new self($template);
     }
 }

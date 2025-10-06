@@ -95,7 +95,6 @@ class RequestHandlerRegistryTest extends TestCase
         $registry->getSupportingHandler($request);
     }
 }
-
 class SimpleTestRequestHandler extends AbstractRequestHandler
 {
     public function __construct(

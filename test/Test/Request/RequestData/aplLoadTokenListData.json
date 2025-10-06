@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "session": {
+    "new": false,
+    "sessionId": "amzn1.echo-api.session.1",
+    "application": {
+      "applicationId": "amzn1.ask.skill.1"
+    },
+    "user": {
+      "userId": "amzn1.ask.account.1"
+    }
+  },
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "amzn1.ask.skill.1"
+      },
+      "user": {
+        "userId": "amzn1.ask.account.1"
+      },
+      "device": {
+        "deviceId": "amzn1.ask.device.1",
+        "supportedInterfaces": {}
+      }
+    }
+  },
+  "request": {
+    "type": "Alexa.Presentation.APL.LoadTokenListData",
+    "requestId": "amzn1.echo-api.request.1",
+    "timestamp": "2021-03-12T19:47:02Z",
+    "locale": "en-US",
+    "token": "developer-provided-token",
+    "correlationToken": "101",
+    "listId": "my-list-id",
+    "pageToken": "myListPage2"
+  }
+}

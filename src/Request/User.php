@@ -8,18 +8,24 @@ use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 
 class User
 {
-    public ?string $userId = null;
-    public ?UserPermissions $permissions = null;
-    public ?string $accessToken = null;
+    /**
+     * @param string|null $userId User identifier
+     * @param UserPermissions|null $permissions User permissions
+     * @param string|null $accessToken User access token
+     */
+    public function __construct(
+        public ?string $userId = null,
+        public ?UserPermissions $permissions = null,
+        public ?string $accessToken = null,
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $user = new self();
-
-        $user->userId = PropertyHelper::checkNullValueString($amazonRequest, 'userId');
-        $user->permissions = isset($amazonRequest['permissions']) ? UserPermissions::fromAmazonRequest($amazonRequest['permissions']) : null;
-        $user->accessToken = PropertyHelper::checkNullValueString($amazonRequest, 'accessToken');
-
-        return $user;
+        return new self(
+            userId: PropertyHelper::checkNullValueString($amazonRequest, 'userId'),
+            permissions: isset($amazonRequest['permissions']) ? UserPermissions::fromAmazonRequest($amazonRequest['permissions']) : null,
+            accessToken: PropertyHelper::checkNullValueString($amazonRequest, 'accessToken'),
+        );
     }
 }

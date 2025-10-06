@@ -11,17 +11,15 @@ class ConfirmSlotDirective extends Directive
 {
     public const TYPE = 'Dialog.ConfirmSlot';
 
-    public ?string $slotToConfirm = null;
-    public ?Intent $updatedIntent = null;
+    public function __construct(
+        public ?string $slotToConfirm = null,
+        public ?Intent $updatedIntent = null
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(string $slotToConfirm, ?Intent $intent = null): self
     {
-        $confirmSlotDirective = new self();
-
-        $confirmSlotDirective->type = self::TYPE;
-        $confirmSlotDirective->slotToConfirm = $slotToConfirm;
-        $confirmSlotDirective->updatedIntent = $intent;
-
-        return $confirmSlotDirective;
+        return new self($slotToConfirm, $intent);
     }
 }

@@ -10,15 +10,14 @@ class HintDirective extends Directive
 {
     public const TYPE = 'Hint';
 
-    public ?Text $hint = null;
+    public function __construct(
+        public ?Text $hint = null
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(Text $text): self
     {
-        $hint = new self();
-
-        $hint->type = self::TYPE;
-        $hint->hint = $text;
-
-        return $hint;
+        return new self($text);
     }
 }

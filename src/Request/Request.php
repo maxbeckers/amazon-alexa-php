@@ -13,6 +13,10 @@ use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillDisabledRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillEnabledRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillPermissionAcceptedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent\SkillPermissionChangedRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\APL\LoadIndexListDataRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\APL\LoadTokenListDataRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\APL\RuntimeErrorRequest;
+use MaxBeckers\AmazonAlexa\Request\Request\APL\UserEventRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackFailedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackFinishedRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer\PlaybackNearlyFinishedRequest;
@@ -68,8 +72,22 @@ class Request
         SkillDisabledRequest::TYPE => SkillDisabledRequest::class,
         SkillPermissionAcceptedRequest::TYPE => SkillPermissionAcceptedRequest::class,
         SkillPermissionChangedRequest::TYPE => SkillPermissionChangedRequest::class,
+        // APL request types
+        LoadIndexListDataRequest::TYPE => LoadIndexListDataRequest::class,
+        LoadTokenListDataRequest::TYPE => LoadTokenListDataRequest::class,
+        RuntimeErrorRequest::TYPE => RuntimeErrorRequest::class,
+        UserEventRequest::TYPE => UserEventRequest::class,
     ];
 
+    /**
+     * @param string|null $version Request version
+     * @param Session|null $session Session information
+     * @param Context|null $context Context information
+     * @param AbstractRequest|null $request The actual request object
+     * @param string $amazonRequestBody Raw Amazon request body
+     * @param string $signatureCertChainUrl Signature certificate chain URL
+     * @param string $signature Request signature
+     */
     public function __construct(
         public ?string $version = null,
         public ?Session $session = null,
@@ -87,16 +105,16 @@ class Request
      */
     public static function fromAmazonRequest(string $amazonRequestBody, string $signatureCertChainUrl, string $signature): self
     {
-        $request = new self();
-
-        $request->signatureCertChainUrl = $signatureCertChainUrl;
-        $request->signature = $signature;
-        $request->amazonRequestBody = $amazonRequestBody;
         $amazonRequest = (array) json_decode($amazonRequestBody, true);
 
-        $request->version = PropertyHelper::checkNullValueString($amazonRequest, 'version');
-        $request->session = isset($amazonRequest['session']) ? Session::fromAmazonRequest($amazonRequest['session']) : null;
-        $request->context = isset($amazonRequest['context']) ? Context::fromAmazonRequest($amazonRequest['context']) : null;
+        $request = new self(
+            version: PropertyHelper::checkNullValueString($amazonRequest, 'version'),
+            session: isset($amazonRequest['session']) ? Session::fromAmazonRequest($amazonRequest['session']) : null,
+            context: isset($amazonRequest['context']) ? Context::fromAmazonRequest($amazonRequest['context']) : null,
+            amazonRequestBody: $amazonRequestBody,
+            signatureCertChainUrl: $signatureCertChainUrl,
+            signature: $signature,
+        );
 
         $request->setRequest($amazonRequest);
         $request->checkSignature();

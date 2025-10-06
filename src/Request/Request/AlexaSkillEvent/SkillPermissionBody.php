@@ -6,21 +6,26 @@ namespace MaxBeckers\AmazonAlexa\Request\Request\AlexaSkillEvent;
 
 class SkillPermissionBody
 {
-    /** @var Permission[] */
-    public array $acceptedPermissions = [];
+    /**
+     * @param Permission[] $acceptedPermissions Array of accepted permissions
+     */
+    public function __construct(
+        public array $acceptedPermissions = [],
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $body = new self();
+        $acceptedPermissions = [];
 
-        $body->acceptedPermissions = [];
-
-        if ($amazonRequest['acceptedPermissions']) {
+        if (isset($amazonRequest['acceptedPermissions']) && is_array($amazonRequest['acceptedPermissions'])) {
             foreach ($amazonRequest['acceptedPermissions'] as $permission) {
-                $body->acceptedPermissions[] = Permission::fromAmazonRequest($permission);
+                $acceptedPermissions[] = Permission::fromAmazonRequest($permission);
             }
         }
 
-        return $body;
+        return new self(
+            acceptedPermissions: $acceptedPermissions,
+        );
     }
 }

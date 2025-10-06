@@ -11,14 +11,18 @@ class SkillDisabledBody
     public const PERSISTED = 'PERSISTED';
     public const NOT_PERSISTED = 'NOT_PERSISTED';
 
-    public ?string $userInformationPersistenceStatus = null;
+    /**
+     * @param string|null $userInformationPersistenceStatus User information persistence status
+     */
+    public function __construct(
+        public ?string $userInformationPersistenceStatus = null,
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $body = new self();
-
-        $body->userInformationPersistenceStatus = PropertyHelper::checkNullValueString($amazonRequest, 'userInformationPersistenceStatus');
-
-        return $body;
+        return new self(
+            userInformationPersistenceStatus: PropertyHelper::checkNullValueString($amazonRequest, 'userInformationPersistenceStatus'),
+        );
     }
 }

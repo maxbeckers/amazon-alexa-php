@@ -9,7 +9,13 @@ use MaxBeckers\AmazonAlexa\Response\Response;
 
 abstract class AbstractRequestHandler
 {
-    protected array $supportedApplicationIds = [];
+    /**
+     * @param string[] $supportedApplicationIds Array of supported application IDs
+     */
+    public function __construct(
+        protected array $supportedApplicationIds = [],
+    ) {
+    }
 
     public function supportsApplication(Request $request): bool
     {
