@@ -32,7 +32,7 @@ class ResponseHelper
     /**
      * Add a plaintext respond to response.
      */
-    public function respond(string $text, bool $endSession = false): Response
+    public function respond(string $text, bool $endSession = false): ?Response
     {
         $outputSpeech = OutputSpeech::createByText($text);
 
@@ -45,7 +45,7 @@ class ResponseHelper
     /**
      * Add a ssml respond to response.
      */
-    public function respondSsml(string $ssml, bool $endSession = false): Response
+    public function respondSsml(string $ssml, bool $endSession = false): ?Response
     {
         $outputSpeech = OutputSpeech::createBySsml($ssml);
 
@@ -58,7 +58,7 @@ class ResponseHelper
     /**
      * Add a plaintext reprompt to response.
      */
-    public function reprompt(string $text): Response
+    public function reprompt(string $text): ?Response
     {
         $outputSpeech = OutputSpeech::createByText($text);
         $reprompt = new Reprompt($outputSpeech);
@@ -71,7 +71,7 @@ class ResponseHelper
     /**
      * Add a ssml reprompt to response.
      */
-    public function repromptSsml(string $ssml): Response
+    public function repromptSsml(string $ssml): ?Response
     {
         $outputSpeech = OutputSpeech::createBySsml($ssml);
         $reprompt = new Reprompt($outputSpeech);
@@ -84,7 +84,7 @@ class ResponseHelper
     /**
      * Add a card to response.
      */
-    public function card(Card $card): Response
+    public function card(Card $card): ?Response
     {
         $this->responseBody->card = $card;
 
@@ -94,7 +94,7 @@ class ResponseHelper
     /**
      * Add a directive to response.
      */
-    public function directive(Directive $directive): Response
+    public function directive(Directive $directive): ?Response
     {
         $this->responseBody->addDirective($directive);
 

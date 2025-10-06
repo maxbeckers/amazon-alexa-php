@@ -60,7 +60,7 @@ class RequestValidator
             return;
         }
 
-        $differenceInSeconds = time() - $request->request->timestamp->getTimestamp();
+        $differenceInSeconds = time() - $request->request->timestamp?->getTimestamp();
 
         if ($differenceInSeconds > $this->timestampTolerance) {
             throw new RequestInvalidTimestampException('Invalid timestamp.');

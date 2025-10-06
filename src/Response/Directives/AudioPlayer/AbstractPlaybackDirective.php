@@ -17,13 +17,4 @@ abstract class AbstractPlaybackDirective extends Directive
     ) {
         parent::__construct();
     }
-
-    public function setProperties(string $requestId, string $timestamp, string $token, int $offsetInMilliseconds, string $locale): void
-    {
-        $this->requestId = $requestId;
-        $this->timestamp = $timestamp;
-        $this->token = $token;
-        $this->offsetInMilliseconds = $offsetInMilliseconds;
-        $this->locale = $locale;
-    }
 }

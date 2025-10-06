@@ -24,6 +24,7 @@ class SendTokenListDataDirective extends Directive implements \JsonSerializable
         public ?string $nextPageToken = null,
         public array $items = [],
     ) {
+        parent::__construct();
     }
 
     public function addItem(array $item): void

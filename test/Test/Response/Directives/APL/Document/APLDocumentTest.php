@@ -184,7 +184,7 @@ class APLDocumentTest extends TestCase
             type: 'AVG',
             version: '1.2'
         );
-        $graphic->name = 'testGraphic';
+        $graphic->description = 'testGraphic';
 
         $document = new APLDocument(
             mainTemplate: $mainTemplate,
@@ -193,7 +193,7 @@ class APLDocumentTest extends TestCase
 
         $this->assertCount(1, $document->graphics);
         $this->assertInstanceOf(Graphic::class, $document->graphics[0]);
-        $this->assertEquals('testGraphic', $document->graphics[0]->name);
+        $this->assertEquals('testGraphic', $document->graphics[0]->description);
         $this->assertEquals(100, $document->graphics[0]->height);
     }
 

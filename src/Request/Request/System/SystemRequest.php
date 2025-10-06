@@ -10,14 +10,14 @@ abstract class SystemRequest extends AbstractRequest
 {
     /**
      * @param string $type Request type
-     * @param \DateTime $timestamp Request timestamp
+     * @param \DateTime|null $timestamp Request timestamp
      * @param string|null $token Request token
      * @param string|null $requestId Request identifier
      * @param string|null $locale Request locale
      */
     public function __construct(
         string $type,
-        \DateTime $timestamp,
+        ?\DateTime $timestamp,
         public ?string $token = null,
         public ?string $requestId = null,
         public ?string $locale = null,

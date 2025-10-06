@@ -26,19 +26,4 @@ class Entity
             value: $amazonRequest['value'] ?? null,
         );
     }
-
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function getValue(): ?string
-    {
-        return $this->value;
-    }
 }

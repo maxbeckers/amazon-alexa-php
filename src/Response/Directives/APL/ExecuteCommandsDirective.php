@@ -21,6 +21,7 @@ class ExecuteCommandsDirective extends Directive implements \JsonSerializable
         public ?string $token = null,
         public ?string $presentationUri = null,
     ) {
+        parent::__construct();
     }
 
     public function addCommand(AbstractStandardCommand $command): void

@@ -28,6 +28,7 @@ class SendIndexListDataDirective extends Directive implements \JsonSerializable
         public ?string $maximumExclusiveIndex = null,
         public array $items = [],
     ) {
+        parent::__construct();
     }
 
     public function addItem(array $item): void

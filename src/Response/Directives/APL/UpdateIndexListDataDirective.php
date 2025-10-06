@@ -22,6 +22,7 @@ class UpdateIndexListDataDirective extends Directive implements \JsonSerializabl
         public int $listVersion,
         public array $operations = [],
     ) {
+        parent::__construct();
     }
 
     public function addOperation(array $operation): void
