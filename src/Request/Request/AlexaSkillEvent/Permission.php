@@ -8,14 +8,18 @@ use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 
 class Permission
 {
-    public ?string $scope = null;
+    /**
+     * @param string|null $scope Permission scope
+     */
+    public function __construct(
+        public ?string $scope = null,
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $permission = new self();
-
-        $permission->scope = PropertyHelper::checkNullValueString($amazonRequest, 'scope');
-
-        return $permission;
+        return new self(
+            scope: PropertyHelper::checkNullValueString($amazonRequest, 'scope'),
+        );
     }
 }

@@ -8,17 +8,15 @@ class RecognizerProgress extends Recognizer
 {
     public const TYPE = 'progress';
 
-    public ?string $recognizer = null;
-    public ?int $completion = null;
+    public function __construct(
+        public ?string $recognizer = null,
+        public ?int $completion = null
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(string $recognizer, int $completion): self
     {
-        $recognizerProgress = new self();
-
-        $recognizerProgress->type = self::TYPE;
-        $recognizerProgress->recognizer = $recognizer;
-        $recognizerProgress->completion = $completion;
-
-        return $recognizerProgress;
+        return new self($recognizer, $completion);
     }
 }

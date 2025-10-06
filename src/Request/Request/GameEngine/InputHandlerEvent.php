@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\GameEngine;
 
+use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 use MaxBeckers\AmazonAlexa\Request\Request\GameEngine\Event\Event;
 use MaxBeckers\AmazonAlexa\Request\Request\Standard\StandardRequest;
@@ -12,23 +13,44 @@ class InputHandlerEvent extends StandardRequest
 {
     public const TYPE = 'GameEngine.InputHandlerEvent';
 
-    public string $originatingRequestId;
-
-    /** @var Event[] */
-    public array $events = [];
+    /**
+     * @param \DateTime|null $timestamp Request timestamp
+     * @param string|null $token Request token
+     * @param string|null $requestId Request identifier
+     * @param string|null $locale Request locale
+     * @param string|null $originatingRequestId ID of the originating request
+     * @param Event[] $events Array of game engine events
+     */
+    public function __construct(
+        ?\DateTime $timestamp = null,
+        ?string $token = null,
+        ?string $requestId = null,
+        ?string $locale = null,
+        public ?string $originatingRequestId = null,
+        public array $events = [],
+    ) {
+        parent::__construct(
+            type: self::TYPE,
+            timestamp: $timestamp,
+            token: $token,
+            requestId: $requestId,
+            locale: $locale
+        );
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): AbstractRequest
     {
-        $request = new self();
-
-        $request->type = self::TYPE;
-        $request->originatingRequestId = $amazonRequest['originatingRequestId'];
+        $events = [];
         foreach ($amazonRequest['events'] as $event) {
-            $request->events[] = Event::fromAmazonRequest($event);
+            $events[] = Event::fromAmazonRequest($event);
         }
 
-        $request->setRequestData($amazonRequest);
-
-        return $request;
+        return new self(
+            timestamp: self::getTime(PropertyHelper::checkNullValueStringOrInt($amazonRequest, 'timestamp')),
+            requestId: PropertyHelper::checkNullValueString($amazonRequest, 'requestId'),
+            locale: PropertyHelper::checkNullValueString($amazonRequest, 'locale'),
+            originatingRequestId: PropertyHelper::checkNullValueString($amazonRequest, 'originatingRequestId'),
+            events: $events,
+        );
     }
 }

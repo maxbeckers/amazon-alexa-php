@@ -12,18 +12,15 @@ class CurrentPlaybackState
     public const PLAYER_ACTIVITY_BUFFER_UNDERRUN = 'BUFFER_UNDERRUN';
     public const PLAYER_ACTIVITY_IDLE = 'IDLE';
 
-    public string $token;
-    public int $offsetInMilliseconds;
-    public string $playerActivity;
+    public function __construct(
+        public string $token = '',
+        public int $offsetInMilliseconds = 0,
+        public string $playerActivity = ''
+    ) {
+    }
 
     public static function create(string $token, int $offsetInMilliseconds, string $playerActivity): self
     {
-        $currentPlaybackState = new self();
-
-        $currentPlaybackState->token = $token;
-        $currentPlaybackState->offsetInMilliseconds = $offsetInMilliseconds;
-        $currentPlaybackState->playerActivity = $playerActivity;
-
-        return $currentPlaybackState;
+        return new self($token, $offsetInMilliseconds, $playerActivity);
     }
 }

@@ -13,15 +13,14 @@ class ClearDirective extends Directive
     public const CLEAR_BEHAVIOR_CLEAR_ENQUEUED = 'CLEAR_ENQUEUED';
     public const CLEAR_BEHAVIOR_CLEAR_ALL = 'CLEAR_ALL';
 
-    public ?string $clearBehavior = null;
+    public function __construct(
+        public ?string $clearBehavior = null
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(string $behavior): self
     {
-        $stopDirective = new self();
-
-        $stopDirective->type = self::TYPE;
-        $stopDirective->clearBehavior = $behavior;
-
-        return $stopDirective;
+        return new self($behavior);
     }
 }

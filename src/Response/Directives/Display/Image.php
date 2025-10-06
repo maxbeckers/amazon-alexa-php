@@ -6,19 +6,16 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 
 class Image
 {
-    public ?string $contentDescription = null;
-
     /** @var ImageSource[] */
-    public array $sources = [];
+    public function __construct(
+        public ?string $contentDescription = null,
+        public array $sources = []
+    ) {
+    }
 
     public static function create(?string $contentDescription = null, array $imageSources = []): self
     {
-        $image = new self();
-
-        $image->contentDescription = $contentDescription;
-        $image->sources = $imageSources;
-
-        return $image;
+        return new self($contentDescription, $imageSources);
     }
 
     public function addImageSource(ImageSource $imageSource): void

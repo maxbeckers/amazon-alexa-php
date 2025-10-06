@@ -10,19 +10,16 @@ class CanFulfillIntentResponse
     public const CAN_FULFILL_MAYBE = 'MAYBE';
     public const CAN_FULFILL_NO = 'NO';
 
-    public ?string $canFulfill = null;
-
     /** @var CanFulfillSlot[] */
-    public array $slots = [];
+    public function __construct(
+        public ?string $canFulfill = null,
+        public array $slots = []
+    ) {
+    }
 
     public static function create(string $canFulfill, array $slots = []): self
     {
-        $canFulfillIntentResponse = new self();
-
-        $canFulfillIntentResponse->canFulfill = $canFulfill;
-        $canFulfillIntentResponse->slots = $slots;
-
-        return $canFulfillIntentResponse;
+        return new self($canFulfill, $slots);
     }
 
     public function addSlot(string $slotName, CanFulfillSlot $canFulfillSlot): void

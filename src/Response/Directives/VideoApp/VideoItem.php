@@ -6,16 +6,14 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\VideoApp;
 
 class VideoItem
 {
-    public ?string $source = null;
-    public ?Metadata $metadata = null;
+    public function __construct(
+        public ?string $source = null,
+        public ?Metadata $metadata = null
+    ) {
+    }
 
     public static function create(string $source, ?Metadata $metadata = null): self
     {
-        $videoItem = new self();
-
-        $videoItem->source = $source;
-        $videoItem->metadata = $metadata;
-
-        return $videoItem;
+        return new self($source, $metadata);
     }
 }

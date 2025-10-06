@@ -11,13 +11,15 @@ class ResponseBody implements ResponseBodyInterface, \JsonSerializable
 {
     use SerializeValueMapper;
 
-    public OutputSpeech|string|null $outputSpeech = null;
-    public ?Card $card = null;
-    public ?Reprompt $reprompt = null;
-    public ?bool $shouldEndSession = null;
-
     /** @var Directive[] */
-    public array $directives = [];
+    public function __construct(
+        public OutputSpeech|string|null $outputSpeech = null,
+        public ?Card $card = null,
+        public ?Reprompt $reprompt = null,
+        public ?bool $shouldEndSession = null,
+        public array $directives = []
+    ) {
+    }
 
     /**
      * Add a directive to response body.

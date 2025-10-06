@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.1.0](https://github.com/maxbeckers/amazon-alexa-php/tree/2.1.0) (TBD)
+[Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/2.0.0...2.1.0)
+
+**Added:**
+- **APL Support**: Alexa Presentation Language (directives, documents, components, commands, gestures) now supported for building multimodal experiences.
+
 ## [2.0.0](https://github.com/maxbeckers/amazon-alexa-php/tree/2.0.0) (TBD)
 [Full Changelog](https://github.com/maxbeckers/amazon-alexa-php/compare/1.13.0...2.0.0)
 

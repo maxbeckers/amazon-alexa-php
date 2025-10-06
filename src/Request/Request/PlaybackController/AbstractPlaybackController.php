@@ -8,13 +8,18 @@ use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 
 abstract class AbstractPlaybackController extends AbstractRequest
 {
-    public ?string $requestId = null;
-    public ?string $locale = null;
-
-    protected function setRequestData(array $amazonRequest): void
-    {
-        $this->setTime('timestamp', $amazonRequest['timestamp']);
-        $this->requestId = $amazonRequest['requestId'] ?? null;
-        $this->locale = $amazonRequest['locale'] ?? null;
+    /**
+     * @param string $type Request type
+     * @param \DateTime|null $timestamp Request timestamp
+     * @param string|null $requestId Request identifier
+     * @param string|null $locale Request locale
+     */
+    public function __construct(
+        string $type,
+        ?\DateTime $timestamp = null,
+        public ?string $requestId = null,
+        public ?string $locale = null,
+    ) {
+        parent::__construct(type: $type, timestamp: $timestamp);
     }
 }

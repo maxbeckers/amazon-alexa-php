@@ -12,16 +12,14 @@ class Error
     public const MEDIA_ERROR_INTERNAL_SERVER_ERROR = 'MEDIA_ERROR_INTERNAL_SERVER_ERROR';
     public const MEDIA_ERROR_INTERNAL_DEVICE_ERROR = 'MEDIA_ERROR_INTERNAL_DEVICE_ERROR';
 
-    public string $type;
-    public string $message;
+    public function __construct(
+        public string $type = '',
+        public string $message = ''
+    ) {
+    }
 
     public static function create(string $type, string $message): self
     {
-        $error = new self();
-
-        $error->type = $type;
-        $error->message = $message;
-
-        return $error;
+        return new self($type, $message);
     }
 }

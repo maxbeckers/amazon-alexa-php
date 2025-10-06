@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace MaxBeckers\AmazonAlexa\Request\Request\AudioPlayer;
 
-use MaxBeckers\AmazonAlexa\Helper\PropertyHelper;
 use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 
 abstract class AudioPlayerRequest extends AbstractRequest
 {
-    public ?string $token;
-    public string $requestId;
-    public string $locale;
-
-    protected function setRequestData(array $amazonRequest): void
-    {
-        $this->requestId = $amazonRequest['requestId'];
-        $this->setTime('timestamp', $amazonRequest['timestamp']);
-        $this->locale = $amazonRequest['locale'];
-        $this->token = PropertyHelper::checkNullValueString($amazonRequest, 'token');
+    /**
+     * @param string $type Request type
+     * @param \DateTime|null $timestamp Request timestamp
+     * @param string|null $token Audio player token
+     * @param string|null $requestId Request identifier
+     * @param string|null $locale Request locale
+     */
+    public function __construct(
+        string $type,
+        ?\DateTime $timestamp = null,
+        public ?string $token = null,
+        public ?string $requestId = null,
+        public ?string $locale = null,
+    ) {
+        parent::__construct(type: $type, timestamp: $timestamp);
     }
 }

@@ -12,16 +12,14 @@ class CanFulfillSlot
     public const CAN_FULFILL_YES = 'YES';
     public const CAN_FULFILL_NO = 'NO';
 
-    public ?string $canUnderstand = null;
-    public ?string $canFulfill = null;
+    public function __construct(
+        public ?string $canUnderstand = null,
+        public ?string $canFulfill = null
+    ) {
+    }
 
     public static function create(string $canUnderstand, string $canFulfill): self
     {
-        $slot = new self();
-
-        $slot->canUnderstand = $canUnderstand;
-        $slot->canFulfill = $canFulfill;
-
-        return $slot;
+        return new self($canUnderstand, $canFulfill);
     }
 }

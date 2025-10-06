@@ -8,11 +8,15 @@ use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
 
 abstract class AbstractPlaybackDirective extends Directive
 {
-    public string $requestId;
-    public string $timestamp;
-    public string $token;
-    public int $offsetInMilliseconds;
-    public string $locale;
+    public function __construct(
+        public string $requestId = '',
+        public string $timestamp = '',
+        public string $token = '',
+        public int $offsetInMilliseconds = 0,
+        public string $locale = ''
+    ) {
+        parent::__construct();
+    }
 
     public function setProperties(string $requestId, string $timestamp, string $token, int $offsetInMilliseconds, string $locale): void
     {

@@ -13,18 +13,24 @@ class Payload
     public const RESULT_ALREADY_PURCHASED = 'ALREADY_PURCHASED';
     public const RESULT_ERROR = 'ERROR';
 
-    public ?string $purchaseResult = null;
-    public ?string $productId = null;
-    public ?string $message = null;
+    /**
+     * @param string|null $purchaseResult Purchase result status
+     * @param string|null $productId Product identifier
+     * @param string|null $message Additional message
+     */
+    public function __construct(
+        public ?string $purchaseResult = null,
+        public ?string $productId = null,
+        public ?string $message = null,
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $status = new self();
-
-        $status->purchaseResult = PropertyHelper::checkNullValueString($amazonRequest, 'purchaseResult');
-        $status->productId = PropertyHelper::checkNullValueString($amazonRequest, 'productId');
-        $status->message = PropertyHelper::checkNullValueString($amazonRequest, 'message');
-
-        return $status;
+        return new self(
+            purchaseResult: PropertyHelper::checkNullValueString($amazonRequest, 'purchaseResult'),
+            productId: PropertyHelper::checkNullValueString($amazonRequest, 'productId'),
+            message: PropertyHelper::checkNullValueString($amazonRequest, 'message'),
+        );
     }
 }

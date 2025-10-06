@@ -6,17 +6,15 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer;
 
 class AudioItem implements \JsonSerializable
 {
-    public Stream $stream;
-    public ?Metadata $metadata = null;
+    public function __construct(
+        public ?Stream $stream = null,
+        public ?Metadata $metadata = null
+    ) {
+    }
 
     public static function create(Stream $steam, ?Metadata $metadata = null): self
     {
-        $audioItem = new self();
-
-        $audioItem->stream = $steam;
-        $audioItem->metadata = $metadata;
-
-        return $audioItem;
+        return new self($steam, $metadata);
     }
 
     public function jsonSerialize(): array

@@ -16,21 +16,17 @@ class ImageSource implements \JsonSerializable
     public const SIZE_LARGE = 'LARGE';
     public const SIZE_X_LARGE = 'X_LARGE';
 
-    public ?string $url = null;
-    public ?string $size = null;
-    public ?int $widthPixels = null;
-    public ?int $heightPixels = null;
+    public function __construct(
+        public ?string $url = null,
+        public ?string $size = null,
+        public ?int $widthPixels = null,
+        public ?int $heightPixels = null
+    ) {
+    }
 
     public static function create(string $url, ?string $size = null, ?int $widthPixels = null, ?int $heightPixels = null): self
     {
-        $imageSource = new self();
-
-        $imageSource->url = $url;
-        $imageSource->size = $size;
-        $imageSource->widthPixels = $widthPixels;
-        $imageSource->heightPixels = $heightPixels;
-
-        return $imageSource;
+        return new self($url, $size, $widthPixels, $heightPixels);
     }
 
     public function jsonSerialize(): \ArrayObject

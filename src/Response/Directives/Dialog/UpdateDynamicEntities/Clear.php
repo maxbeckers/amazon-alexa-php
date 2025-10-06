@@ -8,13 +8,13 @@ class Clear extends UpdateDynamicEntities
 {
     public const UPDATE_BEHAVIOR = 'CLEAR';
 
+    public function __construct()
+    {
+        parent::__construct(self::UPDATE_BEHAVIOR);
+    }
+
     public static function create(): self
     {
-        $directive = new static();
-
-        $directive->type = static::TYPE;
-        $directive->updateBehavior = static::UPDATE_BEHAVIOR;
-
-        return $directive;
+        return new self();
     }
 }

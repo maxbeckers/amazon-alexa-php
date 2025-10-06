@@ -1,0 +1,101 @@
+{
+  "version": "1.0",
+  "session": {
+    "new": false,
+    "sessionId": "amzn1.echo-api.session.1",
+    "application": {
+      "applicationId": "amzn1.ask.skill.1"
+    },
+    "user": {
+      "userId": "amzn1.ask.account.1"
+    }
+  },
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "amzn1.ask.skill.1"
+      },
+      "user": {
+        "userId": "amzn1.ask.account.1"
+      },
+      "device": {
+        "deviceId": "amzn1.ask.device.1",
+        "supportedInterfaces": {}
+      }
+    },
+    "Advertising": {
+      "advertisingId": "12345-advertising-id",
+      "limitAdTracking": false
+    },
+    "Viewport": {
+      "experiences": [
+        {
+          "arcMinuteWidth": "246",
+          "arcMinuteHeight": "144",
+          "canRotate": false,
+          "canResize": false
+        }
+      ],
+      "mode": "TV",
+      "shape": "RECTANGLE",
+      "pixelWidth": 1920,
+      "pixelHeight": 1080,
+      "dpi": 160,
+      "currentPixelWidth": 1920,
+      "currentPixelHeight": 1080,
+      "touch": ["SINGLE"],
+      "keyboard": ["DIRECTION"],
+      "video": {
+        "codecs": ["H_264_42", "H_264_41"]
+      }
+    },
+    "Viewports": [
+      {
+        "mode": "HUB",
+        "shape": "ROUND",
+        "pixelWidth": 960,
+        "pixelHeight": 960,
+        "dpi": 160
+      }
+    ],
+    "Alexa.Presentation.APL": {
+      "token": "apl-token-123",
+      "version": "2024.1",
+      "componentsVisibleOnScreen": [
+        {
+          "id": "main-container",
+          "type": "Container",
+          "uid": ":10001",
+          "position": "1280x720+0+0:0",
+          "entities": [
+            {
+              "id": "entity1",
+              "type": "text",
+              "value": "Hello World"
+            }
+          ],
+          "tags": {
+            "viewport": {
+              "utcTime": "2024-01-01T12:00:00Z",
+              "elapsedTime": 5000
+            }
+          }
+        }
+      ]
+    },
+    "Extensions": {
+      "available": {
+        "aplext:backstack:10": {}
+      },
+      "settings": {
+        "aplext:backstack:10": {}
+      }
+    }
+  },
+  "request": {
+    "type": "LaunchRequest",
+    "requestId": "amzn1.echo-api.request.1",
+    "timestamp": "2024-01-01T12:00:00Z",
+    "locale": "en-US"
+  }
+}

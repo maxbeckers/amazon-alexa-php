@@ -16,12 +16,17 @@ use MaxBeckers\AmazonAlexa\Response\ResponseBody;
  */
 class ResponseHelper
 {
-    public Response $response;
-    public ResponseBody $responseBody;
-
-    public function __construct()
-    {
-        $this->resetResponse();
+    /**
+     * @param Response|null $response The response object
+     * @param ResponseBody|null $responseBody The response body object
+     */
+    public function __construct(
+        public ?Response $response = null,
+        public ?ResponseBody $responseBody = null,
+    ) {
+        if ($this->response === null || $this->responseBody === null) {
+            $this->resetResponse();
+        }
     }
 
     /**

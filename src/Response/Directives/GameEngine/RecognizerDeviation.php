@@ -8,15 +8,14 @@ class RecognizerDeviation extends Recognizer
 {
     public const TYPE = 'deviation';
 
-    public ?string $recognizer = null;
+    public function __construct(
+        public ?string $recognizer = null
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(string $recognizer): self
     {
-        $recognizerDeviation = new self();
-
-        $recognizerDeviation->type = self::TYPE;
-        $recognizerDeviation->recognizer = $recognizer;
-
-        return $recognizerDeviation;
+        return new self($recognizer);
     }
 }

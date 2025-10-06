@@ -10,6 +10,9 @@ abstract class UpdateDynamicEntities extends Directive
 {
     public const TYPE = 'Dialog.UpdateDynamicEntities';
 
-    public string $type;
-    public string $updateBehavior;
+    public function __construct(
+        public string $updateBehavior = ''
+    ) {
+        parent::__construct(self::TYPE);
+    }
 }

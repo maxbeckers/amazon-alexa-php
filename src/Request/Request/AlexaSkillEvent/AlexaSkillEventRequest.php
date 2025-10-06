@@ -8,15 +8,20 @@ use MaxBeckers\AmazonAlexa\Request\Request\AbstractRequest;
 
 abstract class AlexaSkillEventRequest extends AbstractRequest
 {
-    public ?\DateTime $eventCreationTime = null;
-    public ?\DateTime $eventPublishingTime = null;
-    public ?string $requestId = null;
-
-    protected function setRequestData(array $amazonRequest): void
-    {
-        $this->requestId = $amazonRequest['requestId'];
-
-        $this->setTime('eventCreationTime', $amazonRequest['eventCreationTime']);
-        $this->setTime('eventPublishingTime', $amazonRequest['eventPublishingTime']);
+    /**
+     * @param string $type Request type
+     * @param \DateTime|null $timestamp Request timestamp
+     * @param \DateTime|null $eventCreationTime Event creation time
+     * @param \DateTime|null $eventPublishingTime Event publishing time
+     * @param string|null $requestId Request identifier
+     */
+    public function __construct(
+        string $type,
+        ?\DateTime $timestamp = null,
+        public ?\DateTime $eventCreationTime = null,
+        public ?\DateTime $eventPublishingTime = null,
+        public ?string $requestId = null,
+    ) {
+        parent::__construct(type: $type, timestamp: $timestamp);
     }
 }

@@ -8,10 +8,6 @@ class Response
 {
     /**
      * Create a new response with an empty response body.
-     *
-     * @param array $sessionAttributes
-     * @param string $version
-     * @param ResponseBodyInterface|null $response
      */
     public function __construct(
         public array $sessionAttributes = [],

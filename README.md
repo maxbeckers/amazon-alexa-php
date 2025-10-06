@@ -13,6 +13,7 @@ A modern PHP library for building Amazon Alexa skills with clean, maintainable c
 - **Request Validation**: Automatic verification of Amazon request signatures
 - **Flexible Handler System**: Easy-to-extend request handler architecture
 - **SSML Support**: Built-in Speech Synthesis Markup Language generator
+- **APL Support**: Create and send Alexa Presentation Language documents, components, directives, gestures and commands
 - **Device Address API**: Helper for accessing user location data
 - **PHP 8.2+ Ready**: Leverages modern PHP features and type safety
 - **Symfony Integration**: Available bundle for Symfony applications
@@ -161,6 +162,58 @@ $ssmlGenerator
 $ssml = $ssmlGenerator->getSsml();
 // Result: <speak>Welcome to our cooking skill! <break strength="medium" /> Today we will learn about <emphasis level="strong">amazing</emphasis> pasta recipes. <break time="2s" /> Let's get started!</speak>
 ```
+
+## 🖼 APL (Alexa Presentation Language)
+
+Build multimodal experiences with the included APL directive, component, command, and gesture classes:
+
+```php
+<?php
+
+use MaxBeckers\AmazonAlexa\Response\Directives\APL\RenderDocumentDirective;
+use MaxBeckers\AmazonAlexa\Response\Response;
+use MaxBeckers\AmazonAlexa\ResponseHelper;
+
+// Inside a request handler:
+$document = [
+    'type' => 'APL',
+    'version' => '1.8',
+    'mainTemplate' => [
+        'items' => [
+            [
+                'type' => 'Text',
+                'text' => '${payload.data.message}',
+                'style' => 'textStylePrimary1'
+            ]
+        ]
+    ],
+];
+
+$dataSources = [
+    'data' => [
+        'message' => 'Hello from APL!'
+    ],
+];
+
+$aplDirective = new RenderDocumentDirective(
+    token: 'mainScreen',
+    document: $document,
+    datasources: $dataSources
+);
+
+// Using the response helper (if available in your handler base)
+$response = $this->responseHelper->respond(
+    outputSpeech: 'Showing a visual response.',
+    directives: [$aplDirective],
+    shouldEndSession: false
+);
+
+// Or manually:
+$alexaResponse = new Response();
+$alexaResponse->response->directives[] = $aplDirective;
+```
+
+You can also leverage the rich PHP class model (components, commands, gestures, layouts) instead of raw arrays for stronger typing when building complex documents.
 
 ## 📍 Device Address Information
 

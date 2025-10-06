@@ -9,12 +9,14 @@ use MaxBeckers\AmazonAlexa\Exception\InvalidSsmlException;
 class SsmlGenerator implements SsmlTypes
 {
     /**
-     * Enable this flag, when you need escaped special chars in your content (for example escaped "&").
+     * @param bool $escapeSpecialChars Enable this flag when you need escaped special chars in your content
+     * @param string[] $parts Array of SSML parts
      */
-    public bool $escapeSpecialChars = false;
-
-    /** @var string[] */
-    private array $parts = [];
+    public function __construct(
+        public bool $escapeSpecialChars = false,
+        private array $parts = [],
+    ) {
+    }
 
     /**
      * Clear the current ssml parts.

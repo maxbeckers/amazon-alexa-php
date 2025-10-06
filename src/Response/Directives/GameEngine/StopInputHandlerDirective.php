@@ -10,15 +10,14 @@ class StopInputHandlerDirective extends Directive
 {
     public const TYPE = 'GameEngine.StopInputHandler';
 
-    public ?string $originatingRequestId = null;
+    public function __construct(
+        public ?string $originatingRequestId = null
+    ) {
+        parent::__construct(self::TYPE);
+    }
 
     public static function create(string $originatingRequestId): self
     {
-        $setLight = new self();
-
-        $setLight->type = self::TYPE;
-        $setLight->originatingRequestId = $originatingRequestId;
-
-        return $setLight;
+        return new self($originatingRequestId);
     }
 }

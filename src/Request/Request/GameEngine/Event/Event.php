@@ -6,21 +6,26 @@ namespace MaxBeckers\AmazonAlexa\Request\Request\GameEngine\Event;
 
 class Event
 {
-    public string $name;
-
-    /** @var InputEvent[] */
-    public array $inputEvents = [];
+    /**
+     * @param string $name Event name
+     * @param InputEvent[] $inputEvents Array of input events
+     */
+    public function __construct(
+        public string $name,
+        public array $inputEvents = [],
+    ) {
+    }
 
     public static function fromAmazonRequest(array $amazonRequest): self
     {
-        $event = new self();
-
-        $event->name = $amazonRequest['name'];
-
+        $inputEvents = [];
         foreach ($amazonRequest['inputEvents'] as $_event) {
-            $event->inputEvents[] = InputEvent::fromAmazonRequest($_event);
+            $inputEvents[] = InputEvent::fromAmazonRequest($_event);
         }
 
-        return $event;
+        return new self(
+            name: $amazonRequest['name'],
+            inputEvents: $inputEvents,
+        );
     }
 }

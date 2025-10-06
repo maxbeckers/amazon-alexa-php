@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "session": {
+    "new": false,
+    "sessionId": "amzn1.echo-api.session.1",
+    "application": {
+      "applicationId": "amzn1.ask.skill.1"
+    },
+    "user": {
+      "userId": "amzn1.ask.account.1"
+    }
+  },
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "amzn1.ask.skill.1"
+      },
+      "user": {
+        "userId": "amzn1.ask.account.1"
+      },
+      "device": {
+        "deviceId": "amzn1.ask.device.1",
+        "supportedInterfaces": {}
+      }
+    }
+  },
+  "request": {
+    "type": "Alexa.Presentation.APL.RuntimeError",
+    "token": "developer-provided-token",
+    "errors": [
+      {
+        "type": "LIST_ERROR",
+        "reason": "LIST_INDEX_OUT_OF_RANGE",
+        "listId": "my-list-id",
+        "listVersion": 3,
+        "operationIndex": 3,
+        "message": "Index out of range error"
+      }
+    ]
+  }
+}

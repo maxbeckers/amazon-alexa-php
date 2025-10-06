@@ -10,7 +10,11 @@ class Replace extends UpdateDynamicEntities
 {
     public const UPDATE_BEHAVIOR = 'REPLACE';
 
-    public ?array $types = null;
+    public function __construct(
+        public array $types = []
+    ) {
+        parent::__construct(self::UPDATE_BEHAVIOR);
+    }
 
     public function addType(Type $type): void
     {
@@ -19,12 +23,6 @@ class Replace extends UpdateDynamicEntities
 
     public static function create(): self
     {
-        $directive = new static();
-
-        $directive->type = self::TYPE;
-        $directive->types = [];
-        $directive->updateBehavior = static::UPDATE_BEHAVIOR;
-
-        return $directive;
+        return new self();
     }
 }
