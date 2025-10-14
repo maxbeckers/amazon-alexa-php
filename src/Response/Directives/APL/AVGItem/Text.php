@@ -8,7 +8,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\AVGItemType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\FontStyle;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\FontWeight;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\TextAnchor;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class Text extends AVGItem implements \JsonSerializable
 {
     public const TYPE = AVGItemType::TEXT;

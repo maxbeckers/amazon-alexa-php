@@ -37,7 +37,8 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=8.2",
-    "guzzlehttp/guzzle": "^7.0"
+    "guzzlehttp/guzzle": "^7.0",
+    "maxbeckers/php-builder-generator": "^1.0"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.0",
@@ -45,7 +46,7 @@
   },
   "autoload": {
     "psr-4": {
-      "MaxBeckers\\AmazonAlexa\\": "src/"
+      "MaxBeckers\\AmazonAlexa\\": ["src/", "generated/php-builder-generator/MaxBeckers/AmazonAlexa/"]
     }
   },
   "autoload-dev": {
@@ -56,5 +57,10 @@
   "scripts": {
     "test": "phpunit",
     "cs": "php-cs-fixer fix --config=.php_cs.php -v --allow-risky=yes"
+  },
+  "config": {
+    "allow-plugins": {
+      "maxbeckers/php-builder-generator": true
+    }
   }
 }

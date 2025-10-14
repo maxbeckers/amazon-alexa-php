@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace MaxBeckers\AmazonAlexa\Response\Directives\APL\Component;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\APLComponentType;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class TouchWrapperComponent extends TouchableComponent implements \JsonSerializable
 {
     public const TYPE = APLComponentType::TOUCH_WRAPPER;

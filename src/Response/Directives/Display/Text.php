@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
+
+#[Builder]
 class Text
 {
     public const TYPE_PLAIN_TEXT = 'PlainText';

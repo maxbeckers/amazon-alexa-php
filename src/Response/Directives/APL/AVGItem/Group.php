@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace MaxBeckers\AmazonAlexa\Response\Directives\APL\AVGItem;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\AVGItemType;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class Group extends AVGItem implements \JsonSerializable
 {
     public const TYPE = AVGItemType::GROUP;

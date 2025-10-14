@@ -6,12 +6,14 @@ namespace MaxBeckers\AmazonAlexa\Response;
 
 use MaxBeckers\AmazonAlexa\Helper\SerializeValueMapper;
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class ResponseBody implements ResponseBodyInterface, \JsonSerializable
 {
     use SerializeValueMapper;
 
-    /** @var Directive[] */
+    /** @param Directive[] $directives*/
     public function __construct(
         public OutputSpeech|string|null $outputSpeech = null,
         public ?Card $card = null,

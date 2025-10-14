@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
+
+#[Builder]
 class ListItem
 {
     public function __construct(

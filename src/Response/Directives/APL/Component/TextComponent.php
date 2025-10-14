@@ -10,7 +10,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\FontWeight;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\TextAlign;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\TextAlignVertical;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand\AbstractStandardCommand;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class TextComponent extends APLBaseComponent implements \JsonSerializable
 {
     public const TYPE = APLComponentType::TEXT;

@@ -6,7 +6,9 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\RepeatMode;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\Value;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class AnimateItemCommand extends AbstractStandardCommand
 {
     public const TYPE = 'AnimateItem';

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 
 use MaxBeckers\AmazonAlexa\Helper\SerializeValueMapper;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class TextContent implements \JsonSerializable
 {
     use SerializeValueMapper;

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace MaxBeckers\AmazonAlexa\Response\Directives\GadgetController;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class SetLightDirective extends Directive
 {
     public const TYPE = 'GadgetController.SetLight';

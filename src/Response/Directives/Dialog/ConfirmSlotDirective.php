@@ -6,7 +6,9 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\Dialog;
 
 use MaxBeckers\AmazonAlexa\Intent\Intent;
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class ConfirmSlotDirective extends Directive
 {
     public const TYPE = 'Dialog.ConfirmSlot';

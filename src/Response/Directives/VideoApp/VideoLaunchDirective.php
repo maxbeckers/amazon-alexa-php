@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace MaxBeckers\AmazonAlexa\Response\Directives\VideoApp;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class VideoLaunchDirective extends Directive
 {
     public const TYPE = 'VideoApp.Launch';
@@ -13,7 +15,7 @@ class VideoLaunchDirective extends Directive
     public function __construct(
         public ?VideoItem $videoItem = null
     ) {
-        $this->type = self::TYPE;
+        parent::__construct(self::TYPE);
     }
 
     public static function create(?VideoItem $videoItem = null): self

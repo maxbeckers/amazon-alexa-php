@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace MaxBeckers\AmazonAlexa\Response\Directives\APL\Document;
 
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
+
+#[Builder]
 class Settings implements \JsonSerializable
 {
     public function __construct(

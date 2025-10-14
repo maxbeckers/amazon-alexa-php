@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace MaxBeckers\AmazonAlexa\Response\Directives\GameEngine;
 
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
+
+#[Builder]
 class Pattern
 {
     public const ACTION_DOWN = 'down';

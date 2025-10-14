@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
+
+#[Builder]
 class Image
 {
-    /** @var ImageSource[] */
+    /**
+     * @param ImageSource[] $sources
+     */
     public function __construct(
         public ?string $contentDescription = null,
         public array $sources = []

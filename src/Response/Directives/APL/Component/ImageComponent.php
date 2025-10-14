@@ -8,7 +8,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\APLComponentType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\ImageAlign;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\Scale;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand\AbstractStandardCommand;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class ImageComponent extends APLBaseComponent implements \JsonSerializable
 {
     public const TYPE = APLComponentType::IMAGE;

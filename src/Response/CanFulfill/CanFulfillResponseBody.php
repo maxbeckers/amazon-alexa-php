@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace MaxBeckers\AmazonAlexa\Response\CanFulfill;
 
 use MaxBeckers\AmazonAlexa\Response\ResponseBodyInterface;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class CanFulfillResponseBody implements ResponseBodyInterface
 {
     public function __construct(

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace MaxBeckers\AmazonAlexa\Response\Directives\Dialog\UpdateDynamicEntities;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\Dialog\Entity\Type;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class Replace extends UpdateDynamicEntities
 {
     public const UPDATE_BEHAVIOR = 'REPLACE';

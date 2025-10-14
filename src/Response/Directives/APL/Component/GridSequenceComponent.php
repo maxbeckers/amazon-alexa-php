@@ -10,7 +10,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\APL\Component\Traits\MultiChildCo
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\APLComponentType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\Snap;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand\AbstractStandardCommand;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class GridSequenceComponent extends APLBaseComponent implements \JsonSerializable
 {
     use ActionableComponentTrait;

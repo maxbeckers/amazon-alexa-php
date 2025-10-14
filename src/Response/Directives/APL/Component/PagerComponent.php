@@ -10,7 +10,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\APLComponentType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\Navigation;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\PageDirection;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand\AbstractStandardCommand;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class PagerComponent extends APLBaseComponent implements \JsonSerializable
 {
     use ActionableComponentTrait;

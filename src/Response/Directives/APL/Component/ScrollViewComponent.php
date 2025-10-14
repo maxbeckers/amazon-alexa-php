@@ -6,7 +6,9 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\APL\Component;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\APLComponentType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand\AbstractStandardCommand;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class ScrollViewComponent extends ActionableComponent implements \JsonSerializable
 {
     public const TYPE = APLComponentType::SCROLL_VIEW;

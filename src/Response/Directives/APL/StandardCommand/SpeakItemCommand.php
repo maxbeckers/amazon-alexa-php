@@ -6,7 +6,9 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\HighlightMode;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\ScrollAlign;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class SpeakItemCommand extends AbstractStandardCommand implements \JsonSerializable
 {
     public const TYPE = 'SpeakItem';

@@ -11,7 +11,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\APLComponentType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\FlexAlignItems;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\Snap;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand\AbstractStandardCommand;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class FlexSequenceComponent extends APLBaseComponent implements \JsonSerializable
 {
     use ActionableComponentTrait;

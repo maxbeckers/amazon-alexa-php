@@ -6,7 +6,9 @@ namespace MaxBeckers\AmazonAlexa\Response;
 
 use MaxBeckers\AmazonAlexa\Exception\InvalidCardPermissionsException;
 use MaxBeckers\AmazonAlexa\Helper\SerializeValueMapper;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class Card implements \JsonSerializable
 {
     use SerializeValueMapper;

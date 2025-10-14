@@ -7,6 +7,7 @@ namespace MaxBeckers\AmazonAlexa\Test\Response;
 use ArrayObject;
 use MaxBeckers\AmazonAlexa\Exception\InvalidCardPermissionsException;
 use MaxBeckers\AmazonAlexa\Response\Card;
+use MaxBeckers\AmazonAlexa\Response\CardBuilder;
 use MaxBeckers\AmazonAlexa\Response\CardImage;
 use PHPUnit\Framework\TestCase;
 
@@ -18,6 +19,24 @@ class CardTest extends TestCase
         $content = 'content';
 
         $card = Card::createSimple($title, $content);
+        $this->assertEquals(new ArrayObject([
+            'type' => Card::TYPE_SIMPLE,
+            'title' => $title,
+            'content' => $content,
+        ]), $card->jsonSerialize());
+    }
+
+    public function testSimpleCardWithBuilder(): void
+    {
+        $title = 'title';
+        $content = 'content';
+
+        $card = CardBuilder::builder()
+            ->type(Card::TYPE_SIMPLE)
+            ->title($title)
+            ->content($content)
+            ->build();
+
         $this->assertEquals(new ArrayObject([
             'type' => Card::TYPE_SIMPLE,
             'title' => $title,

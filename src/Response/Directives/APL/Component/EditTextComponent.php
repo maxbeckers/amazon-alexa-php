@@ -11,7 +11,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\KeyboardType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\SecureInputType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\SubmitKeyType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand\AbstractStandardCommand;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class EditTextComponent extends ActionableComponent implements \JsonSerializable
 {
     public const TYPE = APLComponentType::EDIT_TEXT;

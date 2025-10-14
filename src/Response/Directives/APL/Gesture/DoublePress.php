@@ -6,7 +6,9 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\APL\Gesture;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\GestureType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand\AbstractStandardCommand;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class DoublePress extends AbstractGesture
 {
     /**

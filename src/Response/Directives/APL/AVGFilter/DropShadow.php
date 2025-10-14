@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace MaxBeckers\AmazonAlexa\Response\Directives\APL\AVGFilter;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\AVGFilterType;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class DropShadow extends AVGFilter implements \JsonSerializable
 {
     public const TYPE = AVGFilterType::DROP_SHADOW;

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace MaxBeckers\AmazonAlexa\Response\CanFulfill;
 
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
+
+#[Builder]
 class CanFulfillIntentResponse
 {
     public const CAN_FULFILL_YES = 'YES';

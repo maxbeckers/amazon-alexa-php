@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\System\Error;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class PlaybackFailed extends AbstractPlaybackDirective
 {
     public const TYPE = 'AudioPlayer.PlaybackFailed';

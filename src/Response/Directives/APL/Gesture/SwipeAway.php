@@ -9,7 +9,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\GestureType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\SwipeAction;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\SwipeDirection;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand\AbstractStandardCommand;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class SwipeAway extends AbstractGesture
 {
     /**

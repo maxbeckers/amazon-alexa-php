@@ -6,7 +6,9 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\APL;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\APLDocument;
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class RenderDocumentDirective extends Directive implements \JsonSerializable
 {
     public const TYPE = 'Alexa.Presentation.APL.RenderDocument';
@@ -23,6 +25,7 @@ class RenderDocumentDirective extends Directive implements \JsonSerializable
         public array $sources = [],
         public array $datasources = [],
     ) {
+        parent::__construct(self::TYPE);
     }
 
     public function setSource(string $name, array $data): void

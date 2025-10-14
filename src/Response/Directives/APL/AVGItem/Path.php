@@ -7,7 +7,9 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\APL\AVGItem;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\AVGItemType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\StrokeLineCap;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\StrokeLineJoin;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class Path extends AVGItem implements \JsonSerializable
 {
     public const TYPE = AVGItemType::PATH;

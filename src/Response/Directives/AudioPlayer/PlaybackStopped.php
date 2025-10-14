@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace MaxBeckers\AmazonAlexa\Response\Directives\AudioPlayer;
 
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
+
+#[Builder]
 class PlaybackStopped extends AbstractPlaybackDirective
 {
     public const TYPE = 'AudioPlayer.PlaybackStopped';

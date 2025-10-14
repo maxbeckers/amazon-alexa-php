@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand;
 
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
+
+#[Builder]
 class SetFocusCommand extends AbstractStandardCommand implements \JsonSerializable
 {
     public const TYPE = 'SetFocus';

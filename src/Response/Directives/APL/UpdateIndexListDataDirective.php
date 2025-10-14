@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace MaxBeckers\AmazonAlexa\Response\Directives\APL;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\Directive;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class UpdateIndexListDataDirective extends Directive implements \JsonSerializable
 {
     public const TYPE = 'Alexa.Presentation.APL.UpdateIndexListData';

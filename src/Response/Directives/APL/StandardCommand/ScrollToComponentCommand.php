@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace MaxBeckers\AmazonAlexa\Response\Directives\APL\StandardCommand;
 
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\ScrollAlign;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class ScrollToComponentCommand extends AbstractStandardCommand implements \JsonSerializable
 {
     public const TYPE = 'ScrollToComponent';

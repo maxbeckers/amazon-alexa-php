@@ -9,7 +9,9 @@ use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\APLComponentType;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\Direction;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\JustifyContent;
 use MaxBeckers\AmazonAlexa\Response\Directives\APL\Document\Wrap;
+use MaxBeckers\PhpBuilderGenerator\Attribute\Builder;
 
+#[Builder]
 class ContainerComponent extends MultiChildComponent implements \JsonSerializable
 {
     public const TYPE = APLComponentType::CONTAINER;
