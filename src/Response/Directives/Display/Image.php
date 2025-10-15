@@ -6,7 +6,7 @@ namespace MaxBeckers\AmazonAlexa\Response\Directives\Display;
 
 class Image
 {
-    /** @var ImageSource[] */
+    /** @param ImageSource[] $sources */
     public function __construct(
         public ?string $contentDescription = null,
         public array $sources = []
