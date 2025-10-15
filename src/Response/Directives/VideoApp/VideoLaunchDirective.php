@@ -13,7 +13,7 @@ class VideoLaunchDirective extends Directive
     public function __construct(
         public ?VideoItem $videoItem = null
     ) {
-        $this->type = self::TYPE;
+        parent::__construct(self::TYPE);
     }
 
     public static function create(?VideoItem $videoItem = null): self

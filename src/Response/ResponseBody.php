@@ -11,7 +11,7 @@ class ResponseBody implements ResponseBodyInterface, \JsonSerializable
 {
     use SerializeValueMapper;
 
-    /** @var Directive[] */
+    /** @param Directive[] $directives */
     public function __construct(
         public OutputSpeech|string|null $outputSpeech = null,
         public ?Card $card = null,
